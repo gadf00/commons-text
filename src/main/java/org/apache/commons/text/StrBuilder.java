@@ -153,13 +153,14 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         /** {@inheritDoc} */
         @Override
         public long skip(long n) {
-            if (pos + n > StrBuilder.this.size()) {
-                n = StrBuilder.this.size() - pos;
+            long remaining = StrBuilder.this.size() - pos;
+            if (n > remaining) {
+                n = remaining;
             }
             if (n < 0) {
                 return 0;
             }
-            pos = Math.addExact(pos, Math.toIntExact(n));
+            pos += n;
             return n;
         }
     }
