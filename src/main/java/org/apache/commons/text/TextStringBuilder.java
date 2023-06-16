@@ -155,7 +155,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
         /** {@inheritDoc} */
         @Override
         public long skip(long n) {
-            if (pos + n > (long) TextStringBuilder.this.size()) {
+            if (pos + n > TextStringBuilder.this.size()) {
                 n = TextStringBuilder.this.size() - pos;
             }
             if (n < 0) {
