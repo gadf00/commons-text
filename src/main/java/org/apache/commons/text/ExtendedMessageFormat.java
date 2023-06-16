@@ -303,7 +303,7 @@ public class ExtendedMessageFormat extends MessageFormat {
         if (obj == this) {
             return true;
         }
-        if (obj == null) {
+        if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
         if (!Objects.equals(getClass(), obj.getClass())) {
