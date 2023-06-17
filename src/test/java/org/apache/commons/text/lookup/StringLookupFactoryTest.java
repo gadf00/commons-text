@@ -27,6 +27,8 @@ import javax.xml.XMLConstants;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 /**
  * Tests {@link StringLookupFactory}.
  */
@@ -97,7 +99,8 @@ public class StringLookupFactoryTest {
 
     @Test
     public void testAddDefaultStringLookupsNull() {
-        StringLookupFactory.INSTANCE.addDefaultStringLookups(null);
+        // Added an assertion to verify that invoking the method with a null argument does not throw an exception
+        assertDoesNotThrow(() -> StringLookupFactory.INSTANCE.addDefaultStringLookups(null));
     }
 
     @Test

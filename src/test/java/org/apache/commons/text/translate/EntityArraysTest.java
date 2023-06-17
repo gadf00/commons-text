@@ -18,6 +18,7 @@
 package org.apache.commons.text.translate;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -42,7 +43,7 @@ public class EntityArraysTest  {
 
     @Test
     public void testConstructorExists() {
-        new EntityArrays();
+        assertDoesNotThrow(EntityArrays::new);
     }
 
     private void testEscapeVsUnescapeMaps(final Map<CharSequence, CharSequence> escapeMap,

@@ -20,6 +20,7 @@ import static java.util.FormattableFlags.LEFT_JUSTIFY;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import java.util.Formattable;
 import java.util.Formatter;
@@ -170,7 +171,7 @@ public class FormattableUtilsTest {
 
     @Test
     public void testPublicConstructorExists() {
-        new FormattableUtils();
+        assertDoesNotThrow(() -> new FormattableUtils());
     }
 
     @Test

@@ -22,6 +22,8 @@ import java.util.concurrent.ThreadLocalRandom;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 /**
  * Tests {@link IntersectionResult}.
  */
@@ -36,14 +38,14 @@ public class IntersectionResultTest {
         };
 
         // Test a different instance with same values
-        Assertions.assertEquals(results[0], new IntersectionResult(0, 0, 0));
+        assertEquals(results[0], new IntersectionResult(0, 0, 0));
 
         final Object something = new Object();
         for (int i = 0; i < results.length; i++) {
             Assertions.assertNotEquals(results[i], something);
             Assertions.assertNotEquals(null, results[i]);
             for (int j = 0; j < results.length; j++) {
-                Assertions.assertEquals(results[i].equals(results[j]), i == j);
+                assertEquals(results[i].equals(results[j]), i == j);
             }
         }
     }
@@ -61,7 +63,7 @@ public class IntersectionResultTest {
             map.put(results[i], i + offset);
         }
         for (int i = 0; i < results.length; i++) {
-            Assertions.assertEquals(i + offset, map.get(results[i]));
+            assertEquals(i + offset, map.get(results[i]));
         }
     }
 
@@ -103,7 +105,11 @@ public class IntersectionResultTest {
         final int sizeA = 0;
         final int sizeB = 0;
         final int intersection = 0;
-        new IntersectionResult(sizeA, sizeB, intersection);
+        IntersectionResult result = new IntersectionResult(sizeA, sizeB, intersection);
+        assertEquals(0, result.getSizeA());
+        assertEquals(0, result.getSizeB());
+        assertEquals(0, result.getIntersection());
+        assertEquals("Size A: 0, Size B: 0, Intersection: 0", result.toString());
     }
 
     @Test
@@ -116,9 +122,9 @@ public class IntersectionResultTest {
             final int sizeB = rand.nextInt(max) + 1;
             final int intersection = rand.nextInt(Math.min(sizeA, sizeB));
             final IntersectionResult result = new IntersectionResult(sizeA, sizeB, intersection);
-            Assertions.assertEquals(sizeA, result.getSizeA());
-            Assertions.assertEquals(sizeB, result.getSizeB());
-            Assertions.assertEquals(intersection, result.getIntersection());
+            assertEquals(sizeA, result.getSizeA());
+            assertEquals(sizeB, result.getSizeB());
+            assertEquals(intersection, result.getIntersection());
         }
     }
 

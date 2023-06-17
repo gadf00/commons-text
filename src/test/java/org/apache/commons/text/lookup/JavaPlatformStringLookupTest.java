@@ -17,12 +17,11 @@
 
 package org.apache.commons.text.lookup;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests {@link JavaPlatformStringLookup}.
@@ -36,7 +35,7 @@ public class JavaPlatformStringLookupTest {
 
     @Test
     void testMain() {
-        JavaPlatformStringLookup.main(ArrayUtils.EMPTY_STRING_ARRAY);
+        assertDoesNotThrow(() -> JavaPlatformStringLookup.main(ArrayUtils.EMPTY_STRING_ARRAY));
     }
 
     @Test

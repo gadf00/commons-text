@@ -17,10 +17,6 @@
 
 package org.apache.commons.text.lookup;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,6 +24,8 @@ import java.util.Date;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests {@link DateStringLookup}.
@@ -42,9 +40,11 @@ public class DateStringLookupTest {
 
     @Test
     public void testDefault() throws ParseException {
-        final String formatted = DateStringLookup.INSTANCE.lookup(null);
-        DateFormat.getInstance().parse(formatted); // throws ParseException
+        String formatted = DateStringLookup.INSTANCE.lookup(null);
+        assertNotNull(formatted);
 
+        DateFormat df = DateFormat.getInstance();
+        df.parse(formatted);
     }
 
     @Test
