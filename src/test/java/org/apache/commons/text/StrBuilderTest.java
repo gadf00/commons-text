@@ -952,7 +952,7 @@ public class StrBuilderTest {
         sb.append("abc");
         final int hc2a = sb.hashCode();
         final int hc2b = sb.hashCode();
-        assertTrue(hc2a != 0);
+        assertNotEquals(hc2a, 0);
         assertEquals(hc2a, hc2b);
     }
 

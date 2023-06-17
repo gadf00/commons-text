@@ -404,20 +404,14 @@ final class ParsedDecimal {
         if (shouldIncludeMinus(opts)) {
             ++size;
         }
-        if (decimalPos < 1) {
-            // no whole component;
-            // add decimal point and leading zeros
+        if (decimalPos < 1) {;
             size += 2 + Math.abs(decimalPos);
         } else if (decimalPos >= digitCount) {
-            // no fraction component;
-            // add trailing zeros
             size += decimalPos - digitCount;
             if (opts.isIncludeFractionPlaceholder()) {
                 size += 2;
             }
         } else {
-            // whole and fraction components;
-            // add decimal point
             size += 1;
         }
 

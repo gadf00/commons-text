@@ -245,12 +245,12 @@ public final class RandomStringGenerator {
             for (final char[] pair :  pairs) {
                 Validate.isTrue(pair.length == 2,
                       "Each pair must contain minimum and maximum code point");
-                final int minimumCodePoint = pair[0];
-                final int maximumCodePoint = pair[1];
-                Validate.isTrue(minimumCodePoint <= maximumCodePoint,
-                    "Minimum code point %d is larger than maximum code point %d", minimumCodePoint, maximumCodePoint);
+                final int minimumCode = pair[0];
+                final int maximumCode = pair[1];
+                Validate.isTrue(minimumCode <= maximumCode,
+                    "Minimum code point %d is larger than maximum code point %d", minimumCode, maximumCode);
 
-                for (int index = minimumCodePoint; index <= maximumCodePoint; index++) {
+                for (int index = minimumCode; index <= maximumCode; index++) {
                     characterList.add((char) index);
                 }
             }

@@ -53,38 +53,38 @@ public class StrBuilderAppendInsertTest {
     public void testAppend_Boolean() {
         final StrBuilder sb = new StrBuilder();
         sb.append(true);
-        assertThat(sb.toString()).isEqualTo("true");
+        assertThat(sb).hasToString("true");
 
         sb.append(false);
-        assertThat(sb.toString()).isEqualTo("truefalse");
+        assertThat(sb).hasToString("truefalse");
 
         sb.append('!');
-        assertThat(sb.toString()).isEqualTo("truefalse!");
+        assertThat(sb).hasToString("truefalse!");
     }
 
     @Test
     public void testAppend_CharArray() {
         StrBuilder sb = new StrBuilder();
         sb.setNullText("NULL").append((char[]) null);
-        assertThat(sb.toString()).isEqualTo("NULL");
+        assertThat(sb).hasToString("NULL");
 
         sb = new StrBuilder();
         sb.append(ArrayUtils.EMPTY_CHAR_ARRAY);
-        assertThat(sb.toString()).isEqualTo("");
+        assertThat(sb).isEmpty();
 
         sb.append(new char[]{'f', 'o', 'o'});
-        assertThat(sb.toString()).isEqualTo("foo");
+        assertThat(sb).hasToString("foo");
     }
 
     @Test
     public void testAppend_CharArray_int_int() {
         StrBuilder sb = new StrBuilder();
         sb.setNullText("NULL").append((char[]) null, 0, 1);
-        assertThat(sb.toString()).isEqualTo("NULL");
+        assertThat(sb).hasToString("NULL");
 
         sb = new StrBuilder();
         sb.append(new char[]{'f', 'o', 'o'}, 0, 3);
-        assertThat(sb.toString()).isEqualTo("foo");
+        assertThat(sb).hasToString("foo");
 
         try {
             sb.append(new char[]{'b', 'a', 'r'}, -1, 1);
@@ -129,10 +129,10 @@ public class StrBuilderAppendInsertTest {
         }
 
         sb.append(new char[]{'b', 'a', 'r'}, 3, 0);
-        assertThat(sb.toString()).isEqualTo("foo");
+        assertThat(sb).hasToString("foo");
 
         sb.append(new char[]{'a', 'b', 'c', 'b', 'a', 'r', 'd', 'e', 'f'}, 3, 3);
-        assertThat(sb.toString()).isEqualTo("foobar");
+        assertThat(sb).hasToString("foobar");
     }
 
     @Test
@@ -141,94 +141,94 @@ public class StrBuilderAppendInsertTest {
 
         sb = new StrBuilder();
         sb.append("Hi", (Object[]) null);
-        assertThat(sb.toString()).isEqualTo("Hi");
+        assertThat(sb).hasToString("Hi");
 
         sb = new StrBuilder();
         sb.append("Hi", "Alice");
-        assertThat(sb.toString()).isEqualTo("Hi");
+        assertThat(sb).hasToString("Hi");
 
         sb = new StrBuilder();
         sb.append("Hi %s", "Alice");
-        assertThat(sb.toString()).isEqualTo("Hi Alice");
+        assertThat(sb).hasToString("Hi Alice");
 
         sb = new StrBuilder();
         sb.append("Hi %s %,d", "Alice", 5000);
         // group separator depends on system locale
         final char groupingSeparator = DecimalFormatSymbols.getInstance().getGroupingSeparator();
         final String expected = "Hi Alice 5" + groupingSeparator + "000";
-        assertThat(sb.toString()).isEqualTo(expected);
+        assertThat(sb).hasToString(expected);
     }
 
     @Test
     public void testAppend_Object() {
         final StrBuilder sb = new StrBuilder();
         sb.appendNull();
-        assertThat(sb.toString()).isEqualTo("");
+        assertThat(sb).isEmpty();
 
         sb.append((Object) null);
-        assertThat(sb.toString()).isEqualTo("");
+        assertThat(sb).isEmpty();
 
         sb.append(FOO);
-        assertThat(sb.toString()).isEqualTo("foo");
+        assertThat(sb).hasToString("foo");
 
         sb.append((StringBuffer) null);
-        assertThat(sb.toString()).isEqualTo("foo");
+        assertThat(sb).hasToString("foo");
 
         sb.append(new StringBuffer("baz"));
-        assertThat(sb.toString()).isEqualTo("foobaz");
+        assertThat(sb).hasToString("foobaz");
 
         sb.append(new StrBuilder("yes"));
-        assertThat(sb.toString()).isEqualTo("foobazyes");
+        assertThat(sb).hasToString("foobazyes");
 
         sb.append((CharSequence) "Seq");
-        assertThat(sb.toString()).isEqualTo("foobazyesSeq");
+        assertThat(sb).hasToString("foobazyesSeq");
 
         sb.append(new StringBuilder("bld")); // Check it supports StringBuilder
-        assertThat(sb.toString()).isEqualTo("foobazyesSeqbld");
+        assertThat(sb).hasToString("foobazyesSeqbld");
     }
 
     @Test
     public void testAppend_PrimitiveNumber() {
         final StrBuilder sb = new StrBuilder();
         sb.append(0);
-        assertThat(sb.toString()).isEqualTo("0");
+        assertThat(sb).hasToString("0");
 
         sb.append(1L);
-        assertThat(sb.toString()).isEqualTo("01");
+        assertThat(sb).hasToString("01");
 
         sb.append(2.3f);
-        assertThat(sb.toString()).isEqualTo("012.3");
+        assertThat(sb).hasToString("012.3");
 
         sb.append(4.5d);
-        assertThat(sb.toString()).isEqualTo("012.34.5");
+        assertThat(sb).hasToString("012.34.5");
     }
 
     @Test
     public void testAppend_StrBuilder() {
         StrBuilder sb = new StrBuilder();
         sb.setNullText("NULL").append((StrBuilder) null);
-        assertThat(sb.toString()).isEqualTo("NULL");
+        assertThat(sb).hasToString("NULL");
 
         sb = new StrBuilder();
         sb.append(new StrBuilder("foo"));
-        assertThat(sb.toString()).isEqualTo("foo");
+        assertThat(sb).hasToString("foo");
 
         sb.append(new StrBuilder(""));
-        assertThat(sb.toString()).isEqualTo("foo");
+        assertThat(sb).hasToString("foo");
 
         sb.append(new StrBuilder("bar"));
-        assertThat(sb.toString()).isEqualTo("foobar");
+        assertThat(sb).hasToString("foobar");
     }
 
     @Test
     public void testAppend_StrBuilder_int_int() {
         StrBuilder sb = new StrBuilder();
         sb.setNullText("NULL").append((StrBuilder) null, 0, 1);
-        assertThat(sb.toString()).isEqualTo("NULL");
+        assertThat(sb).hasToString("NULL");
 
         sb = new StrBuilder();
         sb.append(new StrBuilder("foo"), 0, 3);
-        assertThat(sb.toString()).isEqualTo("foo");
+        assertThat(sb).hasToString("foo");
 
         try {
             sb.append(new StrBuilder("bar"), -1, 1);
@@ -273,38 +273,38 @@ public class StrBuilderAppendInsertTest {
         }
 
         sb.append(new StrBuilder("bar"), 3, 0);
-        assertThat(sb.toString()).isEqualTo("foo");
+        assertThat(sb).hasToString("foo");
 
         sb.append(new StrBuilder("abcbardef"), 3, 3);
-        assertThat(sb.toString()).isEqualTo("foobar");
+        assertThat(sb).hasToString("foobar");
     }
 
     @Test
     public void testAppend_String() {
         StrBuilder sb = new StrBuilder();
         sb.setNullText("NULL").append((String) null);
-        assertThat(sb.toString()).isEqualTo("NULL");
+        assertThat(sb).hasToString("NULL");
 
         sb = new StrBuilder();
         sb.append("foo");
-        assertThat(sb.toString()).isEqualTo("foo");
+        assertThat(sb).hasToString("foo");
 
         sb.append("");
-        assertThat(sb.toString()).isEqualTo("foo");
+        assertThat(sb).hasToString("foo");
 
         sb.append("bar");
-        assertThat(sb.toString()).isEqualTo("foobar");
+        assertThat(sb).hasToString("foobar");
     }
 
     @Test
     public void testAppend_String_int_int() {
         StrBuilder sb = new StrBuilder();
         sb.setNullText("NULL").append((String) null, 0, 1);
-        assertThat(sb.toString()).isEqualTo("NULL");
+        assertThat(sb).hasToString("NULL");
 
         sb = new StrBuilder();
         sb.append("foo", 0, 3);
-        assertThat(sb.toString()).isEqualTo("foo");
+        assertThat(sb).hasToString("foo");
 
         try {
             sb.append("bar", -1, 1);
@@ -349,41 +349,41 @@ public class StrBuilderAppendInsertTest {
         }
 
         sb.append("bar", 3, 0);
-        assertThat(sb.toString()).isEqualTo("foo");
+        assertThat(sb).hasToString("foo");
 
         sb.append("abcbardef", 3, 3);
-        assertThat(sb.toString()).isEqualTo("foobar");
+        assertThat(sb).hasToString("foobar");
 
         sb.append((CharSequence) "abcbardef", 4, 3);
-        assertThat(sb.toString()).isEqualTo("foobarard");
+        assertThat(sb).hasToString("foobarard");
     }
 
     @Test
     public void testAppend_StringBuffer() {
         StrBuilder sb = new StrBuilder();
         sb.setNullText("NULL").append((StringBuffer) null);
-        assertThat(sb.toString()).isEqualTo("NULL");
+        assertThat(sb).hasToString("NULL");
 
         sb = new StrBuilder();
         sb.append(new StringBuffer("foo"));
-        assertThat(sb.toString()).isEqualTo("foo");
+        assertThat(sb).hasToString("foo");
 
         sb.append(new StringBuffer(""));
-        assertThat(sb.toString()).isEqualTo("foo");
+        assertThat(sb).hasToString("foo");
 
         sb.append(new StringBuffer("bar"));
-        assertThat(sb.toString()).isEqualTo("foobar");
+        assertThat(sb).hasToString("foobar");
     }
 
     @Test
     public void testAppend_StringBuffer_int_int() {
         StrBuilder sb = new StrBuilder();
         sb.setNullText("NULL").append((StringBuffer) null, 0, 1);
-        assertThat(sb.toString()).isEqualTo("NULL");
+        assertThat(sb).hasToString("NULL");
 
         sb = new StrBuilder();
         sb.append(new StringBuffer("foo"), 0, 3);
-        assertThat(sb.toString()).isEqualTo("foo");
+        assertThat(sb).hasToString("foo");
 
         try {
             sb.append(new StringBuffer("bar"), -1, 1);
@@ -428,38 +428,38 @@ public class StrBuilderAppendInsertTest {
         }
 
         sb.append(new StringBuffer("bar"), 3, 0);
-        assertThat(sb.toString()).isEqualTo("foo");
+        assertThat(sb).hasToString("foo");
 
         sb.append(new StringBuffer("abcbardef"), 3, 3);
-        assertThat(sb.toString()).isEqualTo("foobar");
+        assertThat(sb).hasToString("foobar");
     }
 
     @Test
     public void testAppend_StringBuilder() {
         StrBuilder sb = new StrBuilder();
         sb.setNullText("NULL").append((String) null);
-        assertThat(sb.toString()).isEqualTo("NULL");
+        assertThat(sb).hasToString("NULL");
 
         sb = new StrBuilder();
         sb.append(new StringBuilder("foo"));
-        assertThat(sb.toString()).isEqualTo("foo");
+        assertThat(sb).hasToString("foo");
 
         sb.append(new StringBuilder(""));
-        assertThat(sb.toString()).isEqualTo("foo");
+        assertThat(sb).hasToString("foo");
 
         sb.append(new StringBuilder("bar"));
-        assertThat(sb.toString()).isEqualTo("foobar");
+        assertThat(sb).hasToString("foobar");
     }
 
     @Test
     public void testAppend_StringBuilder_int_int() {
         StrBuilder sb = new StrBuilder();
         sb.setNullText("NULL").append((String) null, 0, 1);
-        assertThat(sb.toString()).isEqualTo("NULL");
+        assertThat(sb).hasToString("NULL");
 
         sb = new StrBuilder();
         sb.append(new StringBuilder("foo"), 0, 3);
-        assertThat(sb.toString()).isEqualTo("foo");
+        assertThat(sb).hasToString("foo");
 
         try {
             sb.append(new StringBuilder("bar"), -1, 1);
@@ -504,215 +504,215 @@ public class StrBuilderAppendInsertTest {
         }
 
         sb.append(new StringBuilder("bar"), 3, 0);
-        assertThat(sb.toString()).isEqualTo("foo");
+        assertThat(sb).hasToString("foo");
 
         sb.append(new StringBuilder("abcbardef"), 3, 3);
-        assertThat(sb.toString()).isEqualTo("foobar");
+        assertThat(sb).hasToString("foobar");
 
         sb.append(new StringBuilder("abcbardef"), 4, 3);
-        assertThat(sb.toString()).isEqualTo("foobarard");
+        assertThat(sb).hasToString("foobarard");
     }
 
     @Test
     public void testAppendAll_Array() {
         final StrBuilder sb = new StrBuilder();
         sb.appendAll((Object[]) null);
-        assertThat(sb.toString()).isEqualTo("");
+        assertThat(sb).isEmpty();
 
         sb.clear();
         sb.appendAll();
-        assertThat(sb.toString()).isEqualTo("");
+        assertThat(sb).isEmpty();
 
         sb.clear();
         sb.appendAll("foo", "bar", "baz");
-        assertThat(sb.toString()).isEqualTo("foobarbaz");
+        assertThat(sb).hasToString("foobarbaz");
 
         sb.clear();
         sb.appendAll("foo", "bar", "baz");
-        assertThat(sb.toString()).isEqualTo("foobarbaz");
+        assertThat(sb).hasToString("foobarbaz");
     }
 
     @Test
     public void testAppendAll_Collection() {
         final StrBuilder sb = new StrBuilder();
         sb.appendAll((Collection<?>) null);
-        assertThat(sb.toString()).isEqualTo("");
+        assertThat(sb).isEmpty();
 
         sb.clear();
         sb.appendAll(Collections.EMPTY_LIST);
-        assertThat(sb.toString()).isEqualTo("");
+        assertThat(sb).isEmpty();
 
         sb.clear();
         sb.appendAll(Arrays.asList("foo", "bar", "baz"));
-        assertThat(sb.toString()).isEqualTo("foobarbaz");
+        assertThat(sb).hasToString("foobarbaz");
     }
 
     @Test
     public void testAppendAll_Iterator() {
         final StrBuilder sb = new StrBuilder();
         sb.appendAll((Iterator<?>) null);
-        assertThat(sb.toString()).isEqualTo("");
+        assertThat(sb).isEmpty();
 
         sb.clear();
         sb.appendAll(Collections.EMPTY_LIST.iterator());
-        assertThat(sb.toString()).isEqualTo("");
+        assertThat(sb).isEmpty();
 
         sb.clear();
         sb.appendAll(Arrays.asList("foo", "bar", "baz").iterator());
-        assertThat(sb.toString()).isEqualTo("foobarbaz");
+        assertThat(sb).hasToString("foobarbaz");
     }
 
     @Test
     public void testAppendFixedWidthPadLeft() {
         final StrBuilder sb = new StrBuilder();
         sb.appendFixedWidthPadLeft("foo", -1, '-');
-        assertThat(sb.toString()).isEqualTo("");
+        assertThat(sb).isEmpty();
 
         sb.clear();
         sb.appendFixedWidthPadLeft("foo", 0, '-');
-        assertThat(sb.toString()).isEqualTo("");
+        assertThat(sb).isEmpty();
 
         sb.clear();
         sb.appendFixedWidthPadLeft("foo", 1, '-');
-        assertThat(sb.toString()).isEqualTo("o");
+        assertThat(sb).hasToString("o");
 
         sb.clear();
         sb.appendFixedWidthPadLeft("foo", 2, '-');
-        assertThat(sb.toString()).isEqualTo("oo");
+        assertThat(sb).hasToString("oo");
 
         sb.clear();
         sb.appendFixedWidthPadLeft("foo", 3, '-');
-        assertThat(sb.toString()).isEqualTo("foo");
+        assertThat(sb).hasToString("foo");
 
         sb.clear();
         sb.appendFixedWidthPadLeft("foo", 4, '-');
-        assertThat(sb.toString()).isEqualTo("-foo");
+        assertThat(sb).hasToString("-foo");
 
         sb.clear();
         sb.appendFixedWidthPadLeft("foo", 10, '-');
         assertThat(sb.length()).isEqualTo(10);
         //            1234567890
-        assertThat(sb.toString()).isEqualTo("-------foo");
+        assertThat(sb).hasToString("-------foo");
 
         sb.clear();
         sb.setNullText("null");
         sb.appendFixedWidthPadLeft(null, 5, '-');
-        assertThat(sb.toString()).isEqualTo("-null");
+        assertThat(sb).hasToString("-null");
     }
 
     @Test
     public void testAppendFixedWidthPadLeft_int() {
         final StrBuilder sb = new StrBuilder();
         sb.appendFixedWidthPadLeft(123, -1, '-');
-        assertThat(sb.toString()).isEqualTo("");
+        assertThat(sb).isEmpty();
 
         sb.clear();
         sb.appendFixedWidthPadLeft(123, 0, '-');
-        assertThat(sb.toString()).isEqualTo("");
+        assertThat(sb).isEmpty();
 
         sb.clear();
         sb.appendFixedWidthPadLeft(123, 1, '-');
-        assertThat(sb.toString()).isEqualTo("3");
+        assertThat(sb).hasToString("3");
 
         sb.clear();
         sb.appendFixedWidthPadLeft(123, 2, '-');
-        assertThat(sb.toString()).isEqualTo("23");
+        assertThat(sb).hasToString("23");
 
         sb.clear();
         sb.appendFixedWidthPadLeft(123, 3, '-');
-        assertThat(sb.toString()).isEqualTo("123");
+        assertThat(sb).hasToString("123");
 
         sb.clear();
         sb.appendFixedWidthPadLeft(123, 4, '-');
-        assertThat(sb.toString()).isEqualTo("-123");
+        assertThat(sb).hasToString("-123");
 
         sb.clear();
         sb.appendFixedWidthPadLeft(123, 10, '-');
         assertThat(sb.length()).isEqualTo(10);
         //            1234567890
-        assertThat(sb.toString()).isEqualTo("-------123");
+        assertThat(sb).hasToString("-------123");
     }
 
     @Test
     public void testAppendFixedWidthPadRight() {
         final StrBuilder sb = new StrBuilder();
         sb.appendFixedWidthPadRight("foo", -1, '-');
-        assertThat(sb.toString()).isEqualTo("");
+        assertThat(sb).isEmpty();
 
         sb.clear();
         sb.appendFixedWidthPadRight("foo", 0, '-');
-        assertThat(sb.toString()).isEqualTo("");
+        assertThat(sb).isEmpty();
 
         sb.clear();
         sb.appendFixedWidthPadRight("foo", 1, '-');
-        assertThat(sb.toString()).isEqualTo("f");
+        assertThat(sb).hasToString("f");
 
         sb.clear();
         sb.appendFixedWidthPadRight("foo", 2, '-');
-        assertThat(sb.toString()).isEqualTo("fo");
+        assertThat(sb).hasToString("fo");
 
         sb.clear();
         sb.appendFixedWidthPadRight("foo", 3, '-');
-        assertThat(sb.toString()).isEqualTo("foo");
+        assertThat(sb).hasToString("foo");
 
         sb.clear();
         sb.appendFixedWidthPadRight("foo", 4, '-');
-        assertThat(sb.toString()).isEqualTo("foo-");
+        assertThat(sb).hasToString("foo-");
 
         sb.clear();
         sb.appendFixedWidthPadRight("foo", 10, '-');
         assertThat(sb.length()).isEqualTo(10);
         //            1234567890
-        assertThat(sb.toString()).isEqualTo("foo-------");
+        assertThat(sb).hasToString("foo-------");
 
         sb.clear();
         sb.setNullText("null");
         sb.appendFixedWidthPadRight(null, 5, '-');
-        assertThat(sb.toString()).isEqualTo("null-");
+        assertThat(sb).hasToString("null-");
     }
 
     @Test
     public void testAppendFixedWidthPadRight_int() {
         final StrBuilder sb = new StrBuilder();
         sb.appendFixedWidthPadRight(123, -1, '-');
-        assertThat(sb.toString()).isEqualTo("");
+        assertThat(sb).isEmpty();
 
         sb.clear();
         sb.appendFixedWidthPadRight(123, 0, '-');
-        assertThat(sb.toString()).isEqualTo("");
+        assertThat(sb).isEmpty();
 
         sb.clear();
         sb.appendFixedWidthPadRight(123, 1, '-');
-        assertThat(sb.toString()).isEqualTo("1");
+        assertThat(sb).hasToString("1");
 
         sb.clear();
         sb.appendFixedWidthPadRight(123, 2, '-');
-        assertThat(sb.toString()).isEqualTo("12");
+        assertThat(sb).hasToString("12");
 
         sb.clear();
         sb.appendFixedWidthPadRight(123, 3, '-');
-        assertThat(sb.toString()).isEqualTo("123");
+        assertThat(sb).hasToString("123");
 
         sb.clear();
         sb.appendFixedWidthPadRight(123, 4, '-');
-        assertThat(sb.toString()).isEqualTo("123-");
+        assertThat(sb).hasToString("123-");
 
         sb.clear();
         sb.appendFixedWidthPadRight(123, 10, '-');
         assertThat(sb.length()).isEqualTo(10);
         //            1234567890
-        assertThat(sb.toString()).isEqualTo("123-------");
+        assertThat(sb).hasToString("123-------");
     }
 
     @Test
     public void testAppendln_Boolean() {
         final StrBuilder sb = new StrBuilder();
         sb.appendln(true);
-        assertThat(sb.toString()).isEqualTo("true" + SEP);
+        assertThat(sb).hasToString("true" + SEP);
 
         sb.clear();
         sb.appendln(false);
-        assertThat(sb.toString()).isEqualTo("false" + SEP);
+        assertThat(sb).hasToString("false" + SEP);
     }
 
     @Test
@@ -733,7 +733,7 @@ public class StrBuilderAppendInsertTest {
             }
         };
         sb.appendln("foo".toCharArray());
-        assertThat(sb.toString()).isEqualTo("foo" + SEP);
+        assertThat(sb).hasToString("foo" + SEP);
         assertThat(count[0]).isEqualTo(1);
         assertThat(count[1]).isEqualTo(1);
     }
@@ -756,7 +756,7 @@ public class StrBuilderAppendInsertTest {
             }
         };
         sb.appendln("foo".toCharArray(), 0, 3);
-        assertThat(sb.toString()).isEqualTo("foo" + SEP);
+        assertThat(sb).hasToString("foo" + SEP);
         assertThat(count[0]).isEqualTo(1);
         assertThat(count[1]).isEqualTo(1);
     }
@@ -779,7 +779,7 @@ public class StrBuilderAppendInsertTest {
             }
         };
         sb.appendln("Hello %s", "Alice");
-        assertThat(sb.toString()).isEqualTo("Hello Alice" + SEP);
+        assertThat(sb).hasToString("Hello Alice" + SEP);
         assertThat(count[0]).isEqualTo(2); // appendNewLine() calls append(String)
         assertThat(count[1]).isEqualTo(1);
     }
@@ -788,32 +788,32 @@ public class StrBuilderAppendInsertTest {
     public void testAppendln_Object() {
         final StrBuilder sb = new StrBuilder();
         sb.appendln((Object) null);
-        assertThat(sb.toString()).isEqualTo("" + SEP);
+        assertThat(sb).hasToString("" + SEP);
 
         sb.appendln(FOO);
-        assertThat(sb.toString()).isEqualTo(SEP + "foo" + SEP);
+        assertThat(sb).hasToString(SEP + "foo" + SEP);
 
         sb.appendln(Integer.valueOf(6));
-        assertThat(sb.toString()).isEqualTo(SEP + "foo" + SEP + "6" + SEP);
+        assertThat(sb).hasToString(SEP + "foo" + SEP + "6" + SEP);
     }
 
     @Test
     public void testAppendln_PrimitiveNumber() {
         final StrBuilder sb = new StrBuilder();
         sb.appendln(0);
-        assertThat(sb.toString()).isEqualTo("0" + SEP);
+        assertThat(sb).hasToString("0" + SEP);
 
         sb.clear();
         sb.appendln(1L);
-        assertThat(sb.toString()).isEqualTo("1" + SEP);
+        assertThat(sb).hasToString("1" + SEP);
 
         sb.clear();
         sb.appendln(2.3f);
-        assertThat(sb.toString()).isEqualTo("2.3" + SEP);
+        assertThat(sb).hasToString("2.3" + SEP);
 
         sb.clear();
         sb.appendln(4.5d);
-        assertThat(sb.toString()).isEqualTo("4.5" + SEP);
+        assertThat(sb).hasToString("4.5" + SEP);
     }
 
     @Test
@@ -834,7 +834,7 @@ public class StrBuilderAppendInsertTest {
             }
         };
         sb.appendln(new StrBuilder("foo"));
-        assertThat(sb.toString()).isEqualTo("foo" + SEP);
+        assertThat(sb).hasToString("foo" + SEP);
         assertThat(count[0]).isEqualTo(1);
         assertThat(count[1]).isEqualTo(1);
     }
@@ -857,7 +857,7 @@ public class StrBuilderAppendInsertTest {
             }
         };
         sb.appendln(new StrBuilder("foo"), 0, 3);
-        assertThat(sb.toString()).isEqualTo("foo" + SEP);
+        assertThat(sb).hasToString("foo" + SEP);
         assertThat(count[0]).isEqualTo(1);
         assertThat(count[1]).isEqualTo(1);
     }
@@ -880,7 +880,7 @@ public class StrBuilderAppendInsertTest {
             }
         };
         sb.appendln("foo");
-        assertThat(sb.toString()).isEqualTo("foo" + SEP);
+        assertThat(sb).hasToString("foo" + SEP);
         assertThat(count[0]).isEqualTo(2); // appendNewLine() calls append(String)
         assertThat(count[1]).isEqualTo(1);
     }
@@ -903,7 +903,7 @@ public class StrBuilderAppendInsertTest {
             }
         };
         sb.appendln("foo", 0, 3);
-        assertThat(sb.toString()).isEqualTo("foo" + SEP);
+        assertThat(sb).hasToString("foo" + SEP);
         assertThat(count[0]).isEqualTo(1);
         assertThat(count[1]).isEqualTo(1);
     }
@@ -926,7 +926,7 @@ public class StrBuilderAppendInsertTest {
             }
         };
         sb.appendln(new StringBuffer("foo"));
-        assertThat(sb.toString()).isEqualTo("foo" + SEP);
+        assertThat(sb).hasToString("foo" + SEP);
         assertThat(count[0]).isEqualTo(1);
         assertThat(count[1]).isEqualTo(1);
     }
@@ -949,7 +949,7 @@ public class StrBuilderAppendInsertTest {
             }
         };
         sb.appendln(new StringBuffer("foo"), 0, 3);
-        assertThat(sb.toString()).isEqualTo("foo" + SEP);
+        assertThat(sb).hasToString("foo" + SEP);
         assertThat(count[0]).isEqualTo(1);
         assertThat(count[1]).isEqualTo(1);
     }
@@ -972,7 +972,7 @@ public class StrBuilderAppendInsertTest {
             }
         };
         sb.appendln(new StringBuilder("foo"));
-        assertThat(sb.toString()).isEqualTo("foo" + SEP);
+        assertThat(sb).hasToString("foo" + SEP);
         assertThat(count[0]).isEqualTo(1);
         assertThat(count[1]).isEqualTo(1);
     }
@@ -995,7 +995,7 @@ public class StrBuilderAppendInsertTest {
             }
         };
         sb.appendln(new StringBuilder("foo"), 0, 3);
-        assertThat(sb.toString()).isEqualTo("foo" + SEP);
+        assertThat(sb).hasToString("foo" + SEP);
         assertThat(count[0]).isEqualTo(1);
         assertThat(count[1]).isEqualTo(1);
     }
@@ -1004,43 +1004,43 @@ public class StrBuilderAppendInsertTest {
     public void testAppendNewLine() {
         StrBuilder sb = new StrBuilder("---");
         sb.appendNewLine().append("+++");
-        assertThat(sb.toString()).isEqualTo("---" + SEP + "+++");
+        assertThat(sb).hasToString("---" + SEP + "+++");
 
         sb = new StrBuilder("---");
         sb.setNewLineText("#").appendNewLine().setNewLineText(null).appendNewLine();
-        assertThat(sb.toString()).isEqualTo("---#" + SEP);
+        assertThat(sb).hasToString("---#" + SEP);
     }
 
     @Test
     public void testAppendPadding() {
         final StrBuilder sb = new StrBuilder();
         sb.append("foo");
-        assertThat(sb.toString()).isEqualTo("foo");
+        assertThat(sb).hasToString("foo");
 
         sb.appendPadding(-1, '-');
-        assertThat(sb.toString()).isEqualTo("foo");
+        assertThat(sb).hasToString("foo");
 
         sb.appendPadding(0, '-');
-        assertThat(sb.toString()).isEqualTo("foo");
+        assertThat(sb).hasToString("foo");
 
         sb.appendPadding(1, '-');
-        assertThat(sb.toString()).isEqualTo("foo-");
+        assertThat(sb).hasToString("foo-");
 
         sb.appendPadding(16, '-');
         assertThat(sb.length()).isEqualTo(20);
         //            12345678901234567890
-        assertThat(sb.toString()).isEqualTo("foo-----------------");
+        assertThat(sb).hasToString("foo-----------------");
     }
 
     @Test
     public void testAppendSeparator_char() {
         final StrBuilder sb = new StrBuilder();
         sb.appendSeparator(',');  // no effect
-        assertThat(sb.toString()).isEqualTo("");
+        assertThat(sb).isEmpty();
         sb.append("foo");
-        assertThat(sb.toString()).isEqualTo("foo");
+        assertThat(sb).hasToString("foo");
         sb.appendSeparator(',');
-        assertThat(sb.toString()).isEqualTo("foo,");
+        assertThat(sb).hasToString("foo,");
     }
 
     @Test
@@ -1050,50 +1050,50 @@ public class StrBuilderAppendInsertTest {
         final char standardSeparator = ',';
         final String foo = "foo";
         sb.appendSeparator(standardSeparator, startSeparator);  // no effect
-        assertThat(sb.toString()).isEqualTo(String.valueOf(startSeparator));
+        assertThat(sb).hasToString(String.valueOf(startSeparator));
         sb.append(foo);
-        assertThat(sb.toString()).isEqualTo(String.valueOf(startSeparator) + foo);
+        assertThat(sb).hasToString(String.valueOf(startSeparator) + foo);
         sb.appendSeparator(standardSeparator, startSeparator);
-        assertThat(sb.toString()).isEqualTo(String.valueOf(startSeparator) + foo + standardSeparator);
+        assertThat(sb).hasToString(String.valueOf(startSeparator) + foo + standardSeparator);
     }
 
     @Test
     public void testAppendSeparator_char_int() {
         final StrBuilder sb = new StrBuilder();
         sb.appendSeparator(',', 0);  // no effect
-        assertThat(sb.toString()).isEqualTo("");
+        assertThat(sb).isEmpty();
         sb.append("foo");
-        assertThat(sb.toString()).isEqualTo("foo");
+        assertThat(sb).hasToString("foo");
         sb.appendSeparator(',', 1);
-        assertThat(sb.toString()).isEqualTo("foo,");
+        assertThat(sb).hasToString("foo,");
 
         sb.appendSeparator(',', -1);  // no effect
-        assertThat(sb.toString()).isEqualTo("foo,");
+        assertThat(sb).hasToString("foo,");
     }
 
     @Test
     public void testAppendSeparator_String() {
         final StrBuilder sb = new StrBuilder();
         sb.appendSeparator(",");  // no effect
-        assertThat(sb.toString()).isEqualTo("");
+        assertThat(sb).isEmpty();
         sb.append("foo");
-        assertThat(sb.toString()).isEqualTo("foo");
+        assertThat(sb).hasToString("foo");
         sb.appendSeparator(",");
-        assertThat(sb.toString()).isEqualTo("foo,");
+        assertThat(sb).hasToString("foo,");
     }
 
     @Test
     public void testAppendSeparator_String_int() {
         final StrBuilder sb = new StrBuilder();
         sb.appendSeparator(",", 0);  // no effect
-        assertThat(sb.toString()).isEqualTo("");
+        assertThat(sb).isEmpty();
         sb.append("foo");
-        assertThat(sb.toString()).isEqualTo("foo");
+        assertThat(sb).hasToString("foo");
         sb.appendSeparator(",", 1);
-        assertThat(sb.toString()).isEqualTo("foo,");
+        assertThat(sb).hasToString("foo,");
 
         sb.appendSeparator(",", -1);  // no effect
-        assertThat(sb.toString()).isEqualTo("foo,");
+        assertThat(sb).hasToString("foo,");
     }
 
     @Test
@@ -1103,118 +1103,118 @@ public class StrBuilderAppendInsertTest {
         final String standardSeparator = ",";
         final String foo = "foo";
         sb.appendSeparator(null, null);
-        assertThat(sb.toString()).isEqualTo("");
+        assertThat(sb).isEmpty();
         sb.appendSeparator(standardSeparator, null);
-        assertThat(sb.toString()).isEqualTo("");
+        assertThat(sb).isEmpty();
         sb.appendSeparator(standardSeparator, startSeparator);
-        assertThat(sb.toString()).isEqualTo(startSeparator);
+        assertThat(sb).hasToString(startSeparator);
         sb.appendSeparator(null, null);
-        assertThat(sb.toString()).isEqualTo(startSeparator);
+        assertThat(sb).hasToString(startSeparator);
         sb.appendSeparator(null, startSeparator);
-        assertThat(sb.toString()).isEqualTo(startSeparator);
+        assertThat(sb).hasToString(startSeparator);
         sb.append(foo);
-        assertThat(sb.toString()).isEqualTo(startSeparator + foo);
+        assertThat(sb).hasToString(startSeparator + foo);
         sb.appendSeparator(standardSeparator, startSeparator);
-        assertThat(sb.toString()).isEqualTo(startSeparator + foo + standardSeparator);
+        assertThat(sb).hasToString(startSeparator + foo + standardSeparator);
     }
 
     @Test
     public void testAppendWithNullText() {
         final StrBuilder sb = new StrBuilder();
         sb.setNullText("NULL");
-        assertThat(sb.toString()).isEqualTo("");
+        assertThat(sb).isEmpty();
 
         sb.appendNull();
-        assertThat(sb.toString()).isEqualTo("NULL");
+        assertThat(sb).hasToString("NULL");
 
         sb.append((Object) null);
-        assertThat(sb.toString()).isEqualTo("NULLNULL");
+        assertThat(sb).hasToString("NULLNULL");
 
         sb.append(FOO);
-        assertThat(sb.toString()).isEqualTo("NULLNULLfoo");
+        assertThat(sb).hasToString("NULLNULLfoo");
 
         sb.append((String) null);
-        assertThat(sb.toString()).isEqualTo("NULLNULLfooNULL");
+        assertThat(sb).hasToString("NULLNULLfooNULL");
 
         sb.append("");
-        assertThat(sb.toString()).isEqualTo("NULLNULLfooNULL");
+        assertThat(sb).hasToString("NULLNULLfooNULL");
 
         sb.append("bar");
-        assertThat(sb.toString()).isEqualTo("NULLNULLfooNULLbar");
+        assertThat(sb).hasToString("NULLNULLfooNULLbar");
 
         sb.append((StringBuffer) null);
-        assertThat(sb.toString()).isEqualTo("NULLNULLfooNULLbarNULL");
+        assertThat(sb).hasToString("NULLNULLfooNULLbarNULL");
 
         sb.append(new StringBuffer("baz"));
-        assertThat(sb.toString()).isEqualTo("NULLNULLfooNULLbarNULLbaz");
+        assertThat(sb).hasToString("NULLNULLfooNULLbarNULLbaz");
     }
 
     @Test
     public void testAppendWithSeparators_Array() {
         final StrBuilder sb = new StrBuilder();
         sb.appendWithSeparators((Object[]) null, ",");
-        assertThat(sb.toString()).isEqualTo("");
+        assertThat(sb).isEmpty();
 
         sb.clear();
         sb.appendWithSeparators(ArrayUtils.EMPTY_OBJECT_ARRAY, ",");
-        assertThat(sb.toString()).isEqualTo("");
+        assertThat(sb).isEmpty();
 
         sb.clear();
         sb.appendWithSeparators(new Object[]{"foo", "bar", "baz"}, ",");
-        assertThat(sb.toString()).isEqualTo("foo,bar,baz");
+        assertThat(sb).hasToString("foo,bar,baz");
 
         sb.clear();
         sb.appendWithSeparators(new Object[]{"foo", "bar", "baz"}, null);
-        assertThat(sb.toString()).isEqualTo("foobarbaz");
+        assertThat(sb).hasToString("foobarbaz");
 
         sb.clear();
         sb.appendWithSeparators(new Object[]{"foo", null, "baz"}, ",");
-        assertThat(sb.toString()).isEqualTo("foo,,baz");
+        assertThat(sb).hasToString("foo,,baz");
     }
 
     @Test
     public void testAppendWithSeparators_Collection() {
         final StrBuilder sb = new StrBuilder();
         sb.appendWithSeparators((Collection<?>) null, ",");
-        assertThat(sb.toString()).isEqualTo("");
+        assertThat(sb).isEmpty();
 
         sb.clear();
         sb.appendWithSeparators(Collections.EMPTY_LIST, ",");
-        assertThat(sb.toString()).isEqualTo("");
+        assertThat(sb).isEmpty();
 
         sb.clear();
         sb.appendWithSeparators(Arrays.asList("foo", "bar", "baz"), ",");
-        assertThat(sb.toString()).isEqualTo("foo,bar,baz");
+        assertThat(sb).hasToString("foo,bar,baz");
 
         sb.clear();
         sb.appendWithSeparators(Arrays.asList("foo", "bar", "baz"), null);
-        assertThat(sb.toString()).isEqualTo("foobarbaz");
+        assertThat(sb).hasToString("foobarbaz");
 
         sb.clear();
         sb.appendWithSeparators(Arrays.asList("foo", null, "baz"), ",");
-        assertThat(sb.toString()).isEqualTo("foo,,baz");
+        assertThat(sb).hasToString("foo,,baz");
     }
     @Test
     public void testAppendWithSeparators_Iterator() {
         final StrBuilder sb = new StrBuilder();
         sb.appendWithSeparators((Iterator<?>) null, ",");
-        assertThat(sb.toString()).isEqualTo("");
+        assertThat(sb).isEmpty();
 
         sb.clear();
         sb.appendWithSeparators(Collections.EMPTY_LIST.iterator(), ",");
-        assertThat(sb.toString()).isEqualTo("");
+        assertThat(sb).isEmpty();
 
         sb.clear();
         sb.appendWithSeparators(Arrays.asList("foo", "bar", "baz").iterator(), ",");
-        assertThat(sb.toString()).isEqualTo("foo,bar,baz");
+        assertThat(sb).hasToString("foo,bar,baz");
 
         sb.clear();
         sb.appendWithSeparators(Arrays.asList("foo", "bar", "baz").iterator(), null);
-        assertThat(sb.toString()).isEqualTo("foobarbaz");
+        assertThat(sb).hasToString("foobarbaz");
 
         sb.clear();
         sb.appendWithSeparators(Arrays.asList("foo", null, "baz").iterator(), ",");
-        assertThat(sb.toString()).isEqualTo("foo,,baz");
+        assertThat(sb).hasToString("foo,,baz");
     }
 
     @Test
@@ -1222,11 +1222,11 @@ public class StrBuilderAppendInsertTest {
         final StrBuilder sb = new StrBuilder();
         sb.setNullText("null");
         sb.appendWithSeparators(new Object[]{"foo", null, "baz"}, ",");
-        assertThat(sb.toString()).isEqualTo("foo,null,baz");
+        assertThat(sb).hasToString("foo,null,baz");
 
         sb.clear();
         sb.appendWithSeparators(Arrays.asList("foo", null, "baz"), ",");
-        assertThat(sb.toString()).isEqualTo("foo,null,baz");
+        assertThat(sb).hasToString("foo,null,baz");
     }
 
     @Test
@@ -1234,52 +1234,52 @@ public class StrBuilderAppendInsertTest {
 
         final StrBuilder sb = new StrBuilder();
         sb.append("barbaz");
-        assertThat(sb.toString()).isEqualTo("barbaz");
+        assertThat(sb).hasToString("barbaz");
 
         assertThrows(IndexOutOfBoundsException.class, () -> sb.insert(-1, FOO));
 
         assertThrows(IndexOutOfBoundsException.class, () -> sb.insert(7, FOO));
 
         sb.insert(0, (Object) null);
-        assertThat(sb.toString()).isEqualTo("barbaz");
+        assertThat(sb).hasToString("barbaz");
 
         sb.insert(0, FOO);
-        assertThat(sb.toString()).isEqualTo("foobarbaz");
+        assertThat(sb).hasToString("foobarbaz");
 
         sb.clear();
         sb.append("barbaz");
-        assertThat(sb.toString()).isEqualTo("barbaz");
+        assertThat(sb).hasToString("barbaz");
 
         assertThrows(IndexOutOfBoundsException.class, () -> sb.insert(-1, "foo"));
 
         assertThrows(IndexOutOfBoundsException.class, () -> sb.insert(7, "foo"));
 
         sb.insert(0, (String) null);
-        assertThat(sb.toString()).isEqualTo("barbaz");
+        assertThat(sb).hasToString("barbaz");
 
         sb.insert(0, "foo");
-        assertThat(sb.toString()).isEqualTo("foobarbaz");
+        assertThat(sb).hasToString("foobarbaz");
 
         sb.clear();
         sb.append("barbaz");
-        assertThat(sb.toString()).isEqualTo("barbaz");
+        assertThat(sb).hasToString("barbaz");
 
         assertThrows(IndexOutOfBoundsException.class, () -> sb.insert(-1, new char[]{'f', 'o', 'o'}));
 
         assertThrows(IndexOutOfBoundsException.class, () -> sb.insert(7, new char[]{'f', 'o', 'o'}));
 
         sb.insert(0, (char[]) null);
-        assertThat(sb.toString()).isEqualTo("barbaz");
+        assertThat(sb).hasToString("barbaz");
 
         sb.insert(0, ArrayUtils.EMPTY_CHAR_ARRAY);
-        assertThat(sb.toString()).isEqualTo("barbaz");
+        assertThat(sb).hasToString("barbaz");
 
         sb.insert(0, new char[]{'f', 'o', 'o'});
-        assertThat(sb.toString()).isEqualTo("foobarbaz");
+        assertThat(sb).hasToString("foobarbaz");
 
         sb.clear();
         sb.append("barbaz");
-        assertThat(sb.toString()).isEqualTo("barbaz");
+        assertThat(sb).hasToString("barbaz");
 
         assertThrows(IndexOutOfBoundsException.class,
                 () -> sb.insert(-1, new char[]{'a', 'b', 'c', 'f', 'o', 'o', 'd', 'e', 'f'}, 3, 3));
@@ -1288,10 +1288,10 @@ public class StrBuilderAppendInsertTest {
                 () -> sb.insert(7, new char[]{'a', 'b', 'c', 'f', 'o', 'o', 'd', 'e', 'f'}, 3, 3));
 
         sb.insert(0, (char[]) null, 0, 0);
-        assertThat(sb.toString()).isEqualTo("barbaz");
+        assertThat(sb).hasToString("barbaz");
 
         sb.insert(0, ArrayUtils.EMPTY_CHAR_ARRAY, 0, 0);
-        assertThat(sb.toString()).isEqualTo("barbaz");
+        assertThat(sb).hasToString("barbaz");
 
         assertThrows(IndexOutOfBoundsException.class,
                 () -> sb.insert(0, new char[]{'a', 'b', 'c', 'f', 'o', 'o', 'd', 'e', 'f'}, -1, 3));
@@ -1306,79 +1306,79 @@ public class StrBuilderAppendInsertTest {
                 () -> sb.insert(0, new char[]{'a', 'b', 'c', 'f', 'o', 'o', 'd', 'e', 'f'}, 0, 10));
 
         sb.insert(0, new char[]{'a', 'b', 'c', 'f', 'o', 'o', 'd', 'e', 'f'}, 0, 0);
-        assertThat(sb.toString()).isEqualTo("barbaz");
+        assertThat(sb).hasToString("barbaz");
 
         sb.insert(0, new char[]{'a', 'b', 'c', 'f', 'o', 'o', 'd', 'e', 'f'}, 3, 3);
-        assertThat(sb.toString()).isEqualTo("foobarbaz");
+        assertThat(sb).hasToString("foobarbaz");
 
         sb.clear();
         sb.append("barbaz");
-        assertThat(sb.toString()).isEqualTo("barbaz");
+        assertThat(sb).hasToString("barbaz");
 
         assertThrows(IndexOutOfBoundsException.class, () -> sb.insert(-1, true));
 
         assertThrows(IndexOutOfBoundsException.class, () -> sb.insert(7, true));
 
         sb.insert(0, true);
-        assertThat(sb.toString()).isEqualTo("truebarbaz");
+        assertThat(sb).hasToString("truebarbaz");
 
         sb.insert(0, false);
-        assertThat(sb.toString()).isEqualTo("falsetruebarbaz");
+        assertThat(sb).hasToString("falsetruebarbaz");
 
         sb.clear();
         sb.append("barbaz");
-        assertThat(sb.toString()).isEqualTo("barbaz");
+        assertThat(sb).hasToString("barbaz");
 
         assertThrows(IndexOutOfBoundsException.class, () -> sb.insert(-1, '!'));
 
         assertThrows(IndexOutOfBoundsException.class, () -> sb.insert(7, '!'));
 
         sb.insert(0, '!');
-        assertThat(sb.toString()).isEqualTo("!barbaz");
+        assertThat(sb).hasToString("!barbaz");
 
         sb.clear();
         sb.append("barbaz");
-        assertThat(sb.toString()).isEqualTo("barbaz");
+        assertThat(sb).hasToString("barbaz");
 
         assertThrows(IndexOutOfBoundsException.class, () -> sb.insert(-1, 0));
 
         assertThrows(IndexOutOfBoundsException.class, () -> sb.insert(7, 0));
 
         sb.insert(0, '0');
-        assertThat(sb.toString()).isEqualTo("0barbaz");
+        assertThat(sb).hasToString("0barbaz");
 
         sb.clear();
         sb.append("barbaz");
-        assertThat(sb.toString()).isEqualTo("barbaz");
+        assertThat(sb).hasToString("barbaz");
 
         assertThrows(IndexOutOfBoundsException.class, () -> sb.insert(-1, 1L));
 
         assertThrows(IndexOutOfBoundsException.class, () -> sb.insert(7, 1L));
 
         sb.insert(0, 1L);
-        assertThat(sb.toString()).isEqualTo("1barbaz");
+        assertThat(sb).hasToString("1barbaz");
 
         sb.clear();
         sb.append("barbaz");
-        assertThat(sb.toString()).isEqualTo("barbaz");
+        assertThat(sb).hasToString("barbaz");
 
         assertThrows(IndexOutOfBoundsException.class, () -> sb.insert(-1, 2.3F));
 
         assertThrows(IndexOutOfBoundsException.class, () -> sb.insert(7, 2.3F));
 
         sb.insert(0, 2.3F);
-        assertThat(sb.toString()).isEqualTo("2.3barbaz");
+        assertThat(sb).hasToString("2.3barbaz");
 
         sb.clear();
         sb.append("barbaz");
-        assertThat(sb.toString()).isEqualTo("barbaz");
+        assertThat(sb).hasToString("barbaz");
 
         assertThrows(IndexOutOfBoundsException.class, () -> sb.insert(-1, 4.5D));
 
         assertThrows(IndexOutOfBoundsException.class, () -> sb.insert(7, 4.5D));
 
         sb.insert(0, 4.5D);
-        assertThat(sb.toString()).isEqualTo("4.5barbaz");
+        assertThat(sb).hasToString("4.5barbaz");
     }
 
     @Test
@@ -1386,37 +1386,37 @@ public class StrBuilderAppendInsertTest {
         final StrBuilder sb = new StrBuilder();
         sb.setNullText("null");
         sb.append("barbaz");
-        assertThat(sb.toString()).isEqualTo("barbaz");
+        assertThat(sb).hasToString("barbaz");
 
         assertThrows(IndexOutOfBoundsException.class, () -> sb.insert(-1, FOO));
 
         assertThrows(IndexOutOfBoundsException.class, () -> sb.insert(7, FOO));
 
         sb.insert(0, (Object) null);
-        assertThat(sb.toString()).isEqualTo("nullbarbaz");
+        assertThat(sb).hasToString("nullbarbaz");
 
         sb.insert(0, FOO);
-        assertThat(sb.toString()).isEqualTo("foonullbarbaz");
+        assertThat(sb).hasToString("foonullbarbaz");
 
         sb.clear();
         sb.append("barbaz");
-        assertThat(sb.toString()).isEqualTo("barbaz");
+        assertThat(sb).hasToString("barbaz");
 
         assertThrows(IndexOutOfBoundsException.class, () -> sb.insert(-1, "foo"));
 
         assertThrows(IndexOutOfBoundsException.class, () -> sb.insert(7, "foo"));
 
         sb.insert(0, (String) null);
-        assertThat(sb.toString()).isEqualTo("nullbarbaz");
+        assertThat(sb).hasToString("nullbarbaz");
 
         sb.insert(0, "foo");
-        assertThat(sb.toString()).isEqualTo("foonullbarbaz");
+        assertThat(sb).hasToString("foonullbarbaz");
 
         sb.insert(0, (char[]) null);
-        assertThat(sb.toString()).isEqualTo("nullfoonullbarbaz");
+        assertThat(sb).hasToString("nullfoonullbarbaz");
 
         sb.insert(0, (char[]) null, 0, 0);
-        assertThat(sb.toString()).isEqualTo("nullnullfoonullbarbaz");
+        assertThat(sb).hasToString("nullnullfoonullbarbaz");
     }
 
     /** See: https://issues.apache.org/jira/browse/LANG-299 */
@@ -1424,6 +1424,6 @@ public class StrBuilderAppendInsertTest {
     public void testLang299() {
         final StrBuilder sb = new StrBuilder(1);
         sb.appendFixedWidthPadRight("foo", 1, '-');
-        assertThat(sb.toString()).isEqualTo("f");
+        assertThat(sb).hasToString("f");
     }
 }

@@ -58,7 +58,7 @@ public class RandomStringGeneratorTest {
         final String str = builder.filteredBy(B_FILTER).build().generate(100);
 
         for (final char c : str.toCharArray()) {
-            assertThat(c == 'b').isTrue();
+            assertThat(c).isSameAs('b');
         }
     }
 
@@ -147,7 +147,7 @@ public class RandomStringGeneratorTest {
 
             if (Character.isHighSurrogate(c)) {
                 // test this isn't the last character in the string
-                assertThat(i + 1 < str.length()).isTrue();
+                assertThat(i + 1).isLessThan(str.length());
             }
 
             lastChar = c;
@@ -166,7 +166,7 @@ public class RandomStringGeneratorTest {
         int i = 0;
         do {
             final int codePoint = str.codePointAt(i);
-            assertThat(Character.getType(codePoint) == Character.PRIVATE_USE).isFalse();
+            assertThat(Character.getType(codePoint)).isNotSameAs(Character.PRIVATE_USE);
             i += Character.charCount(codePoint);
         } while (i < str.length());
     }
@@ -198,7 +198,7 @@ public class RandomStringGeneratorTest {
         final String randomText = generator.generate(5);
 
         for (final char c : randomText.toCharArray()) {
-            assertThat(str.indexOf(c) != -1).isTrue();
+            assertThat(str.indexOf(c)).isNotSameAs(-1);
         }
     }
 
@@ -208,7 +208,7 @@ public class RandomStringGeneratorTest {
         final RandomStringGenerator generator = new RandomStringGenerator.Builder().selectFrom('a', 'b', 'c').build();
         final String randomText = generator.generate(5);
         for (final char c : randomText.toCharArray()) {
-            assertThat(str.indexOf(c) != -1).isTrue();
+            assertThat(str.indexOf(c)).isNotSameAs(-1);
         }
     }
 
@@ -274,6 +274,6 @@ public class RandomStringGeneratorTest {
     @Test
     public void testZeroLength() {
         final RandomStringGenerator generator = new RandomStringGenerator.Builder().build();
-        assertThat(generator.generate(0)).isEqualTo("");
+        assertThat(generator.generate(0)).isEmpty();
     }
 }
