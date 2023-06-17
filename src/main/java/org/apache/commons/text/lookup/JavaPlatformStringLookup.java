@@ -82,13 +82,14 @@ final class JavaPlatformStringLookup extends AbstractStringLookup {
      * @param args the standard java main method parameter which is unused for our running of this class.
      */
     public static void main(final String[] args) {
+        String output = "%s = %s%n";
         System.out.println(JavaPlatformStringLookup.class);
-        System.out.printf("%s = %s%n", KEY_VERSION, JavaPlatformStringLookup.INSTANCE.lookup(KEY_VERSION));
-        System.out.printf("%s = %s%n", KEY_RUNTIME, JavaPlatformStringLookup.INSTANCE.lookup(KEY_RUNTIME));
-        System.out.printf("%s = %s%n", KEY_VM, JavaPlatformStringLookup.INSTANCE.lookup(KEY_VM));
-        System.out.printf("%s = %s%n", KEY_OS, JavaPlatformStringLookup.INSTANCE.lookup(KEY_OS));
-        System.out.printf("%s = %s%n", KEY_HARDWARE, JavaPlatformStringLookup.INSTANCE.lookup(KEY_HARDWARE));
-        System.out.printf("%s = %s%n", KEY_LOCALE, JavaPlatformStringLookup.INSTANCE.lookup(KEY_LOCALE));
+        System.out.printf(output, KEY_VERSION, JavaPlatformStringLookup.INSTANCE.lookup(KEY_VERSION));
+        System.out.printf(output, KEY_RUNTIME, JavaPlatformStringLookup.INSTANCE.lookup(KEY_RUNTIME));
+        System.out.printf(output, KEY_VM, JavaPlatformStringLookup.INSTANCE.lookup(KEY_VM));
+        System.out.printf(output, KEY_OS, JavaPlatformStringLookup.INSTANCE.lookup(KEY_OS));
+        System.out.printf(output, KEY_HARDWARE, JavaPlatformStringLookup.INSTANCE.lookup(KEY_HARDWARE));
+        System.out.printf(output, KEY_LOCALE, JavaPlatformStringLookup.INSTANCE.lookup(KEY_LOCALE));
     }
 
     /**
