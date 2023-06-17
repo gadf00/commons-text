@@ -303,10 +303,10 @@ public class ExtendedMessageFormat extends MessageFormat {
         if (obj == this) {
             return true;
         }
-        if (obj == null || getClass() != obj.getClass()) {
+        if (obj == null) {
             return false;
         }
-        if (!Objects.equals(getClass(), obj.getClass())) {
+        if (this.getClass() != obj.getClass()) {
           return false;
         }
         final ExtendedMessageFormat rhs = (ExtendedMessageFormat) obj;
