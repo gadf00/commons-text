@@ -404,7 +404,7 @@ final class ParsedDecimal {
         if (shouldIncludeMinus(opts)) {
             ++size;
         }
-        if (decimalPos < 1) {;
+        if (decimalPos < 1) {
             size += 2 + Math.abs(decimalPos);
         } else if (decimalPos >= digitCount) {
             size += decimalPos - digitCount;

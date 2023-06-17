@@ -72,7 +72,14 @@ import org.apache.commons.lang3.StringUtils;
  */
 @Deprecated
 public class StrBuilder implements CharSequence, Appendable, Serializable, Builder<String> {
+    /**
+     * Exception message indicating that the startIndex must be a valid value.
+     */
     private String startIndexException = "startIndex must be valid";
+
+    /**
+     * Exception message indicating that the length must be a valid value.
+     */
     private String lengthException = "length must be valid";
     /**
      * Inner class to allow StrBuilder to operate as a reader.
