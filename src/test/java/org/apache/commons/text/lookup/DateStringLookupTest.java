@@ -51,10 +51,10 @@ public class DateStringLookupTest {
         final String format = "yyyy-MM-dd";
         final String value = DateStringLookup.INSTANCE.lookup(format);
         // System.out.println(value);
-        assertNotNull(value, "No Date");
+        Assertions.assertNotNull(value, "No Date");
         final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
         final String today = simpleDateFormat.format(new Date());
-        assertEquals(value, today);
+        Assertions.assertEquals(value, today);
 
     }
 
