@@ -153,6 +153,7 @@ public class FormattableUtils {
      * <p>This constructor is public to permit tools that require a JavaBean
      * instance to operate.</p>
      */
+    @Deprecated
     public FormattableUtils() {
     }
 
