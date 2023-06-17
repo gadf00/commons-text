@@ -25,7 +25,6 @@ import java.util.Date;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests {@link DateStringLookup}.
@@ -34,14 +33,14 @@ public class DateStringLookupTest {
 
     @Test
     public void testBadFormat() {
-        assertThrows(IllegalArgumentException.class,
+        Assertions.assertThrows(IllegalArgumentException.class,
             () -> DateStringLookup.INSTANCE.lookup("this-is-a-bad-format-dontcha-know"));
     }
 
     @Test
     public void testDefault() throws ParseException {
         String formatted = DateStringLookup.INSTANCE.lookup(null);
-        assertNotNull(formatted);
+        Assertions.assertNotNull(formatted);
 
         DateFormat df = DateFormat.getInstance();
         df.parse(formatted);

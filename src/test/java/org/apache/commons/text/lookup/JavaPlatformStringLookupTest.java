@@ -21,7 +21,6 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests {@link JavaPlatformStringLookup}.
@@ -30,12 +29,12 @@ public class JavaPlatformStringLookupTest {
 
     @Test
     public void testBadKey() {
-        assertThrows(IllegalArgumentException.class, () -> JavaPlatformStringLookup.INSTANCE.lookup("BADKEY"));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> JavaPlatformStringLookup.INSTANCE.lookup("BADKEY"));
     }
 
     @Test
     void testMain() {
-        assertDoesNotThrow(() -> JavaPlatformStringLookup.main(ArrayUtils.EMPTY_STRING_ARRAY));
+        Assertions.assertDoesNotThrow(() -> JavaPlatformStringLookup.main(ArrayUtils.EMPTY_STRING_ARRAY));
     }
 
     @Test
@@ -52,7 +51,7 @@ public class JavaPlatformStringLookupTest {
     @Test
     public void testVm() {
         final String key = "vm";
-        assertTrue(JavaPlatformStringLookup.INSTANCE.lookup(key).contains(System.getProperty("java.vm.name")));
+        Assertions.assertTrue(JavaPlatformStringLookup.INSTANCE.lookup(key).contains(System.getProperty("java.vm.name")));
     }
 
 }
