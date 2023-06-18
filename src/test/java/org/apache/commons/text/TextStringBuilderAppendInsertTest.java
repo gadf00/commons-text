@@ -1058,7 +1058,7 @@ public class TextStringBuilderAppendInsertTest {
             () -> sb.insert(0, new char[] {'a', 'b', 'c', 'f', 'o', 'o', 'd', 'e', 'f'}, 0, 10));
 
         sb.insert(0, new char[] {'a', 'b', 'c', 'f', 'o', 'o', 'd', 'e', 'f'}, 0, 0);
-        assertThat(sb.toString()).isEqualTo("barbaz");
+        assertThat(sb).hasToString("barbaz");
 
         sb.insert(0, new char[] {'a', 'b', 'c', 'f', 'o', 'o', 'd', 'e', 'f'}, 3, 3);
         assertThat(sb).hasToString("foobarbaz");

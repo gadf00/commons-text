@@ -60,7 +60,7 @@ public class LevenshteinDistanceTest {
 
     @Test
     public void testGetLevenshteinDistance_StringString() {
-        assertThat(UNLIMITED_DISTANCE.apply("", "")).isEqualTo(0);
+        assertThat(UNLIMITED_DISTANCE.apply("", "")).isZero();
         assertThat(UNLIMITED_DISTANCE.apply("", "a")).isEqualTo(1);
         assertThat(UNLIMITED_DISTANCE.apply("aaapppp", "")).isEqualTo(7);
         assertThat(UNLIMITED_DISTANCE.apply("frog", "fog")).isEqualTo(1);
@@ -75,7 +75,7 @@ public class LevenshteinDistanceTest {
     @Test
     public void testGetLevenshteinDistance_StringStringInt() {
         // empty strings
-        assertThat(new LevenshteinDistance(0).apply("", "")).isEqualTo(0);
+        assertThat(new LevenshteinDistance(0).apply("", "")).isZero();
         assertThat(new LevenshteinDistance(8).apply("aaapppp", "")).isEqualTo(7);
         assertThat(new LevenshteinDistance(7).apply("aaapppp", "")).isEqualTo(7);
         assertThat(new LevenshteinDistance(6).apply("aaapppp", "")).isEqualTo(-1);
@@ -85,8 +85,8 @@ public class LevenshteinDistanceTest {
         assertThat(new LevenshteinDistance(0).apply("a", "b")).isEqualTo(-1);
 
         // equal strings
-        assertThat(new LevenshteinDistance(0).apply("aa", "aa")).isEqualTo(0);
-        assertThat(new LevenshteinDistance(2).apply("aa", "aa")).isEqualTo(0);
+        assertThat(new LevenshteinDistance(0).apply("aa", "aa")).isZero();
+        assertThat(new LevenshteinDistance(2).apply("aa", "aa")).isZero();
 
         // same length
         assertThat(new LevenshteinDistance(2).apply("aaa", "bbb")).isEqualTo(-1);

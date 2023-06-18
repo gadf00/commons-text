@@ -145,9 +145,9 @@ public class StringMatcherOnCharArrayTest {
         assertThat(matcher.isMatch(INPUT1, 1, 0, INPUT1.length)).isEqualTo(1);
         assertThat(matcher.isMatch(INPUT1, 2, 0, INPUT1.length)).isZero();
         //
-        assertThat(matcher.isMatch(INPUT1, 0)).isEqualTo(0);
+        assertThat(matcher.isMatch(INPUT1, 0)).isZero();
         assertThat(matcher.isMatch(INPUT1, 1)).isEqualTo(1);
-        assertThat(matcher.isMatch(INPUT1, 2)).isEqualTo(0);
+        assertThat(matcher.isMatch(INPUT1, 2)).isZero();
     }
 
     @Test
@@ -159,7 +159,7 @@ public class StringMatcherOnCharArrayTest {
         assertThat(matcher.isMatch(INPUT1, 11, 0, INPUT1.length)).isZero();
         assertThat(matcher.isMatch(INPUT1, 12, 0, INPUT1.length)).isEqualTo(1);
         //
-        assertThat(matcher.isMatch(INPUT1, 11)).isEqualTo(0);
+        assertThat(matcher.isMatch(INPUT1, 11)).isZero();
         assertThat(matcher.isMatch(INPUT1, 12)).isEqualTo(1);
     }
 
