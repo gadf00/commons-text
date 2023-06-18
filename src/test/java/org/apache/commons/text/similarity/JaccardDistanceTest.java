@@ -35,7 +35,7 @@ public class JaccardDistanceTest {
     }
 
     @Test
-    public void testGettingJaccardDistance() {
+    void testGettingJaccardDistance() {
         // Expected Jaccard distance = 1.0 - (intersect / union)
         assertEquals(0.0, classBeingTested.apply("", ""));
         assertEquals(1.0, classBeingTested.apply("left", ""));
@@ -55,17 +55,17 @@ public class JaccardDistanceTest {
     }
 
     @Test
-    public void testGettingJaccardDistanceNullNull() {
+    void testGettingJaccardDistanceNullNull() {
         assertThatIllegalArgumentException().isThrownBy(() -> classBeingTested.apply(null, null));
     }
 
     @Test
-    public void testGettingJaccardDistanceNullString() {
+    void testGettingJaccardDistanceNullString() {
         assertThatIllegalArgumentException().isThrownBy(() -> classBeingTested.apply(null, "right"));
     }
 
     @Test
-    public void testGettingJaccardDistanceStringNull() {
+    void testGettingJaccardDistanceStringNull() {
         assertThatIllegalArgumentException().isThrownBy(() -> classBeingTested.apply(" ", null));
     }
 }

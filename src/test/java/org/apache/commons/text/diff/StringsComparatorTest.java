@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests for the StringsComparator.
  */
-public class StringsComparatorTest {
+class StringsComparatorTest {
     private static class ExecutionVisitor<T> implements CommandVisitor<T> {
 
         private final StringBuilder v;
@@ -114,7 +114,7 @@ public class StringsComparatorTest {
     }
 
     @Test
-    public void testExecution() {
+    void testExecution() {
         for (int i = 0; i < before.size(); ++i) {
             final ExecutionVisitor<Character> ev = new ExecutionVisitor<>();
             new StringsComparator(before.get(i), after.get(i)).getScript().visit(ev);
@@ -123,14 +123,14 @@ public class StringsComparatorTest {
     }
 
     @Test
-    public void testLength() {
+    void testLength() {
         for (int i = 0; i < before.size(); ++i) {
             final StringsComparator comparator =  new StringsComparator(before.get(i), after.get(i));
             assertThat(comparator.getScript().getModifications()).isEqualTo(length[i]);
         }
     }
     @Test
-    public void testLongestCommonSubsequence() {
+    void testLongestCommonSubsequence() {
         for (int i = 0; i < before.size(); ++i) {
             final StringsComparator comparator =  new StringsComparator(before.get(i), after.get(i));
             assertThat(comparator.getScript().getLCSLength()).isEqualTo(lcs[i]);

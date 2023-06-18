@@ -26,38 +26,38 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link DnsStringLookup}.
  */
-public class DnsStringLookupTest {
+class DnsStringLookupTest {
 
     @Test
-    public void testAddressFromHostAddress() throws UnknownHostException {
+    void testAddressFromHostAddress() throws UnknownHostException {
         final InetAddress localHost = InetAddress.getLocalHost();
         Assertions.assertEquals(localHost.getHostAddress(),
             DnsStringLookup.INSTANCE.lookup("address|" + localHost.getHostAddress()));
     }
 
     @Test
-    public void testAddressFromHostName() throws UnknownHostException {
+    void testAddressFromHostName() throws UnknownHostException {
         final InetAddress localHost = InetAddress.getLocalHost();
         Assertions.assertEquals(localHost.getHostAddress(),
             DnsStringLookup.INSTANCE.lookup("address|" + localHost.getHostName()));
     }
 
     @Test
-    public void testCanonicalNameFromHostAddress() throws UnknownHostException {
+    void testCanonicalNameFromHostAddress() throws UnknownHostException {
         final InetAddress localHost = InetAddress.getLocalHost();
         Assertions.assertEquals(localHost.getCanonicalHostName(),
             DnsStringLookup.INSTANCE.lookup("canonical-name|" + localHost.getHostAddress()));
     }
 
     @Test
-    public void testCanonicalNameFromHostName() throws UnknownHostException {
+    void testCanonicalNameFromHostName() throws UnknownHostException {
         final InetAddress localHost = InetAddress.getLocalHost();
         Assertions.assertEquals(localHost.getCanonicalHostName(),
             DnsStringLookup.INSTANCE.lookup("canonical-name|" + localHost.getHostName()));
     }
 
     @Test
-    public void testName() throws UnknownHostException {
+    void testName() throws UnknownHostException {
         final String address = InetAddress.getLocalHost().getHostAddress();
         final InetAddress[] localHostAll = InetAddress.getAllByName(address);
         boolean matched = false;
@@ -70,12 +70,12 @@ public class DnsStringLookupTest {
     }
 
     @Test
-    public void testNull() {
+    void testNull() {
         Assertions.assertNull(DnsStringLookup.INSTANCE.lookup(null));
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         // does not blow up and gives some kind of string.
         Assertions.assertFalse(DnsStringLookup.INSTANCE.toString().isEmpty());
     }

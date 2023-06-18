@@ -29,38 +29,38 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link FileStringLookup}.
  */
-public class FileStringLookupTest {
+class FileStringLookupTest {
 
     @Test
-    public void testBadCharsetName() {
+    void testBadCharsetName() {
         assertThrows(IllegalArgumentException.class,
             () -> FileStringLookup.INSTANCE.lookup("BAD_CHARSET_NAME:src/test/resources/org/apache/commons/text/document.properties"));
     }
 
     @Test
-    public void testBadDocumentPath() {
+    void testBadDocumentPath() {
         assertThrows(IllegalArgumentException.class, () -> FileStringLookup.INSTANCE.lookup("BAD_CHARSET_NAME:src/test/resources/DOCUMENT_NOT_FOUND.TXT"));
     }
 
     @Test
-    public void testMissingFilePart() {
+    void testMissingFilePart() {
         assertThrows(IllegalArgumentException.class, () -> FileStringLookup.INSTANCE.lookup(StandardCharsets.UTF_8.name()));
     }
 
     @Test
-    public void testNull() {
+    void testNull() {
         Assertions.assertNull(FileStringLookup.INSTANCE.lookup(null));
     }
 
     @Test
-    public void testOne() throws Exception {
+    void testOne() throws Exception {
         final byte[] expectedBytes = Files.readAllBytes(Paths.get("src/test/resources/org/apache/commons/text/document.properties"));
         final String expectedString = new String(expectedBytes, StandardCharsets.UTF_8);
         Assertions.assertEquals(expectedString, FileStringLookup.INSTANCE.lookup("UTF-8:src/test/resources/org/apache/commons/text/document.properties"));
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         // does not blow up and gives some kind of string.
         Assertions.assertFalse(FileStringLookup.INSTANCE.toString().isEmpty());
     }

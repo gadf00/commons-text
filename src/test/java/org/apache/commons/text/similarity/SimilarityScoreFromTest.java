@@ -22,10 +22,10 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 
 import org.junit.jupiter.api.Test;
 
-public class SimilarityScoreFromTest {
+class SimilarityScoreFromTest {
 
     @Test
-    public void testApply() {
+    void testApply() {
         final LongestCommonSubsequence longestCommonSubsequence = new LongestCommonSubsequence();
         final SimilarityScoreFrom<Integer> similarityScoreFrom =
                 new SimilarityScoreFrom<>(longestCommonSubsequence, "asdf");
@@ -34,7 +34,7 @@ public class SimilarityScoreFromTest {
     }
 
     @Test
-    public void testFailsToCreateSimilarityScoreFromThrowsIllegalArgumentException() {
+    void testFailsToCreateSimilarityScoreFromThrowsIllegalArgumentException() {
         assertThatIllegalArgumentException().isThrownBy(() -> new SimilarityScoreFrom<>(null, ""));
     }
 

@@ -24,42 +24,42 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link LevenshteinDistance}.
  */
-public class LevenshteinDistanceTest {
+class LevenshteinDistanceTest {
 
     private static final LevenshteinDistance UNLIMITED_DISTANCE = new LevenshteinDistance();
 
     @Test
-    public void testApplyThrowsIllegalArgumentExceptionAndCreatesLevenshteinDistanceTakingInteger() {
+    void testApplyThrowsIllegalArgumentExceptionAndCreatesLevenshteinDistanceTakingInteger() {
         assertThatIllegalArgumentException().isThrownBy(() -> new LevenshteinDistance(0).apply(null, null));
     }
 
     @Test
-    public void testConstructorWithNegativeThreshold() {
+    void testConstructorWithNegativeThreshold() {
         assertThatIllegalArgumentException().isThrownBy(() -> new LevenshteinDistance(-1));
     }
 
     @Test
-    public void testGetLevenshteinDistance_NullString() {
+    void testGetLevenshteinDistance_NullString() {
         assertThatIllegalArgumentException().isThrownBy(() -> UNLIMITED_DISTANCE.apply("a", null));
     }
 
     @Test
-    public void testGetLevenshteinDistance_NullStringInt() {
+    void testGetLevenshteinDistance_NullStringInt() {
         assertThatIllegalArgumentException().isThrownBy(() -> UNLIMITED_DISTANCE.apply(null, "a"));
     }
 
     @Test
-    public void testGetLevenshteinDistance_StringNull() {
+    void testGetLevenshteinDistance_StringNull() {
         assertThatIllegalArgumentException().isThrownBy(() -> UNLIMITED_DISTANCE.apply(null, "a"));
     }
 
     @Test
-    public void testGetLevenshteinDistance_StringNullInt() {
+    void testGetLevenshteinDistance_StringNullInt() {
         assertThatIllegalArgumentException().isThrownBy(() -> UNLIMITED_DISTANCE.apply("a", null));
     }
 
     @Test
-    public void testGetLevenshteinDistance_StringString() {
+    void testGetLevenshteinDistance_StringString() {
         assertThat(UNLIMITED_DISTANCE.apply("", "")).isZero();
         assertThat(UNLIMITED_DISTANCE.apply("", "a")).isEqualTo(1);
         assertThat(UNLIMITED_DISTANCE.apply("aaapppp", "")).isEqualTo(7);
@@ -73,7 +73,7 @@ public class LevenshteinDistanceTest {
     }
 
     @Test
-    public void testGetLevenshteinDistance_StringStringInt() {
+    void testGetLevenshteinDistance_StringStringInt() {
         // empty strings
         assertThat(new LevenshteinDistance(0).apply("", "")).isZero();
         assertThat(new LevenshteinDistance(8).apply("aaapppp", "")).isEqualTo(7);
@@ -138,7 +138,7 @@ public class LevenshteinDistanceTest {
     }
 
     @Test
-    public void testGetThresholdDirectlyAfterObjectInstantiation() {
+    void testGetThresholdDirectlyAfterObjectInstantiation() {
         assertThat(new LevenshteinDistance().getThreshold()).isNull();
     }
 

@@ -25,10 +25,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link NumericEntityUnescaper}.
  */
-public class NumericEntityUnescaperTest  {
+class NumericEntityUnescaperTest  {
 
     @Test
-    public void testCreatesNumericEntityUnescaperOne() {
+    void testCreatesNumericEntityUnescaperOne() {
         final NumericEntityUnescaper.OPTION[] numericEntityUnescaperOPTIONArray = {};
         final NumericEntityUnescaper numericEntityUnescaper =
                 new NumericEntityUnescaper(numericEntityUnescaperOPTIONArray);
@@ -37,7 +37,7 @@ public class NumericEntityUnescaperTest  {
     }
 
     @Test
-    public void testCreatesNumericEntityUnescaperTwo() {
+    void testCreatesNumericEntityUnescaperTwo() {
         final NumericEntityUnescaper.OPTION[] numericEntityUnescaperOPTIONArray = {};
         final NumericEntityUnescaper numericEntityUnescaper =
                 new NumericEntityUnescaper(numericEntityUnescaperOPTIONArray);
@@ -46,7 +46,7 @@ public class NumericEntityUnescaperTest  {
     }
 
     @Test
-    public void testOutOfBounds() {
+    void testOutOfBounds() {
         final NumericEntityUnescaper neu = new NumericEntityUnescaper();
 
         assertThat(neu.translate("Test &")).as("Failed to ignore when last character is &").isEqualTo("Test &");
@@ -56,7 +56,7 @@ public class NumericEntityUnescaperTest  {
     }
 
     @Test
-    public void testSupplementaryUnescaping() {
+    void testSupplementaryUnescaping() {
         final NumericEntityUnescaper neu = new NumericEntityUnescaper();
         final String input = "&#68642;";
         final String expected = "\uD803\uDC22";
@@ -66,7 +66,7 @@ public class NumericEntityUnescaperTest  {
     }
 
     @Test
-    public void testUnfinishedEntity() {
+    void testUnfinishedEntity() {
         // parse it
         NumericEntityUnescaper neu = new NumericEntityUnescaper(NumericEntityUnescaper.OPTION.semiColonOptional);
         String input = "Test &#x30 not test";

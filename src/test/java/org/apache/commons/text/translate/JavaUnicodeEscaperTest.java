@@ -23,10 +23,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link JavaUnicodeEscaper}.
  */
-public class JavaUnicodeEscaperTest {
+class JavaUnicodeEscaperTest {
 
     @Test
-    public void testAbove() {
+    void testAbove() {
         final JavaUnicodeEscaper jue = JavaUnicodeEscaper.above('F');
 
         final String input = "ADFGZ";
@@ -36,7 +36,7 @@ public class JavaUnicodeEscaperTest {
     }
 
     @Test
-    public void testBelow() {
+    void testBelow() {
         final JavaUnicodeEscaper jue = JavaUnicodeEscaper.below('F');
 
         final String input = "ADFGZ";
@@ -46,7 +46,7 @@ public class JavaUnicodeEscaperTest {
     }
 
     @Test
-    public void testBetween() {
+    void testBetween() {
         final JavaUnicodeEscaper jue = JavaUnicodeEscaper.between('F', 'L');
 
         final String input = "ADFGZ";
@@ -56,7 +56,7 @@ public class JavaUnicodeEscaperTest {
     }
 
     @Test
-    public void testToUtf16Escape() {
+    void testToUtf16Escape() {
         final JavaUnicodeEscaper jue = JavaUnicodeEscaper.below('F');
         // According to https://en.wikipedia.org/wiki/UTF-16#Code_points_U.2B10000..U.2B10FFFF,
         // Character ?, U+24B62, Binary Code Point 0010 0100 1011 0110 0010,

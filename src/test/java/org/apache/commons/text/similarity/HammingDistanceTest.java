@@ -35,7 +35,7 @@ public class HammingDistanceTest {
     }
 
     @Test
-    public void testHammingDistance() {
+    void testHammingDistance() {
         assertThat(distance.apply("", "")).isZero();
         assertThat(distance.apply("pappa", "pappa")).isZero();
         assertThat(distance.apply("papaa", "pappa")).isEqualTo(1);
@@ -47,12 +47,12 @@ public class HammingDistanceTest {
     }
 
     @Test
-    public void testHammingDistance_nullLeftValue() {
+    void testHammingDistance_nullLeftValue() {
         assertThatIllegalArgumentException().isThrownBy(() -> distance.apply(null, ""));
     }
 
     @Test
-    public void testHammingDistance_nullRightValue() {
+    void testHammingDistance_nullRightValue() {
         assertThatIllegalArgumentException().isThrownBy(() -> distance.apply("", null));
     }
 

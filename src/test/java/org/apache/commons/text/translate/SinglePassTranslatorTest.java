@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit test for {@link SinglePassTranslator}.
  */
-public class SinglePassTranslatorTest {
+class SinglePassTranslatorTest {
 
     private final SinglePassTranslator dummyTranslator = new SinglePassTranslator() {
 
@@ -47,19 +47,19 @@ public class SinglePassTranslatorTest {
     }
 
     @Test
-    public void codePointsAreReturned() throws Exception {
+    void codePointsAreReturned() throws Exception {
         assertThat(dummyTranslator.translate("", 0, out)).isZero();
         assertThat(dummyTranslator.translate("abc", 0, out)).isEqualTo(3);
         assertThat(dummyTranslator.translate("abcdefg", 0, out)).isEqualTo(7);
     }
 
     @Test
-    public void indexIsValidated() {
+    void indexIsValidated() {
         assertThatIllegalArgumentException().isThrownBy(() -> dummyTranslator.translate("abc", 1, out));
     }
 
     @Test
-    public void testTranslateThrowsIllegalArgumentException() {
+    void testTranslateThrowsIllegalArgumentException() {
         assertThatIllegalArgumentException().isThrownBy(() -> dummyTranslator.translate("(,Fk", 647, null));
     }
 

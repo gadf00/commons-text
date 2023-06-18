@@ -28,25 +28,25 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link FunctionStringLookup}.
  */
-public class FunctionStringLookupTest {
+class FunctionStringLookupTest {
 
     @Test
-    public void testConcurrentHashMapNull() {
+    void testConcurrentHashMapNull() {
         Assertions.assertNull(FunctionStringLookup.on(new ConcurrentHashMap<>()).lookup(null));
     }
 
     @Test
-    public void testHashMapNull() {
+    void testHashMapNull() {
         Assertions.assertNull(FunctionStringLookup.on(new HashMap<>()).lookup(null));
     }
 
     @Test
-    public void testNullFunction() {
+    void testNullFunction() {
         Assertions.assertNull(FunctionStringLookup.on((Function<String, Object>) null).lookup(null));
     }
 
     @Test
-    public void testOne() {
+    void testOne() {
         final String key = "key";
         final String value = "value";
         final Map<String, String> map = new HashMap<>();
@@ -55,7 +55,7 @@ public class FunctionStringLookupTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         // does not blow up and gives some kind of string.
         Assertions.assertFalse(FunctionStringLookup.on(new HashMap<>()).toString().isEmpty());
     }

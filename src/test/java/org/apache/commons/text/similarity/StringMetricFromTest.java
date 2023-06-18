@@ -24,10 +24,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link EditDistanceFrom}.
  */
-public class StringMetricFromTest {
+class StringMetricFromTest {
 
     @Test
-    public void testEquivalence() {
+    void testEquivalence() {
         final EditDistance<Integer> metric = new LevenshteinDistance();
         final String left = "Apache";
         final String right = "a patchy";
@@ -39,7 +39,7 @@ public class StringMetricFromTest {
     }
 
     @Test
-    public void testJavadocExample() {
+    void testJavadocExample() {
         final EditDistance<Integer> metric = new LevenshteinDistance();
         final String target = "Apache";
         final EditDistanceFrom<Integer> metricFrom =
@@ -59,7 +59,7 @@ public class StringMetricFromTest {
     }
 
     @Test
-    public void testMissingMetric() {
+    void testMissingMetric() {
         assertThatIllegalArgumentException().isThrownBy(() -> new EditDistanceFrom<Number>(null, "no go"));
     }
 

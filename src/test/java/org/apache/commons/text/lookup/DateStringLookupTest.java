@@ -29,16 +29,16 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link DateStringLookup}.
  */
-public class DateStringLookupTest {
+class DateStringLookupTest {
 
     @Test
-    public void testBadFormat() {
+    void testBadFormat() {
         Assertions.assertThrows(IllegalArgumentException.class,
             () -> DateStringLookup.INSTANCE.lookup("this-is-a-bad-format-dontcha-know"));
     }
 
     @Test
-    public void testDefault() throws ParseException {
+    void testDefault() throws ParseException {
         String formatted = DateStringLookup.INSTANCE.lookup(null);
         Assertions.assertNotNull(formatted);
 
@@ -47,7 +47,7 @@ public class DateStringLookupTest {
     }
 
     @Test
-    public void testFormat() {
+    void testFormat() {
         final String format = "yyyy-MM-dd";
         final String value = DateStringLookup.INSTANCE.lookup(format);
         // System.out.println(value);
@@ -59,7 +59,7 @@ public class DateStringLookupTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         // does not blow up and gives some kind of string.
         Assertions.assertFalse(DateStringLookup.INSTANCE.toString().isEmpty());
     }

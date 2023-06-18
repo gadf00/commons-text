@@ -28,10 +28,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link AggregateTranslator}.
  */
-public class AggregateTranslatorTest {
+class AggregateTranslatorTest {
 
     @Test
-    public void testNonNull() throws IOException {
+    void testNonNull() throws IOException {
         final Map<CharSequence, CharSequence> oneTwoMap = new HashMap<>();
         oneTwoMap.put("one", "two");
         final Map<CharSequence, CharSequence> threeFourMap = new HashMap<>();
@@ -50,14 +50,14 @@ public class AggregateTranslatorTest {
     }
 
     @Test
-    public void testNullConstructor() {
+    void testNullConstructor() {
         final String testString = "foo";
         final AggregateTranslator subject = new AggregateTranslator((CharSequenceTranslator[]) null);
         assertThat(subject.translate(testString)).isEqualTo(testString);
     }
 
     @Test
-    public void testNullVarargConstructor() {
+    void testNullVarargConstructor() {
         final String testString = "foo";
         final AggregateTranslator subject = new AggregateTranslator((CharSequenceTranslator) null);
         assertThat(subject.translate(testString)).isEqualTo(testString);

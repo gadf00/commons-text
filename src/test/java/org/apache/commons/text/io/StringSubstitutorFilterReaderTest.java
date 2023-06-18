@@ -40,7 +40,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link StringSubstitutorReader}.
  */
-public class StringSubstitutorFilterReaderTest extends StringSubstitutorTest {
+class StringSubstitutorFilterReaderTest extends StringSubstitutorTest {
 
     private StringSubstitutorReader createReader(final StringSubstitutor substitutor, final String template) {
         return new StringSubstitutorReader(new StringReader(template), substitutor);
@@ -198,7 +198,7 @@ public class StringSubstitutorFilterReaderTest extends StringSubstitutorTest {
     }
 
     @Test
-    public void testReadMixedBufferLengths1ToVarLenPlusNoReplace() throws IOException {
+    void testReadMixedBufferLengths1ToVarLenPlusNoReplace() throws IOException {
         final StringSubstitutor substitutor = new StringSubstitutor(values);
         final String template = "123456";
         assertTrue(template.length() > getMinExpressionLength(substitutor) + 1);
@@ -212,7 +212,7 @@ public class StringSubstitutorFilterReaderTest extends StringSubstitutorTest {
     }
 
     @Test
-    public void testReadMixedBufferLengthsReplace() throws IOException {
+    void testReadMixedBufferLengthsReplace() throws IOException {
         final String template = "${aa}${bb}";
         final StringSubstitutor substitutor = new StringSubstitutor(values);
         try (Reader reader = createReader(substitutor, template)) {
@@ -226,7 +226,7 @@ public class StringSubstitutorFilterReaderTest extends StringSubstitutorTest {
     }
 
     @Test
-    public void testReadMixedBufferLengthsVarLenPlusToNoReplace() throws IOException {
+    void testReadMixedBufferLengthsVarLenPlusToNoReplace() throws IOException {
         final StringSubstitutor substitutor = new StringSubstitutor(values);
         final String template = "123456";
         assertTrue(template.length() > getMinExpressionLength(substitutor) + 1);

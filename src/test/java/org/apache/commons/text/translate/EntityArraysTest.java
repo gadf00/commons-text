@@ -29,20 +29,20 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link EntityArrays}.
  */
-public class EntityArraysTest  {
+class EntityArraysTest  {
 
     @Test
-    public void testAposMap() {
+    void testAposMap() {
         testEscapeVsUnescapeMaps(EntityArrays.APOS_ESCAPE, EntityArrays.APOS_UNESCAPE);
     }
 
     @Test
-    public void testBasicMap() {
+    void testBasicMap() {
         testEscapeVsUnescapeMaps(EntityArrays.BASIC_ESCAPE, EntityArrays.BASIC_UNESCAPE);
     }
 
     @Test
-    public void testConstructorExists() {
+    void testConstructorExists() {
         assertDoesNotThrow(EntityArrays::new);
     }
 
@@ -59,7 +59,7 @@ public class EntityArraysTest  {
 
     // LANG-659, LANG-658 - avoid duplicate entries
     @Test
-    public void testForDuplicatedDeclaredMapKeys() throws Exception {
+    void testForDuplicatedDeclaredMapKeys() throws Exception {
         final String packageDirectory = EntityArraysTest.class.getPackage().getName().replace(".", "/");
         try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/" + packageDirectory
                 + "/EntityArrays.java"))) {
@@ -86,47 +86,47 @@ public class EntityArraysTest  {
     }
 
     @Test
-    public void testForDuplicateDeclaredMapValuesAposMap() {
+    void testForDuplicateDeclaredMapValuesAposMap() {
         assertThat(EntityArrays.APOS_ESCAPE.keySet()).hasSameSizeAs(
                 EntityArrays.APOS_UNESCAPE.keySet());
     }
 
     @Test
-    public void testForDuplicateDeclaredMapValuesBasicMap() {
+    void testForDuplicateDeclaredMapValuesBasicMap() {
         assertThat(EntityArrays.BASIC_ESCAPE.keySet()).hasSameSizeAs(
                 EntityArrays.BASIC_UNESCAPE.keySet());
     }
 
     @Test
-    public void testForDuplicateDeclaredMapValuesHtml40ExtendedMap() {
+    void testForDuplicateDeclaredMapValuesHtml40ExtendedMap() {
         assertThat(EntityArrays.HTML40_EXTENDED_ESCAPE.keySet()).hasSameSizeAs(
                 EntityArrays.HTML40_EXTENDED_UNESCAPE.keySet());
     }
 
     @Test
-    public void testForDuplicateDeclaredMapValuesISO8859Map() {
+    void testForDuplicateDeclaredMapValuesISO8859Map() {
         assertThat(EntityArrays.ISO8859_1_ESCAPE.keySet()).hasSameSizeAs(
                 EntityArrays.ISO8859_1_UNESCAPE.keySet());
     }
 
     @Test
-    public void testForDuplicateDeclaredMapValuesJavaCtrlCharsMap() {
+    void testForDuplicateDeclaredMapValuesJavaCtrlCharsMap() {
         assertThat(EntityArrays.JAVA_CTRL_CHARS_ESCAPE.keySet()).hasSameSizeAs(
                 EntityArrays.JAVA_CTRL_CHARS_UNESCAPE.keySet());
     }
 
     @Test
-    public void testHtml40ExtendedMap() {
+    void testHtml40ExtendedMap() {
         testEscapeVsUnescapeMaps(EntityArrays.HTML40_EXTENDED_ESCAPE, EntityArrays.HTML40_EXTENDED_UNESCAPE);
     }
 
     @Test
-    public void testISO8859Map() {
+    void testISO8859Map() {
         testEscapeVsUnescapeMaps(EntityArrays.ISO8859_1_ESCAPE, EntityArrays.ISO8859_1_UNESCAPE);
     }
 
     @Test
-    public void testJavaCtrlCharsMap() {
+    void testJavaCtrlCharsMap() {
         testEscapeVsUnescapeMaps(EntityArrays.JAVA_CTRL_CHARS_ESCAPE, EntityArrays.JAVA_CTRL_CHARS_UNESCAPE);
     }
 

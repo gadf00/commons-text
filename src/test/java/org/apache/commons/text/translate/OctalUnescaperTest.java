@@ -24,10 +24,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link OctalUnescaper}.
  */
-public class OctalUnescaperTest {
+class OctalUnescaperTest {
 
     @Test
-    public void testBetween() {
+    void testBetween() {
         final OctalUnescaper oue = new OctalUnescaper();   //.between("1", "377");
 
         String input = "\\45";

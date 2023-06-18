@@ -26,12 +26,12 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link FuzzyScore}.
  */
-public class FuzzyScoreTest {
+class FuzzyScoreTest {
 
     private static final FuzzyScore ENGLISH_SCORE = new FuzzyScore(Locale.ENGLISH);
 
     @Test
-    public void testGetFuzzyScore() {
+    void testGetFuzzyScore() {
         assertThat(ENGLISH_SCORE.fuzzyScore("", "")).isZero();
         assertThat(ENGLISH_SCORE.fuzzyScore("Workshop", "b")).isZero();
         assertThat(ENGLISH_SCORE.fuzzyScore("Room", "o")).isEqualTo(1);
@@ -42,22 +42,22 @@ public class FuzzyScoreTest {
     }
 
     @Test
-    public void testGetFuzzyScore_NullNullLocale() {
+    void testGetFuzzyScore_NullNullLocale() {
         assertThatIllegalArgumentException().isThrownBy(() -> ENGLISH_SCORE.fuzzyScore(null, null));
     }
 
     @Test
-    public void testGetFuzzyScore_NullStringLocale() {
+    void testGetFuzzyScore_NullStringLocale() {
         assertThatIllegalArgumentException().isThrownBy(() -> ENGLISH_SCORE.fuzzyScore(null, "not null"));
     }
 
     @Test
-    public void testGetFuzzyScore_StringNullLocale() {
+    void testGetFuzzyScore_StringNullLocale() {
         assertThatIllegalArgumentException().isThrownBy(() -> ENGLISH_SCORE.fuzzyScore("not null", null));
     }
 
     @Test
-    public void testGetLocale() {
+    void testGetLocale() {
         final Locale locale = Locale.CANADA_FRENCH;
         final FuzzyScore fuzzyScore = new FuzzyScore(locale);
         final Locale localeTwo = fuzzyScore.getLocale();
@@ -66,7 +66,7 @@ public class FuzzyScoreTest {
     }
 
     @Test
-    public void testMissingLocale() {
+    void testMissingLocale() {
         assertThatIllegalArgumentException().isThrownBy(() -> new FuzzyScore((Locale) null));
     }
 

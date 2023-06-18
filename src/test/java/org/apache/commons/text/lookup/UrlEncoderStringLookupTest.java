@@ -30,17 +30,17 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link UrlEncoderStringLookup}.
  */
-public class UrlEncoderStringLookupTest {
+class UrlEncoderStringLookupTest {
 
     private static final String DATA = "Hello+World%21";
 
     @Test
-    public void test() {
+    void test() {
         Assertions.assertEquals(DATA, UrlEncoderStringLookup.INSTANCE.lookup("Hello World!"));
     }
 
     @Test
-    public void testExceptionGettingString() throws UnsupportedEncodingException {
+    void testExceptionGettingString() throws UnsupportedEncodingException {
         final UrlEncoderStringLookup mockLookup = spy(UrlEncoderStringLookup.class);
         when(mockLookup.encode(DATA, StandardCharsets.UTF_8.displayName()))
             .thenThrow(UnsupportedEncodingException.class);
@@ -48,12 +48,12 @@ public class UrlEncoderStringLookupTest {
     }
 
     @Test
-    public void testNull() {
+    void testNull() {
         Assertions.assertNull(UrlEncoderStringLookup.INSTANCE.lookup(null));
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         // does not blow up and gives some kind of string.
         Assertions.assertFalse(UrlEncoderStringLookup.INSTANCE.toString().isEmpty());
     }

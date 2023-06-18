@@ -35,7 +35,7 @@ public class JaccardSimilarityTest {
     }
 
     @Test
-    public void testGettingJaccardSimilarity() {
+    void testGettingJaccardSimilarity() {
         // Expected Jaccard similarity = (intersect / union)
         assertEquals(1.0, classBeingTested.apply("", ""));
         assertEquals(0.0, classBeingTested.apply("left", ""));
@@ -55,17 +55,17 @@ public class JaccardSimilarityTest {
     }
 
     @Test
-    public void testGettingJaccardSimilarityNullNull() {
+    void testGettingJaccardSimilarityNullNull() {
         assertThatIllegalArgumentException().isThrownBy(() -> classBeingTested.apply(null, null));
     }
 
     @Test
-    public void testGettingJaccardSimilarityNullString() {
+    void testGettingJaccardSimilarityNullString() {
         assertThatIllegalArgumentException().isThrownBy(() -> classBeingTested.apply(null, "right"));
     }
 
     @Test
-    public void testGettingJaccardSimilarityStringNull() {
+    void testGettingJaccardSimilarityStringNull() {
         assertThatIllegalArgumentException().isThrownBy(() -> classBeingTested.apply(" ", null));
     }
 }

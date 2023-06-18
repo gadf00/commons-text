@@ -20,10 +20,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
-public class LevenshteinResultsTest {
+class LevenshteinResultsTest {
 
     @Test
-    public void testEqualsDifferenceInSubstitutionCount() {
+    void testEqualsDifferenceInSubstitutionCount() {
         final Integer integer = 1662;
         final LevenshteinResults levenshteinResults = new LevenshteinResults(integer, integer, integer, integer);
         final LevenshteinResults levenshteinResultsTwo = new LevenshteinResults(integer, integer, integer, null);
@@ -32,7 +32,7 @@ public class LevenshteinResultsTest {
     }
 
     @Test
-    public void testEqualsReturningFalse() {
+    void testEqualsReturningFalse() {
         final Integer integerOne = 1662;
         final Integer integerTwo = 1164;
         final LevenshteinResults levenshteinResults =
@@ -44,7 +44,7 @@ public class LevenshteinResultsTest {
     }
 
     @Test
-    public void testEqualsSameObject() {
+    void testEqualsSameObject() {
         final Integer integer = 1662;
         final LevenshteinResults levenshteinResults = new LevenshteinResults(integer, integer, integer, null);
 
@@ -52,7 +52,7 @@ public class LevenshteinResultsTest {
     }
 
     @Test
-    public void testEqualsWithNonNull() {
+    void testEqualsWithNonNull() {
         final Integer integer = 1;
         final LevenshteinResults levenshteinResults = new LevenshteinResults(null, integer, integer, null);
         final LevenshteinResults levenshteinResultsTwo = new LevenshteinResults(null, null, null, null);
@@ -61,7 +61,7 @@ public class LevenshteinResultsTest {
     }
 
     @Test
-    public void testEqualsWithNull() {
+    void testEqualsWithNull() {
         final Integer integer = -647;
         final LevenshteinResults levenshteinResults = new LevenshteinResults(integer, null, null, integer);
 

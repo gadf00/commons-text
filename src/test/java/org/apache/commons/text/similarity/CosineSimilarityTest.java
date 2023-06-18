@@ -26,16 +26,16 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
-public class CosineSimilarityTest {
+class CosineSimilarityTest {
 
     @Test
-    public void testCosineSimilarityReturningDoubleWhereByteValueIsZero() {
+    void testCosineSimilarityReturningDoubleWhereByteValueIsZero() {
         final Map<CharSequence, Integer> hashMap = new HashMap<>();
         assertThat(CosineSimilarity.INSTANCE.cosineSimilarity(hashMap, hashMap)).isEqualTo(0.0, within(0.01));
     }
 
     @Test
-    public void testCosineSimilarityThrowsIllegalArgumentException() {
+    void testCosineSimilarityThrowsIllegalArgumentException() {
         assertThatIllegalArgumentException().isThrownBy(() -> {
             final Map<CharSequence, Integer> map = new HashMap<>();
             CosineSimilarity.INSTANCE.cosineSimilarity(map, null);
@@ -43,7 +43,7 @@ public class CosineSimilarityTest {
     }
 
     @Test
-    public void testCosineSimilarityWithNonEmptyMap() {
+    void testCosineSimilarityWithNonEmptyMap() {
         final Map<CharSequence, Integer> hashMap = new HashMap<>();
         final Integer integer = -397;
         hashMap.put("3J/$3.L", integer);
@@ -53,7 +53,7 @@ public class CosineSimilarityTest {
     }
 
     @Test
-    public void testCosineSimilarityWithNull() {
+    void testCosineSimilarityWithNull() {
         assertThatIllegalArgumentException().isThrownBy(() -> {
             CosineSimilarity.INSTANCE.cosineSimilarity(null, null);
         });

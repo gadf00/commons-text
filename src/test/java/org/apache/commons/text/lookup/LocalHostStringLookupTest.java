@@ -26,38 +26,38 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link LocalHostStringLookup}.
  */
-public class LocalHostStringLookupTest {
+class LocalHostStringLookupTest {
 
     @Test
-    public void testAddress() throws UnknownHostException {
+    void testAddress() throws UnknownHostException {
         Assertions.assertEquals(InetAddress.getLocalHost().getHostAddress(),
             LocalHostStringLookup.INSTANCE.lookup("address"));
     }
 
     @Test
-    public void testBadKey() {
+    void testBadKey() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> LocalHostStringLookup.INSTANCE.lookup("FOO"));
     }
 
     @Test
-    public void testCanonicalName() throws UnknownHostException {
+    void testCanonicalName() throws UnknownHostException {
         Assertions.assertEquals(InetAddress.getLocalHost().getCanonicalHostName(),
             LocalHostStringLookup.INSTANCE.lookup("canonical-name"));
     }
 
     @Test
-    public void testName() throws UnknownHostException {
+    void testName() throws UnknownHostException {
         Assertions.assertEquals(InetAddress.getLocalHost().getHostName(),
             LocalHostStringLookup.INSTANCE.lookup("name"));
     }
 
     @Test
-    public void testNull() {
+    void testNull() {
         Assertions.assertNull(LocalHostStringLookup.INSTANCE.lookup(null));
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         // does not blow up and gives some kind of string.
         Assertions.assertFalse(LocalHostStringLookup.INSTANCE.toString().isEmpty());
     }

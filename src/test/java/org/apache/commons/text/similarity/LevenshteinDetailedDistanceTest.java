@@ -22,12 +22,12 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.apache.commons.text.TextStringBuilder;
 import org.junit.jupiter.api.Test;
 
-public class LevenshteinDetailedDistanceTest {
+class LevenshteinDetailedDistanceTest {
 
     private static final LevenshteinDetailedDistance UNLIMITED_DISTANCE = new LevenshteinDetailedDistance();
 
     @Test
-    public void testApplyThrowsIllegalArgumentExceptionAndCreatesLevenshteinDetailedDistanceTakingInteger() {
+    void testApplyThrowsIllegalArgumentExceptionAndCreatesLevenshteinDetailedDistanceTakingInteger() {
         assertThatIllegalArgumentException().isThrownBy(() -> {
             final LevenshteinDetailedDistance levenshteinDetailedDistance = new LevenshteinDetailedDistance(0);
             final CharSequence charSequence = new TextStringBuilder();
@@ -37,17 +37,17 @@ public class LevenshteinDetailedDistanceTest {
     }
 
     @Test
-    public void testApplyWithNull() {
+    void testApplyWithNull() {
         assertThatIllegalArgumentException().isThrownBy(() -> new LevenshteinDetailedDistance(0).apply(null, null));
     }
 
     @Test
-    public void testConstructorWithNegativeThreshold() {
+    void testConstructorWithNegativeThreshold() {
         assertThatIllegalArgumentException().isThrownBy(() -> new LevenshteinDetailedDistance(-1));
     }
 
     @Test
-    public void testCreatesLevenshteinDetailedDistanceTakingInteger6() {
+    void testCreatesLevenshteinDetailedDistanceTakingInteger6() {
         final LevenshteinDetailedDistance levenshteinDetailedDistance = new LevenshteinDetailedDistance(0);
         final LevenshteinResults levenshteinResults =
                 levenshteinDetailedDistance.apply("", "Distance: 38, Insert: 0, Delete: 0, Substitute: 0");
@@ -60,7 +60,7 @@ public class LevenshteinDetailedDistanceTest {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
      final LevenshteinDetailedDistance classBeingTested = new LevenshteinDetailedDistance();
      LevenshteinResults actualResult = classBeingTested.apply("hello", "hallo");
      LevenshteinResults expectedResult = new LevenshteinResults(1, 0, 0, 1);
@@ -77,7 +77,7 @@ public class LevenshteinDetailedDistanceTest {
     }
 
     @Test
-    public void testGetDefaultInstanceOne() {
+    void testGetDefaultInstanceOne() {
         final LevenshteinDetailedDistance levenshteinDetailedDistance =
                 LevenshteinDetailedDistance.getDefaultInstance();
         final LevenshteinResults levenshteinResults =
@@ -88,7 +88,7 @@ public class LevenshteinDetailedDistanceTest {
     }
 
     @Test
-    public void testGetDefaultInstanceTwo() {
+    void testGetDefaultInstanceTwo() {
         final LevenshteinDetailedDistance levenshteinDetailedDistance =
                 LevenshteinDetailedDistance.getDefaultInstance();
         final LevenshteinResults levenshteinResults =
@@ -99,27 +99,27 @@ public class LevenshteinDetailedDistanceTest {
     }
 
     @Test
-    public void testGetLevenshteinDetailedDistance_NullString() {
+    void testGetLevenshteinDetailedDistance_NullString() {
         assertThatIllegalArgumentException().isThrownBy(() -> UNLIMITED_DISTANCE.apply("a", null));
     }
 
     @Test
-    public void testGetLevenshteinDetailedDistance_NullStringInt() {
+    void testGetLevenshteinDetailedDistance_NullStringInt() {
         assertThatIllegalArgumentException().isThrownBy(() -> UNLIMITED_DISTANCE.apply(null, "a"));
     }
 
     @Test
-    public void testGetLevenshteinDetailedDistance_StringNull() {
+    void testGetLevenshteinDetailedDistance_StringNull() {
         assertThatIllegalArgumentException().isThrownBy(() -> UNLIMITED_DISTANCE.apply(null, "a"));
     }
 
     @Test
-    public void testGetLevenshteinDetailedDistance_StringNullInt() {
+    void testGetLevenshteinDetailedDistance_StringNullInt() {
         assertThatIllegalArgumentException().isThrownBy(() -> UNLIMITED_DISTANCE.apply("a", null));
     }
 
     @Test
-    public void testGetLevenshteinDetailedDistance_StringString() {
+    void testGetLevenshteinDetailedDistance_StringString() {
         LevenshteinResults result = UNLIMITED_DISTANCE.apply("", "");
         assertThat(result.getDistance()).isZero();
         assertThat(result.getInsertCount()).isZero();
@@ -182,7 +182,7 @@ public class LevenshteinDetailedDistanceTest {
     }
 
     @Test
-    public void testGetLevenshteinDetailedDistance_StringStringInt() {
+    void testGetLevenshteinDetailedDistance_StringStringInt() {
 
         LevenshteinResults result = new LevenshteinDetailedDistance(0).apply("", "");
 
@@ -421,14 +421,14 @@ public class LevenshteinDetailedDistanceTest {
     }
 
     @Test
-    public void testGetThreshold() {
+    void testGetThreshold() {
         final LevenshteinDetailedDistance levenshteinDetailedDistance = new LevenshteinDetailedDistance(0);
 
         assertThat(levenshteinDetailedDistance.getThreshold()).isZero();
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
      final LevenshteinDetailedDistance classBeingTested = new LevenshteinDetailedDistance();
      LevenshteinResults actualResult = classBeingTested.apply("aaapppp", "");
      LevenshteinResults expectedResult = new LevenshteinResults(7, 0, 7, 0);
@@ -444,7 +444,7 @@ public class LevenshteinDetailedDistanceTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
      final LevenshteinDetailedDistance classBeingTested = new LevenshteinDetailedDistance();
      LevenshteinResults actualResult = classBeingTested.apply("fly", "ant");
      LevenshteinResults expectedResult = new LevenshteinResults(3, 0, 0, 3);

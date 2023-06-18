@@ -91,20 +91,20 @@ public class StringLookupFactoryTest {
     }
 
     @Test
-    public void testAddDefaultStringLookupsMap() {
+    void testAddDefaultStringLookupsMap() {
         final Map<String, StringLookup> stringLookupMap = new HashMap<>();
         StringLookupFactory.INSTANCE.addDefaultStringLookups(stringLookupMap);
         assertDefaultKeys(stringLookupMap);
     }
 
     @Test
-    public void testAddDefaultStringLookupsNull() {
+    void testAddDefaultStringLookupsNull() {
         // Added an assertion to verify that invoking the method with a null argument does not throw an exception
         assertDoesNotThrow(() -> StringLookupFactory.INSTANCE.addDefaultStringLookups(null));
     }
 
     @Test
-    public void testDefaultStringLookupsHolder_allLookups() {
+    void testDefaultStringLookupsHolder_allLookups() {
         final Properties props = new Properties();
         props.setProperty(StringLookupFactory.DEFAULT_STRING_LOOKUPS_PROPERTY,
                 "BASE64_DECODER BASE64_ENCODER const, date, dns, environment "
@@ -134,7 +134,7 @@ public class StringLookupFactoryTest {
     }
 
     @Test
-    public void testDefaultStringLookupsHolder_givenSingleLookup() {
+    void testDefaultStringLookupsHolder_givenSingleLookup() {
         final Properties props = new Properties();
         props.setProperty(StringLookupFactory.DEFAULT_STRING_LOOKUPS_PROPERTY, "base64_encoder");
 
@@ -144,7 +144,7 @@ public class StringLookupFactoryTest {
     }
 
     @Test
-    public void testDefaultStringLookupsHolder_givenSingleLookup_weirdString() {
+    void testDefaultStringLookupsHolder_givenSingleLookup_weirdString() {
         final Properties props = new Properties();
         props.setProperty(StringLookupFactory.DEFAULT_STRING_LOOKUPS_PROPERTY, " \n \t  ,, DnS , , ");
 
@@ -152,7 +152,7 @@ public class StringLookupFactoryTest {
     }
 
     @Test
-    public void testDefaultStringLookupsHolder_invalidLookupsDefinition() {
+    void testDefaultStringLookupsHolder_invalidLookupsDefinition() {
         final Properties props = new Properties();
         props.setProperty(StringLookupFactory.DEFAULT_STRING_LOOKUPS_PROPERTY, "base64_encoder nope");
 
@@ -162,7 +162,7 @@ public class StringLookupFactoryTest {
     }
 
     @Test
-    public void testDefaultStringLookupsHolder_lookupsPropertyEmptyAndBlank() {
+    void testDefaultStringLookupsHolder_lookupsPropertyEmptyAndBlank() {
         final Properties propsWithNull = new Properties();
         propsWithNull.setProperty(StringLookupFactory.DEFAULT_STRING_LOOKUPS_PROPERTY, "");
 
@@ -175,7 +175,7 @@ public class StringLookupFactoryTest {
     }
 
     @Test
-    public void testDefaultStringLookupsHolder_lookupsPropertyNotPresent() {
+    void testDefaultStringLookupsHolder_lookupsPropertyNotPresent() {
         checkDefaultStringLookupsHolder(new Properties(),
                 "base64",
                 StringLookupFactory.KEY_BASE64_DECODER,
@@ -195,7 +195,7 @@ public class StringLookupFactoryTest {
     }
 
     @Test
-    public void testDefaultStringLookupsHolder_multipleLookups() {
+    void testDefaultStringLookupsHolder_multipleLookups() {
         final Properties props = new Properties();
         props.setProperty(StringLookupFactory.DEFAULT_STRING_LOOKUPS_PROPERTY, "dns, url script ");
 
@@ -209,7 +209,7 @@ public class StringLookupFactoryTest {
      * Tests that we return the singleton.
      */
     @Test
-    public void testSingletons() {
+    void testSingletons() {
         final StringLookupFactory stringLookupFactory = StringLookupFactory.INSTANCE;
         Assertions.assertSame(StringLookupFactory.INSTANCE_BASE64_DECODER,
             stringLookupFactory.base64DecoderStringLookup());
@@ -235,7 +235,7 @@ public class StringLookupFactoryTest {
     }
 
     @Test
-    public void testXmlStringLookup() {
+    void testXmlStringLookup() {
         final StringLookupFactory stringLookupFactory = StringLookupFactory.INSTANCE;
         final HashMap<String, Boolean> features = new HashMap<>(1);
         features.put(XMLConstants.FEATURE_SECURE_PROCESSING, Boolean.TRUE);

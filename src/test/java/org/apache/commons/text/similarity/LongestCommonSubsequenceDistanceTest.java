@@ -35,7 +35,7 @@ public class LongestCommonSubsequenceDistanceTest {
     }
 
     @Test
-    public void testGettingLongestCommonSubsequenceDistance() {
+    void testGettingLongestCommonSubsequenceDistance() {
         assertThat(subject.apply("", "")).isZero();
         assertThat(subject.apply("left", "")).isEqualTo(4);
         assertThat(subject.apply("", "right")).isEqualTo(5);
@@ -52,17 +52,17 @@ public class LongestCommonSubsequenceDistanceTest {
     }
 
     @Test
-    public void testGettingLongestCommonSubsequenceDistanceNullNull() {
+    void testGettingLongestCommonSubsequenceDistanceNullNull() {
         assertThatIllegalArgumentException().isThrownBy(() -> subject.apply(null, null));
     }
 
     @Test
-    public void testGettingLongestCommonSubsequenceDistanceNullString() {
+    void testGettingLongestCommonSubsequenceDistanceNullString() {
         assertThatIllegalArgumentException().isThrownBy(() -> subject.apply(null, "right"));
     }
 
     @Test
-    public void testGettingLongestCommonSubsequenceDistanceStringNull() {
+    void testGettingLongestCommonSubsequenceDistanceStringNull() {
         assertThatIllegalArgumentException().isThrownBy(() -> subject.apply(" ", null));
     }
 

@@ -25,10 +25,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link JavaPlatformStringLookup}.
  */
-public class JavaPlatformStringLookupTest {
+class JavaPlatformStringLookupTest {
 
     @Test
-    public void testBadKey() {
+    void testBadKey() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> JavaPlatformStringLookup.INSTANCE.lookup("BADKEY"));
     }
 
@@ -38,18 +38,18 @@ public class JavaPlatformStringLookupTest {
     }
 
     @Test
-    public void testNull() {
+    void testNull() {
         Assertions.assertNull(JavaPlatformStringLookup.INSTANCE.lookup(null));
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         // does not blow up and gives some kind of string.
         Assertions.assertFalse(JavaPlatformStringLookup.INSTANCE.toString().isEmpty());
     }
 
     @Test
-    public void testVm() {
+    void testVm() {
         final String key = "vm";
         Assertions.assertTrue(JavaPlatformStringLookup.INSTANCE.lookup(key).contains(System.getProperty("java.vm.name")));
     }

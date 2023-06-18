@@ -36,55 +36,55 @@ public class LongestCommonSubsequenceTest {
 
     @Test
     @SuppressWarnings("deprecation")
-    public void testGettingLogestCommonSubsequenceNullNull() {
+    void testGettingLogestCommonSubsequenceNullNull() {
         assertThatIllegalArgumentException().isThrownBy(() -> subject.logestCommonSubsequence(null, null));
     }
 
     @Test
     @SuppressWarnings("deprecation")
-    public void testGettingLogestCommonSubsequenceNullString() {
+    void testGettingLogestCommonSubsequenceNullString() {
         assertThatIllegalArgumentException().isThrownBy(() -> subject.logestCommonSubsequence(null, "right"));
     }
 
     @Test
     @SuppressWarnings("deprecation")
-    public void testGettingLogestCommonSubsequenceStringNull() {
+    void testGettingLogestCommonSubsequenceStringNull() {
         assertThatIllegalArgumentException().isThrownBy(() -> subject.logestCommonSubsequence(" ", null));
     }
 
     @Test
-    public void testGettingLongestCommonSubsequenceApplyNullNull() {
+    void testGettingLongestCommonSubsequenceApplyNullNull() {
         assertThatIllegalArgumentException().isThrownBy(() -> subject.apply(null, null));
     }
 
     @Test
-    public void testGettingLongestCommonSubsequenceApplyNullString() {
+    void testGettingLongestCommonSubsequenceApplyNullString() {
         assertThatIllegalArgumentException().isThrownBy(() -> subject.apply(null, "right"));
     }
 
     @Test
-    public void testGettingLongestCommonSubsequenceApplyStringNull() {
+    void testGettingLongestCommonSubsequenceApplyStringNull() {
         assertThatIllegalArgumentException().isThrownBy(() -> subject.apply(" ", null));
     }
 
     @Test
-    public void testGettingLongestCommonSubsequenceNullNull() {
+    void testGettingLongestCommonSubsequenceNullNull() {
         assertThatIllegalArgumentException().isThrownBy(() -> subject.longestCommonSubsequence(null, null));
     }
 
     @Test
-    public void testGettingLongestCommonSubsequenceNullString() {
+    void testGettingLongestCommonSubsequenceNullString() {
         assertThatIllegalArgumentException().isThrownBy(() -> subject.longestCommonSubsequence(null, "right"));
     }
 
     @Test
-    public void testGettingLongestCommonSubsequenceStringNull() {
+    void testGettingLongestCommonSubsequenceStringNull() {
         assertThatIllegalArgumentException().isThrownBy(() -> subject.longestCommonSubsequence(" ", null));
     }
 
     @Test
     @Deprecated
-    public void testLogestCommonSubsequence() {
+    void testLogestCommonSubsequence() {
         assertThat(subject.logestCommonSubsequence("", "")).isEmpty();
         assertThat(subject.logestCommonSubsequence("left", "")).isEmpty();
         assertThat(subject.logestCommonSubsequence("", "right")).isEmpty();
@@ -103,7 +103,7 @@ public class LongestCommonSubsequenceTest {
     }
 
     @Test
-    public void testLongestCommonSubsequence() {
+    void testLongestCommonSubsequence() {
         assertThat(subject.longestCommonSubsequence("", "")).isEmpty();
         assertThat(subject.longestCommonSubsequence("left", "")).isEmpty();
         assertThat(subject.longestCommonSubsequence("", "right")).isEmpty();
@@ -122,7 +122,7 @@ public class LongestCommonSubsequenceTest {
     }
 
     @Test
-    public void testLongestCommonSubsequenceApply() {
+    void testLongestCommonSubsequenceApply() {
         assertThat(subject.apply("", "")).isZero();
         assertThat(subject.apply("left", "")).isZero();
         assertThat(subject.apply("", "right")).isZero();

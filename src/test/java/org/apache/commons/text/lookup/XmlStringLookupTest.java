@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link XmlStringLookup}.
  */
-public class XmlStringLookupTest {
+class XmlStringLookupTest {
 
     private static final String DOC_PATH = "src/test/resources/org/apache/commons/text/document.xml";
 
@@ -45,40 +45,40 @@ public class XmlStringLookupTest {
     }
 
     @Test
-    public void testBadXPath() {
+    void testBadXPath() {
         assertThrows(IllegalArgumentException.class, () -> XmlStringLookup.INSTANCE.lookup("docName"));
     }
 
     @Test
-    public void testMissingXPath() {
+    void testMissingXPath() {
         assertThrows(IllegalArgumentException.class, () -> XmlStringLookup.INSTANCE.lookup(DOC_PATH + ":" + "!JUNK!"));
     }
 
     @Test
-    public void testNoFeatures() {
+    void testNoFeatures() {
         final String xpath = "/root/path/to/node";
         assertEquals("Hello World!", new XmlStringLookup(new HashMap<>()).lookup(DOC_PATH + ":" + xpath));
     }
 
     @Test
-    public void testNoFeaturesDefault() {
+    void testNoFeaturesDefault() {
         final HashMap<String, Boolean> features = new HashMap<>(1);
         features.put(XMLConstants.FEATURE_SECURE_PROCESSING, Boolean.TRUE);
         assertLookup(new XmlStringLookup(features));
     }
 
     @Test
-    public void testNull() {
+    void testNull() {
         assertNull(XmlStringLookup.INSTANCE.lookup(null));
     }
 
     @Test
-    public void testOne() {
+    void testOne() {
         assertLookup(XmlStringLookup.INSTANCE);
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         // does not blow up and gives some kind of string.
         assertFalse(XmlStringLookup.INSTANCE.toString().isEmpty());
     }
