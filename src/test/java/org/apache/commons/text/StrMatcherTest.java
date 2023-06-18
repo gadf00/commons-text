@@ -55,7 +55,7 @@ public class StrMatcherTest  {
         assertThat(matcher.isMatch(BUFFER2, 5)).isZero();
         assertThat(StrMatcher.charSetMatcher()).isSameAs(StrMatcher.noneMatcher());
         assertThat(StrMatcher.charSetMatcher((char[]) null)).isSameAs(StrMatcher.noneMatcher());
-        assertThat(StrMatcher.charSetMatcher("a".toCharArray()) ).isInstanceOf(StrMatcher.CharMatcherc.class)
+        assertThat(StrMatcher.charSetMatcher("a".toCharArray()) ).isInstanceOf(StrMatcher.CharMatcher.class);
     }
 
     @Test

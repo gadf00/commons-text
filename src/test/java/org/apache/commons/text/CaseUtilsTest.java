@@ -32,7 +32,7 @@ public class CaseUtilsTest {
     public void testConstructor() {
         assertThat(new CaseUtils()).isNotNull();
         final Constructor<?>[] cons = CaseUtils.class.getDeclaredConstructors();
-        assertThat(cons.length).(1);
+        assertThat(cons.length).isEqualTo(1);
         assertThat(Modifier.isPublic(cons[0].getModifiers())).isTrue();
         assertThat(Modifier.isPublic(CaseUtils.class.getModifiers())).isTrue();
         assertThat(Modifier.isFinal(CaseUtils.class.getModifiers())).isFalse();
