@@ -170,7 +170,7 @@ class AlphabetConverterTest {
             // test that only the original alphabet is used after decoding
             final List<Character> originalCharsList = Arrays.asList(originalChars);
             for (int i = 0; i < decoded.length(); i++) {
-                assertThat(originalCharsList.contains(encoded.charAt(i)));
+                assertThat(originalCharsList).contains(decoded.charAt(i));
             }
 
             assertThat(decoded).as("Encoded '" + s + "' into '" + encoded + "', but decoded into '" + decoded + "'").isEqualTo(s);

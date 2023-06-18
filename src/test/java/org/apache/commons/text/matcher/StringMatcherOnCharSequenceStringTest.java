@@ -106,7 +106,7 @@ class StringMatcherOnCharSequenceStringTest {
         assertThat(StringMatcherFactory.INSTANCE.charSetMatcher((char[]) null))
             .isSameAs(StringMatcherFactory.INSTANCE.noneMatcher());
         assertThat(StringMatcherFactory.INSTANCE
-            .charSetMatcher("a".toCharArray()) instanceof AbstractStringMatcher.CharMatcher).isTrue();
+            .charSetMatcher("a".toCharArray())).isInstanceOf(AbstractStringMatcher.CharMatcher.class);
     }
 
     @Test

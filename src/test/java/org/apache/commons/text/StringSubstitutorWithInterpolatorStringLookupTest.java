@@ -42,7 +42,7 @@ class StringSubstitutorWithInterpolatorStringLookupTest {
     }
 
     @Test
-    public void testCustomFunctionWithDefaults() {
+    void testCustomFunctionWithDefaults() {
         testCustomFunctionWithDefaults(true);
     }
 
