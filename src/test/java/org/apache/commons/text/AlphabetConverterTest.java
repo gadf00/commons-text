@@ -149,11 +149,11 @@ public class AlphabetConverterTest {
 
         final AlphabetConverter reconstructedAlphabetConverter = AlphabetConverter.createConverterFromMap(ac.getOriginalToEncoded());
 
-        assertThat(reconstructedAlphabetConverter).isEqualTo(ac);
+        assertThat(reconstructedAlphabetConverter).hasSameClassAs(ac);
         assertThat(reconstructedAlphabetConverter.hashCode()).isEqualTo(ac.hashCode());
-        assertThat(reconstructedAlphabetConverter.toString()).isEqualTo(ac.toString());
+        assertThat(reconstructedAlphabetConverter.toString()).hasToString(ac.toString());
         assertThat(ac.encode(null)).isNull(); // test null conversions
-        assertThat(ac.encode("")).isEqualTo(""); // test empty conversion
+        assertThat(ac.encode("")).isEmpty(); // test empty conversion
 
         // test all the trial strings
         for (final String s : strings) {
@@ -162,7 +162,7 @@ public class AlphabetConverterTest {
             // test that only encoding chars are used
             final List<Character> originalEncodingChars = Arrays.asList(encodingChars);
             for (int i = 0; i < encoded.length(); i++) {
-                assertThat(originalEncodingChars.contains(encoded.charAt(i))).isTrue();
+                assertThat(originalEncodingChars).contains(encoded.charAt(i));
             }
 
             final String decoded = ac.decode(encoded);
@@ -170,7 +170,7 @@ public class AlphabetConverterTest {
             // test that only the original alphabet is used after decoding
             final List<Character> originalCharsList = Arrays.asList(originalChars);
             for (int i = 0; i < decoded.length(); i++) {
-                assertThat(originalCharsList.contains(decoded.charAt(i))).isTrue();
+                assertThat(originalCharsList.contains(encoded.charAt(i));
             }
 
             assertThat(decoded).as("Encoded '" + s + "' into '" + encoded + "', but decoded into '" + decoded + "'").isEqualTo(s);
