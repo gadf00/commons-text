@@ -58,8 +58,8 @@ public class WordUtilsTest {
     public void testAbbreviateForNullAndEmptyString() {
         assertThat(WordUtils.abbreviate(null, 1, -1, "")).isNull();
         assertThat(WordUtils.abbreviate("", 1, -1, "")).isEqualTo(StringUtils.EMPTY);
-        assertThat(WordUtils.abbreviate("0123456790", 0, 0, "")).isEqualTo("");
-        assertThat(WordUtils.abbreviate(" 0123456790", 0, -1, "")).isEqualTo("");
+        assertThat(WordUtils.abbreviate("0123456790", 0, 0, "")).isEmpty();
+        assertThat(WordUtils.abbreviate(" 0123456790", 0, -1, "")).isEmpty();
     }
 
      @Test
@@ -84,7 +84,7 @@ public class WordUtilsTest {
      @Test
     public void testCapitalize_String() {
         assertThat(WordUtils.capitalize(null)).isNull();
-        assertThat(WordUtils.capitalize("")).isEqualTo("");
+        assertThat(WordUtils.capitalize("")).isEmpty();
         assertThat(WordUtils.capitalize("  ")).isEqualTo("  ");
 
         assertThat(WordUtils.capitalize("I")).isEqualTo("I");
@@ -98,7 +98,7 @@ public class WordUtilsTest {
     @Test
     public void testCapitalizeFully_String() {
         assertThat(WordUtils.capitalizeFully(null)).isNull();
-        assertThat(WordUtils.capitalizeFully("")).isEqualTo("");
+        assertThat(WordUtils.capitalizeFully("")).isEmpty();
         assertThat(WordUtils.capitalizeFully("  ")).isEqualTo("  ");
 
         assertThat(WordUtils.capitalizeFully("I")).isEqualTo("I");
@@ -118,7 +118,7 @@ public class WordUtilsTest {
     @Test
     public void testCapitalizeFullyWithDelimiters_String() {
         assertThat(WordUtils.capitalizeFully(null, null)).isNull();
-        assertThat(WordUtils.capitalizeFully("", ArrayUtils.EMPTY_CHAR_ARRAY)).isEqualTo("");
+        assertThat(WordUtils.capitalizeFully("", ArrayUtils.EMPTY_CHAR_ARRAY)).isEmpty();
         assertThat(WordUtils.capitalizeFully("  ", ArrayUtils.EMPTY_CHAR_ARRAY)).isEqualTo("  ");
 
         char[] chars = {'-', '+', ' ', '@'};
@@ -138,7 +138,7 @@ public class WordUtilsTest {
     @Test
     public void testCapitalizeWithDelimiters_String() {
         assertThat(WordUtils.capitalize(null, null)).isNull();
-        assertThat(WordUtils.capitalize("", ArrayUtils.EMPTY_CHAR_ARRAY)).isEqualTo("");
+        assertThat(WordUtils.capitalize("", ArrayUtils.EMPTY_CHAR_ARRAY)).isEmpty();
         assertThat(WordUtils.capitalize("  ", ArrayUtils.EMPTY_CHAR_ARRAY)).isEqualTo("  ");
 
         char[] chars = {'-', '+', ' ', '@'};
@@ -192,8 +192,8 @@ public class WordUtilsTest {
      @Test
     public void testInitials_String() {
         assertThat(WordUtils.initials(null)).isNull();
-        assertThat(WordUtils.initials("")).isEqualTo("");
-        assertThat(WordUtils.initials("  ")).isEqualTo("");
+        assertThat(WordUtils.initials("")).isEmpty();
+        assertThat(WordUtils.initials("  ")).isEmpty();
 
         assertThat(WordUtils.initials("I")).isEqualTo("I");
         assertThat(WordUtils.initials("i")).isEqualTo("i");
@@ -209,7 +209,7 @@ public class WordUtilsTest {
         char[] array = null;
         assertThat(WordUtils.initials(null, array)).isNull();
         assertThat(WordUtils.initials("", array)).isEqualTo("");
-        assertThat(WordUtils.initials("  ", array)).isEqualTo("");
+        assertThat(WordUtils.initials("  ", array)).isEmpty();
         assertThat(WordUtils.initials("I", array)).isEqualTo("I");
         assertThat(WordUtils.initials("i", array)).isEqualTo("i");
         assertThat(WordUtils.initials("SJC", array)).isEqualTo("S");
@@ -222,22 +222,22 @@ public class WordUtilsTest {
 
         array = ArrayUtils.EMPTY_CHAR_ARRAY;
         assertThat(WordUtils.initials(null, array)).isNull();
-        assertThat(WordUtils.initials("", array)).isEqualTo("");
-        assertThat(WordUtils.initials("  ", array)).isEqualTo("");
-        assertThat(WordUtils.initials("I", array)).isEqualTo("");
-        assertThat(WordUtils.initials("i", array)).isEqualTo("");
-        assertThat(WordUtils.initials("SJC", array)).isEqualTo("");
-        assertThat(WordUtils.initials("Ben John Lee", array)).isEqualTo("");
-        assertThat(WordUtils.initials("   Ben \n   John\tLee\t", array)).isEqualTo("");
-        assertThat(WordUtils.initials("Ben J.Lee", array)).isEqualTo("");
-        assertThat(WordUtils.initials(" Ben   John  . Lee", array)).isEqualTo("");
-        assertThat(WordUtils.initials("Kay O'Murphy", array)).isEqualTo("");
-        assertThat(WordUtils.initials("i am here 123", array)).isEqualTo("");
+        assertThat(WordUtils.initials("", array)).isEmpty();
+        assertThat(WordUtils.initials("  ", array)).isEmpty();
+        assertThat(WordUtils.initials("I", array)).isEmpty();
+        assertThat(WordUtils.initials("i", array)).isEmpty();
+        assertThat(WordUtils.initials("SJC", array)).isEmpty();
+        assertThat(WordUtils.initials("Ben John Lee", array)).isEmpty();
+        assertThat(WordUtils.initials("   Ben \n   John\tLee\t", array)).isEmpty();
+        assertThat(WordUtils.initials("Ben J.Lee", array)).isEmpty();
+        assertThat(WordUtils.initials(" Ben   John  . Lee", array)).isEmpty();
+        assertThat(WordUtils.initials("Kay O'Murphy", array)).isEmpty();
+        assertThat(WordUtils.initials("i am here 123", array)).isEmpty();
 
         array = " ".toCharArray();
         assertThat(WordUtils.initials(null, array)).isNull();
-        assertThat(WordUtils.initials("", array)).isEqualTo("");
-        assertThat(WordUtils.initials("  ", array)).isEqualTo("");
+        assertThat(WordUtils.initials("", array)).isEmpty();
+        assertThat(WordUtils.initials("  ", array)).isEmpty();
         assertThat(WordUtils.initials("I", array)).isEqualTo("I");
         assertThat(WordUtils.initials("i", array)).isEqualTo("i");
         assertThat(WordUtils.initials("SJC", array)).isEqualTo("S");
@@ -250,8 +250,8 @@ public class WordUtilsTest {
 
         array = " .".toCharArray();
         assertThat(WordUtils.initials(null, array)).isNull();
-        assertThat(WordUtils.initials("", array)).isEqualTo("");
-        assertThat(WordUtils.initials("  ", array)).isEqualTo("");
+        assertThat(WordUtils.initials("", array)).isEmpty();
+        assertThat(WordUtils.initials("  ", array)).isEmpty();
         assertThat(WordUtils.initials("I", array)).isEqualTo("I");
         assertThat(WordUtils.initials("i", array)).isEqualTo("i");
         assertThat(WordUtils.initials("SJC", array)).isEqualTo("S");
@@ -263,8 +263,8 @@ public class WordUtilsTest {
 
         array = " .'".toCharArray();
         assertThat(WordUtils.initials(null, array)).isNull();
-        assertThat(WordUtils.initials("", array)).isEqualTo("");
-        assertThat(WordUtils.initials("  ", array)).isEqualTo("");
+        assertThat(WordUtils.initials("", array)).isEmpty();
+        assertThat(WordUtils.initials("  ", array)).isEmpty();
         assertThat(WordUtils.initials("I", array)).isEqualTo("I");
         assertThat(WordUtils.initials("i", array)).isEqualTo("i");
         assertThat(WordUtils.initials("SJC", array)).isEqualTo("S");
@@ -278,7 +278,7 @@ public class WordUtilsTest {
         assertThat(WordUtils.initials(null, array)).isNull();
         assertThat(WordUtils.initials("", array)).isEqualTo("");
         assertThat(WordUtils.initials("  ", array)).isEqualTo(" ");
-        assertThat(WordUtils.initials("I", array)).isEqualTo("");
+        assertThat(WordUtils.initials("I", array)).isEmpty();
         assertThat(WordUtils.initials("i", array)).isEqualTo("i");
         assertThat(WordUtils.initials("SJC", array)).isEqualTo("C");
         assertThat(WordUtils.initials("Ben John Lee", array)).isEqualTo("Bh");
@@ -332,7 +332,7 @@ public class WordUtilsTest {
      @Test
     public void testSwapCase_String() {
         assertThat(WordUtils.swapCase(null)).isNull();
-        assertThat(WordUtils.swapCase("")).isEqualTo("");
+        assertThat(WordUtils.swapCase("")).isEmpty();
         assertThat(WordUtils.swapCase("  ")).isEqualTo("  ");
 
         assertThat(WordUtils.swapCase("I")).isEqualTo("i");
@@ -359,7 +359,7 @@ public class WordUtilsTest {
     @Test
     public void testUncapitalize_String() {
         assertThat(WordUtils.uncapitalize(null)).isNull();
-        assertThat(WordUtils.uncapitalize("")).isEqualTo("");
+        assertThat(WordUtils.uncapitalize("")).isEmpty();
         assertThat(WordUtils.uncapitalize("  ")).isEqualTo("  ");
 
         assertThat(WordUtils.uncapitalize("I")).isEqualTo("i");
@@ -378,7 +378,7 @@ public class WordUtilsTest {
     @Test
     public void testUncapitalizeWithDelimiters_String() {
         assertThat(WordUtils.uncapitalize(null, null)).isNull();
-        assertThat(WordUtils.uncapitalize("", ArrayUtils.EMPTY_CHAR_ARRAY)).isEqualTo("");
+        assertThat(WordUtils.uncapitalize("", ArrayUtils.EMPTY_CHAR_ARRAY)).isEmpty();
         assertThat(WordUtils.uncapitalize("  ", ArrayUtils.EMPTY_CHAR_ARRAY)).isEqualTo("  ");
 
         char[] chars = {'-', '+', ' ', '@'};
@@ -398,8 +398,8 @@ public class WordUtilsTest {
         assertThat(WordUtils.wrap(null, 20)).isNull();
         assertThat(WordUtils.wrap(null, -1)).isNull();
 
-        assertThat(WordUtils.wrap("", 20)).isEqualTo("");
-        assertThat(WordUtils.wrap("", -1)).isEqualTo("");
+        assertThat(WordUtils.wrap("", 20)).isEmpty();
+        assertThat(WordUtils.wrap("", -1)).isEmpty();
 
         // normal
         final String systemNewLine = System.lineSeparator();
@@ -436,12 +436,12 @@ public class WordUtilsTest {
         assertThat(WordUtils.wrap(null, -1, null, true)).isNull();
         assertThat(WordUtils.wrap(null, -1, null, false)).isNull();
 
-        assertThat(WordUtils.wrap("", 20, "\n", false)).isEqualTo("");
-        assertThat(WordUtils.wrap("", 20, "\n", true)).isEqualTo("");
-        assertThat(WordUtils.wrap("", 20, null, false)).isEqualTo("");
-        assertThat(WordUtils.wrap("", 20, null, true)).isEqualTo("");
-        assertThat(WordUtils.wrap("", -1, null, false)).isEqualTo("");
-        assertThat(WordUtils.wrap("", -1, null, true)).isEqualTo("");
+        assertThat(WordUtils.wrap("", 20, "\n", false)).isEmpty();
+        assertThat(WordUtils.wrap("", 20, "\n", true)).isEmpty();
+        assertThat(WordUtils.wrap("", 20, null, false)).isEmpty();
+        assertThat(WordUtils.wrap("", 20, null, true)).isEmpty();
+        assertThat(WordUtils.wrap("", -1, null, false)).isEmpty();
+        assertThat(WordUtils.wrap("", -1, null, true)).isEmpty();
 
         // normal
         String input = "Here is one line of text that is going to be wrapped after 20 columns.";
