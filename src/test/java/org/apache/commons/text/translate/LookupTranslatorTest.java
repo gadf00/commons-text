@@ -41,7 +41,7 @@ public class LookupTranslatorTest  {
         final StringWriter out = new StringWriter();
         final int result = lt.translate("one", 0, out);
         assertThat(result).as("Incorrect code point consumption").isEqualTo(3);
-        assertThat(out.toString()).as("Incorrect value").isEqualTo("two");
+        assertThat(out).as("Incorrect value").hasToString("two");
     }
 
     @Test
@@ -58,7 +58,7 @@ public class LookupTranslatorTest  {
         final StringWriter out = new StringWriter();
         final int result = lt.translate(new StringBuffer("one"), 0, out);
         assertThat(result).as("Incorrect code point consumption").isEqualTo(3);
-        assertThat(out.toString()).as("Incorrect value").isEqualTo("two");
+        assertThat(out).as("Incorrect value").hasToString("two");
     }
 
     @Test

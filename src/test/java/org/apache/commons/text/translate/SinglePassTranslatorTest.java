@@ -48,7 +48,7 @@ public class SinglePassTranslatorTest {
 
     @Test
     public void codePointsAreReturned() throws Exception {
-        assertThat(dummyTranslator.translate("", 0, out)).isEqualTo(0);
+        assertThat(dummyTranslator.translate("", 0, out)).isZero();
         assertThat(dummyTranslator.translate("abc", 0, out)).isEqualTo(3);
         assertThat(dummyTranslator.translate("abcdefg", 0, out)).isEqualTo(7);
     }

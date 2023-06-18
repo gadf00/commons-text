@@ -64,7 +64,7 @@ public class StrMatcherTest  {
         assertThat(matcher.isMatch(BUFFER2, 0)).isEqualTo(1);
         assertThat(matcher.isMatch(BUFFER2, 1)).isZero();
         assertThat(matcher.isMatch(BUFFER2, 2)).isEqualTo(1);
-        assertThat(matcher.isMatch(BUFFER2, 3)).isEqualTo(0);
+        assertThat(matcher.isMatch(BUFFER2, 3)).isZero();
         assertThat(matcher.isMatch(BUFFER2, 4)).isEqualTo(1);
         assertThat(matcher.isMatch(BUFFER2, 5)).isZero();
         assertThat(StrMatcher.charSetMatcher("")).isSameAs(StrMatcher.noneMatcher());

@@ -36,8 +36,8 @@ public class HammingDistanceTest {
 
     @Test
     public void testHammingDistance() {
-        assertThat(distance.apply("", "")).isEqualTo(0);
-        assertThat(distance.apply("pappa", "pappa")).isEqualTo(0);
+        assertThat(distance.apply("", "")).isZero();
+        assertThat(distance.apply("pappa", "pappa")).isZero();
         assertThat(distance.apply("papaa", "pappa")).isEqualTo(1);
         assertThat(distance.apply("karolin", "kathrin")).isEqualTo(3);
         assertThat(distance.apply("karolin", "kerstin")).isEqualTo(3);
