@@ -150,7 +150,7 @@ class AlphabetConverterTest {
         final AlphabetConverter reconstructedAlphabetConverter = AlphabetConverter.createConverterFromMap(ac.getOriginalToEncoded());
 
         assertThat(reconstructedAlphabetConverter).hasSameClassAs(ac);
-        assertThat(reconstructedAlphabetConverter.hashCode()).isEqualTo(ac.hashCode());
+        assertThat(reconstructedAlphabetConverter).hasSameHashCodeAs(ac.hashCode());
         assertThat(reconstructedAlphabetConverter.toString()).hasToString(ac.toString());
         assertThat(ac.encode(null)).isNull(); // test null conversions
         assertThat(ac.encode("")).isEmpty(); // test empty conversion

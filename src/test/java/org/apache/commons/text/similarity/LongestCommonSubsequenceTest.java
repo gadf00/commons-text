@@ -85,11 +85,11 @@ public class LongestCommonSubsequenceTest {
     @Test
     @Deprecated
     public void testLogestCommonSubsequence() {
-        assertThat(subject.logestCommonSubsequence("", "")).isEqualTo("");
-        assertThat(subject.logestCommonSubsequence("left", "")).isEqualTo("");
-        assertThat(subject.logestCommonSubsequence("", "right")).isEqualTo("");
+        assertThat(subject.logestCommonSubsequence("", "")).isEmpty();
+        assertThat(subject.logestCommonSubsequence("left", "")).isEmpty();
+        assertThat(subject.logestCommonSubsequence("", "right")).isEmpty();
         assertThat(subject.logestCommonSubsequence("frog", "fog")).isEqualTo("fog");
-        assertThat(subject.logestCommonSubsequence("fly", "ant")).isEqualTo("");
+        assertThat(subject.logestCommonSubsequence("fly", "ant")).isEmpty();
         assertThat(subject.logestCommonSubsequence("elephant", "hippo")).isEqualTo("h");
         assertThat(subject.logestCommonSubsequence("ABC Corporation", "ABC Corp")).isEqualTo("ABC Corp");
         assertThat(subject.logestCommonSubsequence("D N H Enterprises Inc", "D & H Enterprises, Inc."))
@@ -104,11 +104,11 @@ public class LongestCommonSubsequenceTest {
 
     @Test
     public void testLongestCommonSubsequence() {
-        assertThat(subject.longestCommonSubsequence("", "")).isEqualTo("");
-        assertThat(subject.longestCommonSubsequence("left", "")).isEqualTo("");
-        assertThat(subject.longestCommonSubsequence("", "right")).isEqualTo("");
+        assertThat(subject.longestCommonSubsequence("", "")).isEmpty();
+        assertThat(subject.longestCommonSubsequence("left", "")).isEmpty();
+        assertThat(subject.longestCommonSubsequence("", "right")).isEmpty();
         assertThat(subject.longestCommonSubsequence("frog", "fog")).isEqualTo("fog");
-        assertThat(subject.longestCommonSubsequence("fly", "ant")).isEqualTo("");
+        assertThat(subject.longestCommonSubsequence("fly", "ant")).isEmpty();
         assertThat(subject.longestCommonSubsequence("elephant", "hippo")).isEqualTo("h");
         assertThat(subject.longestCommonSubsequence("ABC Corporation", "ABC Corp")).isEqualTo("ABC Corp");
         assertThat(subject.longestCommonSubsequence("D N H Enterprises Inc", "D & H Enterprises, Inc."))
@@ -123,11 +123,11 @@ public class LongestCommonSubsequenceTest {
 
     @Test
     public void testLongestCommonSubsequenceApply() {
-        assertThat(subject.apply("", "")).isEqualTo(0);
-        assertThat(subject.apply("left", "")).isEqualTo(0);
-        assertThat(subject.apply("", "right")).isEqualTo(0);
+        assertThat(subject.apply("", "")).isZero();
+        assertThat(subject.apply("left", "")).isZero();
+        assertThat(subject.apply("", "right")).isZero();
         assertThat(subject.apply("frog", "fog")).isEqualTo(3);
-        assertThat(subject.apply("fly", "ant")).isEqualTo(0);
+        assertThat(subject.apply("fly", "ant")).isZero();
         assertThat(subject.apply("elephant", "hippo")).isEqualTo(1);
         assertThat(subject.apply("ABC Corporation", "ABC Corp")).isEqualTo(8);
         assertThat(subject.apply("D N H Enterprises Inc", "D & H Enterprises, Inc.")).isEqualTo(20);

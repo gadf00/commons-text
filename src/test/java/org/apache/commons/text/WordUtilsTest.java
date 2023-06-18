@@ -208,7 +208,7 @@ public class WordUtilsTest {
     public void testInitials_String_charArray() {
         char[] array = null;
         assertThat(WordUtils.initials(null, array)).isNull();
-        assertThat(WordUtils.initials("", array)).isEqualTo("");
+        assertThat(WordUtils.initials("", array)).isEmpty();
         assertThat(WordUtils.initials("  ", array)).isEmpty();
         assertThat(WordUtils.initials("I", array)).isEqualTo("I");
         assertThat(WordUtils.initials("i", array)).isEqualTo("i");
@@ -276,7 +276,7 @@ public class WordUtilsTest {
 
         array = "SIJo1".toCharArray();
         assertThat(WordUtils.initials(null, array)).isNull();
-        assertThat(WordUtils.initials("", array)).isEqualTo("");
+        assertThat(WordUtils.initials("", array)).isEmpty();
         assertThat(WordUtils.initials("  ", array)).isEqualTo(" ");
         assertThat(WordUtils.initials("I", array)).isEmpty();
         assertThat(WordUtils.initials("i", array)).isEqualTo("i");

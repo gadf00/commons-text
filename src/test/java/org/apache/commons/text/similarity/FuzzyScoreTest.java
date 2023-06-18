@@ -32,8 +32,8 @@ public class FuzzyScoreTest {
 
     @Test
     public void testGetFuzzyScore() {
-        assertThat(ENGLISH_SCORE.fuzzyScore("", "")).isEqualTo(0);
-        assertThat(ENGLISH_SCORE.fuzzyScore("Workshop", "b")).isEqualTo(0);
+        assertThat(ENGLISH_SCORE.fuzzyScore("", "")).isZero();
+        assertThat(ENGLISH_SCORE.fuzzyScore("Workshop", "b")).isZero();
         assertThat(ENGLISH_SCORE.fuzzyScore("Room", "o")).isEqualTo(1);
         assertThat(ENGLISH_SCORE.fuzzyScore("Workshop", "w")).isEqualTo(1);
         assertThat(ENGLISH_SCORE.fuzzyScore("Workshop", "ws")).isEqualTo(2);

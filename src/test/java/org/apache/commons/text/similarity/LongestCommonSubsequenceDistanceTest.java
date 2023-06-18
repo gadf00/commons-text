@@ -36,7 +36,7 @@ public class LongestCommonSubsequenceDistanceTest {
 
     @Test
     public void testGettingLongestCommonSubsequenceDistance() {
-        assertThat(subject.apply("", "")).isEqualTo(0);
+        assertThat(subject.apply("", "")).isZero();
         assertThat(subject.apply("left", "")).isEqualTo(4);
         assertThat(subject.apply("", "right")).isEqualTo(5);
         assertThat(subject.apply("frog", "fog")).isEqualTo(1);
@@ -48,7 +48,7 @@ public class LongestCommonSubsequenceDistanceTest {
         assertThat(subject.apply("PENNSYLVANIA", "PENNCISYLVNIA")).isEqualTo(3);
         assertThat(subject.apply("left", "right")).isEqualTo(7);
         assertThat(subject.apply("leettteft", "ritttght")).isEqualTo(9);
-        assertThat(subject.apply("the same string", "the same string")).isEqualTo(0);
+        assertThat(subject.apply("the same string", "the same string")).isZero();
     }
 
     @Test

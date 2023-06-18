@@ -166,7 +166,7 @@ public class RandomStringGeneratorTest {
         int i = 0;
         do {
             final int codePoint = str.codePointAt(i);
-            assertThat(Character.getType(codePoint)).isNotSameAs(Character.PRIVATE_USE);
+            assertThat(Character.getType(codePoint)).isNotEqualTo(Character.PRIVATE_USE);
             i += Character.charCount(codePoint);
         } while (i < str.length());
     }
