@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
  * @deprecated This class will be removed in 2.0.
  */
 @Deprecated
-public class StrMatcherTest  {
+class StrMatcherTest  {
 
     private static final char[] BUFFER1 = "0,1\t2 3\n\r\f\u0000'\"".toCharArray();
 
@@ -34,7 +34,7 @@ public class StrMatcherTest  {
 
 
     @Test
-    public void testCharMatcher_char() {
+    void testCharMatcher_char() {
         final StrMatcher matcher = StrMatcher.charMatcher('c');
         assertThat(matcher.isMatch(BUFFER2, 0)).isZero();
         assertThat(matcher.isMatch(BUFFER2, 1)).isZero();
@@ -45,7 +45,7 @@ public class StrMatcherTest  {
     }
 
     @Test
-    public void testCharSetMatcher_charArray() {
+    void testCharSetMatcher_charArray() {
         final StrMatcher matcher = StrMatcher.charSetMatcher("ace".toCharArray());
         assertThat(matcher.isMatch(BUFFER2, 0)).isEqualTo(1);
         assertThat(matcher.isMatch(BUFFER2, 1)).isZero();
@@ -59,7 +59,7 @@ public class StrMatcherTest  {
     }
 
     @Test
-    public void testCharSetMatcher_String() {
+    void testCharSetMatcher_String() {
         final StrMatcher matcher = StrMatcher.charSetMatcher("ace");
         assertThat(matcher.isMatch(BUFFER2, 0)).isEqualTo(1);
         assertThat(matcher.isMatch(BUFFER2, 1)).isZero();
@@ -73,7 +73,7 @@ public class StrMatcherTest  {
     }
 
     @Test
-    public void testCommaMatcher() {
+    void testCommaMatcher() {
         final StrMatcher matcher = StrMatcher.commaMatcher();
         assertThat(StrMatcher.commaMatcher()).isSameAs(matcher);
         assertThat(matcher.isMatch(BUFFER1, 0)). isZero();
@@ -82,7 +82,7 @@ public class StrMatcherTest  {
     }
 
     @Test
-    public void testDoubleQuoteMatcher() {
+    void testDoubleQuoteMatcher() {
         final StrMatcher matcher = StrMatcher.doubleQuoteMatcher();
         assertThat(StrMatcher.doubleQuoteMatcher()).isSameAs(matcher);
         assertThat(matcher.isMatch(BUFFER1, 11)). isZero();
@@ -90,7 +90,7 @@ public class StrMatcherTest  {
     }
 
     @Test
-    public void testMatcherIndices() {
+    void testMatcherIndices() {
         // remember that the API contract is tight for the isMatch() method
         // all the onus is on the caller, so invalid inputs are not
         // the concern of StrMatcher, and are not bugs
@@ -101,7 +101,7 @@ public class StrMatcherTest  {
     }
 
     @Test
-    public void testNoneMatcher() {
+    void testNoneMatcher() {
         final StrMatcher matcher = StrMatcher.noneMatcher();
         assertThat(StrMatcher.noneMatcher()).isSameAs(matcher);
         assertThat(matcher.isMatch(BUFFER1, 0)). isZero();
@@ -120,7 +120,7 @@ public class StrMatcherTest  {
     }
 
     @Test
-    public void testQuoteMatcher() {
+    void testQuoteMatcher() {
         final StrMatcher matcher = StrMatcher.quoteMatcher();
         assertThat(StrMatcher.quoteMatcher()).isSameAs(matcher);
         assertThat(matcher.isMatch(BUFFER1, 10)). isZero();
@@ -129,7 +129,7 @@ public class StrMatcherTest  {
     }
 
     @Test
-    public void testSingleQuoteMatcher() {
+    void testSingleQuoteMatcher() {
         final StrMatcher matcher = StrMatcher.singleQuoteMatcher();
         assertThat(StrMatcher.singleQuoteMatcher()).isSameAs(matcher);
         assertThat(matcher.isMatch(BUFFER1, 10)). isZero();
@@ -138,7 +138,7 @@ public class StrMatcherTest  {
     }
 
     @Test
-    public void testSpaceMatcher() {
+    void testSpaceMatcher() {
         final StrMatcher matcher = StrMatcher.spaceMatcher();
         assertThat(StrMatcher.spaceMatcher()).isSameAs(matcher);
         assertThat(matcher.isMatch(BUFFER1, 4)). isZero();
@@ -147,7 +147,7 @@ public class StrMatcherTest  {
     }
 
     @Test
-    public void testSplitMatcher() {
+    void testSplitMatcher() {
         final StrMatcher matcher = StrMatcher.splitMatcher();
         assertThat(StrMatcher.splitMatcher()).isSameAs(matcher);
         assertThat(matcher.isMatch(BUFFER1, 2)). isZero();
@@ -162,7 +162,7 @@ public class StrMatcherTest  {
     }
 
     @Test
-    public void testStringMatcher_String() {
+    void testStringMatcher_String() {
         final StrMatcher matcher = StrMatcher.stringMatcher("bc");
         assertThat(matcher.isMatch(BUFFER2, 0)). isZero();
         assertThat(matcher.isMatch(BUFFER2, 1)).isEqualTo(2);
@@ -175,7 +175,7 @@ public class StrMatcherTest  {
     }
 
     @Test
-    public void testTabMatcher() {
+    void testTabMatcher() {
         final StrMatcher matcher = StrMatcher.tabMatcher();
         assertThat(StrMatcher.tabMatcher()).isSameAs(matcher);
         assertThat(matcher.isMatch(BUFFER1, 2)). isZero();
@@ -184,7 +184,7 @@ public class StrMatcherTest  {
     }
 
     @Test
-    public void testTrimMatcher() {
+    void testTrimMatcher() {
         final StrMatcher matcher = StrMatcher.trimMatcher();
         assertThat(StrMatcher.trimMatcher()).isSameAs(matcher);
         assertThat(matcher.isMatch(BUFFER1, 2)). isZero();

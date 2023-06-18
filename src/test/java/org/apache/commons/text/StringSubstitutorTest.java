@@ -47,8 +47,9 @@ import org.junit.jupiter.api.TestMethodOrder;
 /**
  * Test class for {@link StringSubstitutor}.
  */
-@TestMethodOrder(MethodOrderer.MethodName.class) // temp, for my sanity during dev
-public class StringSubstitutorTest {
+@TestMethodOrder(MethodOrderer.MethodName.class)
+public // temp, for my sanity during dev
+class StringSubstitutorTest {
 
     private static final String ACTUAL_ANIMAL = "quick brown fox";
     private static final String ACTUAL_TARGET = "lazy dog";
@@ -203,14 +204,14 @@ public class StringSubstitutorTest {
     }
 
     @Test
-    public void testConstructorNullMap() {
+    void testConstructorNullMap() {
         final Map<String, Object> parameters = null;
         final StringSubstitutor s = new StringSubstitutor(parameters, "prefix", "suffix");
         assertNull(s.getStringLookup().lookup("X"));
     }
 
     @Test
-    public void testConstructorStringSubstitutor() {
+    void testConstructorStringSubstitutor() {
         final StringSubstitutor source = new StringSubstitutor();
         source.setDisableSubstitutionInValues(true);
         source.setEnableSubstitutionInVariables(true);
@@ -239,7 +240,7 @@ public class StringSubstitutorTest {
      * Tests get set.
      */
     @Test
-    public void testGetSetEscape() {
+    void testGetSetEscape() {
         final StringSubstitutor sub = new StringSubstitutor();
         assertEquals('$', sub.getEscapeChar());
         sub.setEscapeChar('<');
@@ -250,7 +251,7 @@ public class StringSubstitutorTest {
      * Test for LANG-1055: StringSubstitutor.replaceSystemProperties does not work consistently
      */
     @Test
-    public void testLANG1055() {
+    void testLANG1055() {
         System.setProperty("test_key", "test_value");
 
         final String expected = StringSubstitutor.replace("test_key=${test_key}", System.getProperties());
@@ -262,7 +263,7 @@ public class StringSubstitutorTest {
      * Tests interpolation with weird boundary patterns.
      */
     @Test
-    public void testReplace_JiraText178_WeirdPatterns1() throws IOException {
+    void testReplace_JiraText178_WeirdPatterns1() throws IOException {
         doNotReplace("$${");
         doNotReplace("$${a");
         doNotReplace("$$${");
@@ -276,7 +277,7 @@ public class StringSubstitutorTest {
      * Tests interpolation with weird boundary patterns.
      */
     @Test
-    public void testReplace_JiraText178_WeirdPatterns2() throws IOException {
+    void testReplace_JiraText178_WeirdPatterns2() throws IOException {
         doReplace("${1}", "$${${a}}", false);
     }
 
@@ -285,7 +286,7 @@ public class StringSubstitutorTest {
      */
     @Test
     @Disabled
-    public void testReplace_JiraText178_WeirdPatterns3() throws IOException {
+    void testReplace_JiraText178_WeirdPatterns3() throws IOException {
         doReplace("${${a}", "$${${a}", false); // not "$${1" or "${1"
     }
 
@@ -293,7 +294,7 @@ public class StringSubstitutorTest {
      * Tests adjacent keys.
      */
     @Test
-    public void testReplaceAdjacentAtEnd() throws IOException {
+    void testReplaceAdjacentAtEnd() throws IOException {
         values.put("code", "GBP");
         values.put("amount", "12.50");
         final StringSubstitutor sub = new StringSubstitutor(values);
@@ -304,7 +305,7 @@ public class StringSubstitutorTest {
      * Tests adjacent keys.
      */
     @Test
-    public void testReplaceAdjacentAtStart() throws IOException {
+    void testReplaceAdjacentAtStart() throws IOException {
         values.put("code", "GBP");
         values.put("amount", "12.50");
         final StringSubstitutor sub = new StringSubstitutor(values);
@@ -315,7 +316,7 @@ public class StringSubstitutorTest {
      * Tests key replace changing map after initialization (not recommended).
      */
     @Test
-    public void testReplaceChangedMap() throws IOException {
+    void testReplaceChangedMap() throws IOException {
         final StringSubstitutor sub = new StringSubstitutor(values);
         // no map change
         final String template = CLASSIC_TEMPLATE;
@@ -329,7 +330,7 @@ public class StringSubstitutorTest {
      * Tests complex escaping.
      */
     @Test
-    public void testReplaceComplexEscaping() throws IOException {
+    void testReplaceComplexEscaping() throws IOException {
         doReplace("${1}", "$${${a}}", false);
         doReplace("${11}", "$${${aa}}", false);
         doReplace("${111}", "$${${aaa}}", false);
@@ -352,7 +353,7 @@ public class StringSubstitutorTest {
      * Tests when no variable name.
      */
     @Test
-    public void testReplaceEmptyKey() throws IOException {
+    void testReplaceEmptyKey() throws IOException {
         doReplace("The ${} jumps over the lazy dog.", "The ${} jumps over the ${target}.", true);
     }
 
@@ -360,7 +361,7 @@ public class StringSubstitutorTest {
      * Tests when no variable name.
      */
     @Test
-    public void testReplaceEmptyKeyExtraFirst() throws IOException {
+    void testReplaceEmptyKeyExtraFirst() throws IOException {
         assertEqualsCharSeq("." + EMPTY_EXPR, replace(new StringSubstitutor(values), "." + EMPTY_EXPR));
     }
 
@@ -368,7 +369,7 @@ public class StringSubstitutorTest {
      * Tests when no variable name.
      */
     @Test
-    public void testReplaceEmptyKeyExtraLast() throws IOException {
+    void testReplaceEmptyKeyExtraLast() throws IOException {
         assertEqualsCharSeq(EMPTY_EXPR + ".", replace(new StringSubstitutor(values), EMPTY_EXPR + "."));
     }
 
@@ -376,7 +377,7 @@ public class StringSubstitutorTest {
      * Tests when no variable name.
      */
     @Test
-    public void testReplaceEmptyKeyOnly() throws IOException {
+    void testReplaceEmptyKeyOnly() throws IOException {
         assertEquals(EMPTY_EXPR, replace(new StringSubstitutor(values), EMPTY_EXPR));
     }
 
@@ -384,7 +385,7 @@ public class StringSubstitutorTest {
      * Tests when no variable name.
      */
     @Test
-    public void testReplaceEmptyKeyShortest() throws IOException {
+    void testReplaceEmptyKeyShortest() throws IOException {
         doNotReplace(EMPTY_EXPR);
     }
 
@@ -392,7 +393,7 @@ public class StringSubstitutorTest {
      * Tests when no variable name.
      */
     @Test
-    public void testReplaceEmptyKeyWithDefault() throws IOException {
+    void testReplaceEmptyKeyWithDefault() throws IOException {
         doReplace("The animal jumps over the lazy dog.", "The ${:-animal} jumps over the ${target}.", true);
     }
 
@@ -400,7 +401,7 @@ public class StringSubstitutorTest {
      * Tests when no variable name.
      */
     @Test
-    public void testReplaceEmptyKeyWithDefaultOnly() throws IOException {
+    void testReplaceEmptyKeyWithDefaultOnly() throws IOException {
         doReplace("animal", "${:-animal}", false);
     }
 
@@ -408,7 +409,7 @@ public class StringSubstitutorTest {
      * Tests when no variable name.
      */
     @Test
-    public void testReplaceEmptyKeyWithDefaultOnlyEmpty() throws IOException {
+    void testReplaceEmptyKeyWithDefaultOnlyEmpty() throws IOException {
         doReplace("", "${:-}", false);
     }
 
@@ -416,7 +417,7 @@ public class StringSubstitutorTest {
      * Tests when no variable name.
      */
     @Test
-    public void testReplaceEmptyKeyWithDefaultOnlyShortest() throws IOException {
+    void testReplaceEmptyKeyWithDefaultOnlyShortest() throws IOException {
         doReplace("a", "${:-a}", false);
     }
 
@@ -424,7 +425,7 @@ public class StringSubstitutorTest {
      * Tests replace with null.
      */
     @Test
-    public void testReplaceEmptyString() throws IOException {
+    void testReplaceEmptyString() throws IOException {
         doNotReplace(StringUtils.EMPTY);
     }
 
@@ -432,7 +433,7 @@ public class StringSubstitutorTest {
      * Tests escaping.
      */
     @Test
-    public void testReplaceEscaping() throws IOException {
+    void testReplaceEscaping() throws IOException {
         doReplace("The ${animal} jumps over the lazy dog.", "The $${animal} jumps over the ${target}.", true);
         doReplace("${a}", "$${a}", false);
         doReplace("${a${a}}", "$${a$${a}}", false);
@@ -443,7 +444,7 @@ public class StringSubstitutorTest {
      * Tests replace with fail on undefined variable.
      */
     @Test
-    public void testReplaceFailOnUndefinedVariable() throws IOException {
+    void testReplaceFailOnUndefinedVariable() throws IOException {
         values.put("animal.1", "fox");
         values.put("animal.2", "mouse");
         values.put("species", "2");
@@ -474,7 +475,7 @@ public class StringSubstitutorTest {
      * Tests whether replace with fail on undefined variable with substitution in variable names enabled.
      */
     @Test
-    public void testReplaceFailOnUndefinedVariableWithReplaceInVariable() throws IOException {
+    void testReplaceFailOnUndefinedVariableWithReplaceInVariable() throws IOException {
         values.put("animal.1", "fox");
         values.put("animal.2", "mouse");
         values.put("species", "2");
@@ -514,12 +515,12 @@ public class StringSubstitutorTest {
      * Tests when no incomplete prefix.
      */
     @Test
-    public void testReplaceIncompletePrefix() throws IOException {
+    void testReplaceIncompletePrefix() throws IOException {
         doReplace("The {animal} jumps over the lazy dog.", "The {animal} jumps over the ${target}.", true);
     }
 
     @Test
-    public void testReplaceInTakingStringBufferWithNonNull() {
+    void testReplaceInTakingStringBufferWithNonNull() {
         final StringSubstitutor strSubstitutor = new StringSubstitutor(new HashMap<String, String>(), "WV@i#y?N*[",
             "WV@i#y?N*[", '*');
 
@@ -529,7 +530,7 @@ public class StringSubstitutorTest {
     }
 
     @Test
-    public void testReplaceInTakingStringBuilderWithNonNull() {
+    void testReplaceInTakingStringBuilderWithNonNull() {
         final StringLookup strLookup = StringLookupFactory.INSTANCE.systemPropertyStringLookup();
         final StringSubstitutor strSubstitutor = new StringSubstitutor(strLookup, "b<H", "b<H", '\'');
         final StringBuilder stringBuilder = new StringBuilder((CharSequence) "b<H");
@@ -539,7 +540,7 @@ public class StringSubstitutorTest {
     }
 
     @Test
-    public void testReplaceInTakingStringBuilderWithNull() {
+    void testReplaceInTakingStringBuilderWithNull() {
         final Map<String, Object> map = new HashMap<>();
         final StringSubstitutor strSubstitutor = new StringSubstitutor(map, StringUtils.EMPTY, StringUtils.EMPTY, 'T',
             "K+<'f");
@@ -548,7 +549,7 @@ public class StringSubstitutorTest {
     }
 
     @Test
-    public void testReplaceInTakingTwoAndThreeIntsReturningFalse() {
+    void testReplaceInTakingTwoAndThreeIntsReturningFalse() {
         final Map<String, Object> hashMap = new HashMap<>();
         final StringLookup mapStringLookup = StringLookupFactory.INSTANCE.mapStringLookup(hashMap);
         final StringMatcher strMatcher = StringMatcherFactory.INSTANCE.tabMatcher();
@@ -564,7 +565,7 @@ public class StringSubstitutorTest {
      * Tests whether a variable can be replaced in a variable name.
      */
     @Test
-    public void testReplaceInVariable() throws IOException {
+    void testReplaceInVariable() throws IOException {
         values.put("animal.1", "fox");
         values.put("animal.2", "mouse");
         values.put("species", "2");
@@ -583,7 +584,7 @@ public class StringSubstitutorTest {
      * Tests whether substitution in variable names is disabled per default.
      */
     @Test
-    public void testReplaceInVariableDisabled() throws IOException {
+    void testReplaceInVariableDisabled() throws IOException {
         values.put("animal.1", "fox");
         values.put("animal.2", "mouse");
         values.put("species", "2");
@@ -598,7 +599,7 @@ public class StringSubstitutorTest {
      * Tests complex and recursive substitution in variable names.
      */
     @Test
-    public void testReplaceInVariableRecursive() throws IOException {
+    void testReplaceInVariableRecursive() throws IOException {
         values.put("animal.2", "brown fox");
         values.put("animal.1", "white mouse");
         values.put("color", "white");
@@ -617,7 +618,7 @@ public class StringSubstitutorTest {
      * Tests when no variable name.
      */
     @Test
-    public void testReplaceKeyStartChars() throws IOException {
+    void testReplaceKeyStartChars() throws IOException {
         final String substring = StringSubstitutor.DEFAULT_VAR_START + "a";
         assertEqualsCharSeq(substring, replace(new StringSubstitutor(values), substring));
     }
@@ -626,7 +627,7 @@ public class StringSubstitutorTest {
      * Tests when no variable name.
      */
     @Test
-    public void testReplaceKeyStartChars1Only() throws IOException {
+    void testReplaceKeyStartChars1Only() throws IOException {
         final String substring = StringSubstitutor.DEFAULT_VAR_START.substring(0, 1);
         assertEqualsCharSeq(substring, replace(new StringSubstitutor(values), substring));
     }
@@ -635,7 +636,7 @@ public class StringSubstitutorTest {
      * Tests when no variable name.
      */
     @Test
-    public void testReplaceKeyStartChars2Only() throws IOException {
+    void testReplaceKeyStartChars2Only() throws IOException {
         final String substring = StringSubstitutor.DEFAULT_VAR_START.substring(0, 2);
         assertEqualsCharSeq(substring, replace(new StringSubstitutor(values), substring));
     }
@@ -644,7 +645,7 @@ public class StringSubstitutorTest {
      * Tests when no prefix or suffix.
      */
     @Test
-    public void testReplaceNoPrefixNoSuffix() throws IOException {
+    void testReplaceNoPrefixNoSuffix() throws IOException {
         doReplace("The animal jumps over the lazy dog.", "The animal jumps over the ${target}.", true);
     }
 
@@ -652,7 +653,7 @@ public class StringSubstitutorTest {
      * Tests when suffix but no prefix.
      */
     @Test
-    public void testReplaceNoPrefixSuffix() throws IOException {
+    void testReplaceNoPrefixSuffix() throws IOException {
         doReplace("The animal} jumps over the lazy dog.", "The animal} jumps over the ${target}.", true);
     }
 
@@ -660,7 +661,7 @@ public class StringSubstitutorTest {
      * Tests replace with no variables.
      */
     @Test
-    public void testReplaceNoVariables() throws IOException {
+    void testReplaceNoVariables() throws IOException {
         doNotReplace("The balloon arrived.");
     }
 
@@ -668,7 +669,7 @@ public class StringSubstitutorTest {
      * Tests replace with null.
      */
     @Test
-    public void testReplaceNull() throws IOException {
+    void testReplaceNull() throws IOException {
         doNotReplace(null);
     }
 
@@ -676,7 +677,7 @@ public class StringSubstitutorTest {
      * Tests simple key replace.
      */
     @Test
-    public void testReplacePartialString_noReplace() {
+    void testReplacePartialString_noReplace() {
         final StringSubstitutor sub = new StringSubstitutor();
         assertEqualsCharSeq("${animal} jumps", sub.replace(CLASSIC_TEMPLATE, 4, 15));
     }
@@ -685,7 +686,7 @@ public class StringSubstitutorTest {
      * Tests when prefix but no suffix.
      */
     @Test
-    public void testReplacePrefixNoSuffix() throws IOException {
+    void testReplacePrefixNoSuffix() throws IOException {
         doReplace("The ${animal jumps over the ${target} lazy dog.", "The ${animal jumps over the ${target} ${target}.",
             true);
     }
@@ -694,7 +695,7 @@ public class StringSubstitutorTest {
      * Tests simple recursive replace.
      */
     @Test
-    public void testReplaceRecursive() throws IOException {
+    void testReplaceRecursive() throws IOException {
         values.put("animal", "${critter}");
         values.put("target", "${pet}");
         values.put("pet", "${petCharacteristic} dog");
@@ -713,7 +714,7 @@ public class StringSubstitutorTest {
      * Tests simple key replace.
      */
     @Test
-    public void testReplaceSimple() throws IOException {
+    void testReplaceSimple() throws IOException {
         doReplace(CLASSIC_RESULT, CLASSIC_TEMPLATE, true);
     }
 
@@ -721,7 +722,7 @@ public class StringSubstitutorTest {
      * Tests simple key replace.
      */
     @Test
-    public void testReplaceSimpleKeySize1() throws IOException {
+    void testReplaceSimpleKeySize1() throws IOException {
         doReplace("1", "${a}", false);
     }
 
@@ -729,7 +730,7 @@ public class StringSubstitutorTest {
      * Tests simple key replace.
      */
     @Test
-    public void testReplaceSimpleKeySize2() throws IOException {
+    void testReplaceSimpleKeySize2() throws IOException {
         doReplace("11", "${aa}", false);
     }
 
@@ -737,12 +738,12 @@ public class StringSubstitutorTest {
      * Tests simple key replace.
      */
     @Test
-    public void testReplaceSimpleKeySize3() throws IOException {
+    void testReplaceSimpleKeySize3() throws IOException {
         doReplace("111", "${aaa}", false);
     }
 
     @Test
-    public void testReplaceTakingCharSequenceReturningNull() {
+    void testReplaceTakingCharSequenceReturningNull() {
         final StringSubstitutor strSubstitutor = new StringSubstitutor((StringLookup) null);
 
         assertNull(strSubstitutor.replace((CharSequence) null));
@@ -751,12 +752,12 @@ public class StringSubstitutorTest {
     }
 
     @Test
-    public void testReplaceTakingThreeArgumentsThrowsNullPointerException() {
+    void testReplaceTakingThreeArgumentsThrowsNullPointerException() {
         assertThatNullPointerException().isThrownBy(() -> StringSubstitutor.replace(null, (Properties) null));
     }
 
     @Test
-    public void testReplaceThrowsStringIndexOutOfBoundsException() {
+    void testReplaceThrowsStringIndexOutOfBoundsException() {
         final StringSubstitutor sub = new StringSubstitutor();
 
         // replace(char[], int, int)
@@ -781,7 +782,7 @@ public class StringSubstitutorTest {
      * Tests replace creates output same as input.
      */
     @Test
-    public void testReplaceToIdentical() throws IOException {
+    void testReplaceToIdentical() throws IOException {
         values.put("animal", "$${${thing}}");
         values.put("thing", "animal");
         doReplace("The ${animal} jumps.", "The ${animal} jumps.", true);
@@ -791,7 +792,7 @@ public class StringSubstitutorTest {
      * Tests unknown key replace.
      */
     @Test
-    public void testReplaceUnknownKey() throws IOException {
+    void testReplaceUnknownKey() throws IOException {
         doReplace("The ${person} jumps over the lazy dog.", "The ${person} jumps over the ${target}.", true);
     }
 
@@ -799,7 +800,7 @@ public class StringSubstitutorTest {
      * Tests unknown key replace.
      */
     @Test
-    public void testReplaceUnknownKeyDefaultValue() throws IOException {
+    void testReplaceUnknownKeyDefaultValue() throws IOException {
         doReplace("The ${person} jumps over the lazy dog. 1234567890.",
             "The ${person} jumps over the ${target}. ${undefined.number:-1234567890}.", true);
     }
@@ -808,7 +809,7 @@ public class StringSubstitutorTest {
      * Tests unknown key replace.
      */
     @Test
-    public void testReplaceUnknownKeyOnly() throws IOException {
+    void testReplaceUnknownKeyOnly() throws IOException {
         final String expected = "${person}";
         assertEqualsCharSeq(expected, replace(new StringSubstitutor(values), expected));
     }
@@ -817,7 +818,7 @@ public class StringSubstitutorTest {
      * Tests unknown key replace.
      */
     @Test
-    public void testReplaceUnknownKeyOnlyExtraFirst() throws IOException {
+    void testReplaceUnknownKeyOnlyExtraFirst() throws IOException {
         final String expected = ".${person}";
         assertEqualsCharSeq(expected, replace(new StringSubstitutor(values), expected));
     }
@@ -826,7 +827,7 @@ public class StringSubstitutorTest {
      * Tests unknown key replace.
      */
     @Test
-    public void testReplaceUnknownKeyOnlyExtraLast() throws IOException {
+    void testReplaceUnknownKeyOnlyExtraLast() throws IOException {
         final String expected = "${person}.";
         assertEqualsCharSeq(expected, replace(new StringSubstitutor(values), expected));
     }
@@ -835,7 +836,7 @@ public class StringSubstitutorTest {
      * Tests unknown key replace.
      */
     @Test
-    public void testReplaceUnknownShortestKeyOnly() throws IOException {
+    void testReplaceUnknownShortestKeyOnly() throws IOException {
         final String expected = "${U}";
         assertEqualsCharSeq(expected, replace(new StringSubstitutor(values), expected));
     }
@@ -844,7 +845,7 @@ public class StringSubstitutorTest {
      * Tests unknown key replace.
      */
     @Test
-    public void testReplaceUnknownShortestKeyOnlyExtraFirst() throws IOException {
+    void testReplaceUnknownShortestKeyOnlyExtraFirst() throws IOException {
         final String expected = ".${U}";
         assertEqualsCharSeq(expected, replace(new StringSubstitutor(values), expected));
     }
@@ -853,7 +854,7 @@ public class StringSubstitutorTest {
      * Tests unknown key replace.
      */
     @Test
-    public void testReplaceUnknownShortestKeyOnlyExtraLast() throws IOException {
+    void testReplaceUnknownShortestKeyOnlyExtraLast() throws IOException {
         final String expected = "${U}.";
         assertEqualsCharSeq(expected, replace(new StringSubstitutor(values), expected));
     }
@@ -862,7 +863,7 @@ public class StringSubstitutorTest {
      * Tests simple key replace.
      */
     @Test
-    public void testReplaceVariablesCount1() throws IOException {
+    void testReplaceVariablesCount1() throws IOException {
         doReplace(ACTUAL_ANIMAL, "${animal}", false);
     }
 
@@ -870,7 +871,7 @@ public class StringSubstitutorTest {
      * Tests escaping.
      */
     @Test
-    public void testReplaceVariablesCount1Escaping2To1() throws IOException {
+    void testReplaceVariablesCount1Escaping2To1() throws IOException {
         doReplace("${a}", "$${a}", false);
         doReplace("${animal}", "$${animal}", false);
     }
@@ -879,7 +880,7 @@ public class StringSubstitutorTest {
      * Tests escaping.
      */
     @Test
-    public void testReplaceVariablesCount1Escaping3To2() throws IOException {
+    void testReplaceVariablesCount1Escaping3To2() throws IOException {
         doReplace("$${a}", "$$${a}", false);
         doReplace("$${animal}", "$$${animal}", false);
     }
@@ -888,7 +889,7 @@ public class StringSubstitutorTest {
      * Tests escaping.
      */
     @Test
-    public void testReplaceVariablesCount1Escaping4To3() throws IOException {
+    void testReplaceVariablesCount1Escaping4To3() throws IOException {
         doReplace("$$${a}", "$$$${a}", false);
         doReplace("$$${animal}", "$$$${animal}", false);
     }
@@ -897,7 +898,7 @@ public class StringSubstitutorTest {
      * Tests escaping.
      */
     @Test
-    public void testReplaceVariablesCount1Escaping5To4() throws IOException {
+    void testReplaceVariablesCount1Escaping5To4() throws IOException {
         doReplace("$$$${a}", "$$$$${a}", false);
         doReplace("$$$${animal}", "$$$$${animal}", false);
     }
@@ -906,7 +907,7 @@ public class StringSubstitutorTest {
      * Tests escaping.
      */
     @Test
-    public void testReplaceVariablesCount1Escaping6To4() throws IOException {
+    void testReplaceVariablesCount1Escaping6To4() throws IOException {
         doReplace("$$$$${a}", "$$$$$${a}", false);
         doReplace("$$$$${animal}", "$$$$$${animal}", false);
     }
@@ -915,7 +916,7 @@ public class StringSubstitutorTest {
      * Tests simple key replace.
      */
     @Test
-    public void testReplaceVariablesCount2() throws IOException {
+    void testReplaceVariablesCount2() throws IOException {
         // doTestReplace("12", "${a}${b}", false);
         doReplace("1122", "${aa}${bb}", false);
         doReplace(ACTUAL_ANIMAL + ACTUAL_ANIMAL, "${animal}${animal}", false);
@@ -927,7 +928,7 @@ public class StringSubstitutorTest {
      * Tests simple key replace.
      */
     @Test
-    public void testReplaceVariablesCount2NonAdjacent() throws IOException {
+    void testReplaceVariablesCount2NonAdjacent() throws IOException {
         doReplace("1 2", "${a} ${b}", false);
         doReplace("11 22", "${aa} ${bb}", false);
         doReplace(ACTUAL_ANIMAL + " " + ACTUAL_ANIMAL, "${animal} ${animal}", false);
@@ -939,7 +940,7 @@ public class StringSubstitutorTest {
      * Tests simple key replace.
      */
     @Test
-    public void testReplaceVariablesCount3() throws IOException {
+    void testReplaceVariablesCount3() throws IOException {
         doReplace("121", "${a}${b}${a}", false);
         doReplace("112211", "${aa}${bb}${aa}", false);
         doReplace(ACTUAL_ANIMAL + ACTUAL_ANIMAL + ACTUAL_ANIMAL, "${animal}${animal}${animal}", false);
@@ -950,7 +951,7 @@ public class StringSubstitutorTest {
      * Tests simple key replace.
      */
     @Test
-    public void testReplaceVariablesCount3NonAdjacent() throws IOException {
+    void testReplaceVariablesCount3NonAdjacent() throws IOException {
         doReplace("1 2 1", "${a} ${b} ${a}", false);
         doReplace("11 22 11", "${aa} ${bb} ${aa}", false);
         doReplace(ACTUAL_ANIMAL + " " + ACTUAL_ANIMAL + " " + ACTUAL_ANIMAL, "${animal} ${animal} ${animal}", false);
@@ -961,7 +962,7 @@ public class StringSubstitutorTest {
      * Tests interpolation with weird boundary patterns.
      */
     @Test
-    public void testReplaceWeirdPattens() throws IOException {
+    void testReplaceWeirdPattens() throws IOException {
         doNotReplace(StringUtils.EMPTY);
         doNotReplace(EMPTY_EXPR);
         doNotReplace("${ }");
@@ -1000,7 +1001,7 @@ public class StringSubstitutorTest {
      * Tests protected.
      */
     @Test
-    public void testResolveVariable() {
+    void testResolveVariable() {
         final TextStringBuilder builder = new TextStringBuilder("Hi ${name}!");
         final Map<String, String> map = new HashMap<>();
         map.put("name", "commons");
@@ -1020,7 +1021,7 @@ public class StringSubstitutorTest {
     }
 
     @Test
-    public void testSamePrefixAndSuffix() {
+    void testSamePrefixAndSuffix() {
         final Map<String, String> map = new HashMap<>();
         map.put("greeting", "Hello");
         map.put(" there ", "XXX");
@@ -1034,7 +1035,7 @@ public class StringSubstitutorTest {
      * Tests static.
      */
     @Test
-    public void testStaticReplace() {
+    void testStaticReplace() {
         final Map<String, String> map = new HashMap<>();
         map.put("name", "commons");
         assertEqualsCharSeq("Hi commons!", StringSubstitutor.replace("Hi ${name}!", map));
@@ -1044,7 +1045,7 @@ public class StringSubstitutorTest {
      * Tests static.
      */
     @Test
-    public void testStaticReplacePrefixSuffix() {
+    void testStaticReplacePrefixSuffix() {
         final Map<String, String> map = new HashMap<>();
         map.put("name", "commons");
         assertEqualsCharSeq("Hi commons!", StringSubstitutor.replace("Hi <name>!", map, "<", ">"));
@@ -1054,7 +1055,7 @@ public class StringSubstitutorTest {
      * Tests interpolation with system properties.
      */
     @Test
-    public void testStaticReplaceSystemProperties() {
+    void testStaticReplaceSystemProperties() {
         final TextStringBuilder buf = new TextStringBuilder();
         buf.append("Hi ").append(System.getProperty("user.name"));
         buf.append(", you are working with ");
@@ -1069,7 +1070,7 @@ public class StringSubstitutorTest {
      * Tests interpolation with system properties.
      */
     @Test
-    public void testStaticReplaceSystemPropertiesWithUpdate() {
+    void testStaticReplaceSystemPropertiesWithUpdate() {
         System.setProperty("foo", "bar1");
         try {
             assertEqualsCharSeq("bar1", StringSubstitutor.replaceSystemProperties("${foo}"));
@@ -1084,7 +1085,7 @@ public class StringSubstitutorTest {
      * Test the replace of a properties object
      */
     @Test
-    public void testSubstituteDefaultProperties() {
+    void testSubstituteDefaultProperties() {
         final String org = "${doesnotwork}";
         System.setProperty("doesnotwork", "It works!");
 
@@ -1095,7 +1096,7 @@ public class StringSubstitutorTest {
     }
 
     @Test
-    public void testSubstitutePreserveEscape() throws IOException {
+    void testSubstitutePreserveEscape() throws IOException {
         final String org = "${not-escaped} $${escaped}";
         final Map<String, String> map = new HashMap<>();
         map.put("not-escaped", "value");

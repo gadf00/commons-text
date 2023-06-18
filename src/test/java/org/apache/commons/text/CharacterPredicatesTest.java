@@ -23,10 +23,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests for {@link CharacterPredicates}.
  */
-public class CharacterPredicatesTest {
+class CharacterPredicatesTest {
 
     @Test
-    public void testArabicNumerals() {
+    void testArabicNumerals() {
         assertThat(CharacterPredicates.ARABIC_NUMERALS.test('0')).isTrue();
         assertThat(CharacterPredicates.ARABIC_NUMERALS.test('1')).isTrue();
         assertThat(CharacterPredicates.ARABIC_NUMERALS.test('9')).isTrue();
@@ -37,7 +37,7 @@ public class CharacterPredicatesTest {
     }
 
     @Test
-    public void testAsciiAlphaNumerals() {
+    void testAsciiAlphaNumerals() {
         assertThat(CharacterPredicates.ASCII_ALPHA_NUMERALS.test('a')).isTrue();
         assertThat(CharacterPredicates.ASCII_ALPHA_NUMERALS.test('z')).isTrue();
         assertThat(CharacterPredicates.ASCII_ALPHA_NUMERALS.test('A')).isTrue();
@@ -54,7 +54,7 @@ public class CharacterPredicatesTest {
     }
 
     @Test
-    public void testAsciiLetters() {
+    void testAsciiLetters() {
         assertThat(CharacterPredicates.ASCII_LETTERS.test('a')).isTrue();
         assertThat(CharacterPredicates.ASCII_LETTERS.test('z')).isTrue();
         assertThat(CharacterPredicates.ASCII_LETTERS.test('A')).isTrue();
@@ -68,7 +68,7 @@ public class CharacterPredicatesTest {
     }
 
     @Test
-    public void testAsciiLowercaseLetters() {
+    void testAsciiLowercaseLetters() {
         assertThat(CharacterPredicates.ASCII_LOWERCASE_LETTERS.test('a')).isTrue();
         assertThat(CharacterPredicates.ASCII_LOWERCASE_LETTERS.test('z')).isTrue();
 
@@ -80,7 +80,7 @@ public class CharacterPredicatesTest {
     }
 
     @Test
-    public void testAsciiUppercaseLetters() {
+    void testAsciiUppercaseLetters() {
         assertThat(CharacterPredicates.ASCII_UPPERCASE_LETTERS.test('A')).isTrue();
         assertThat(CharacterPredicates.ASCII_UPPERCASE_LETTERS.test('Z')).isTrue();
 
@@ -92,7 +92,7 @@ public class CharacterPredicatesTest {
     }
 
     @Test
-    public void testDigits() {
+    void testDigits() {
         assertThat(CharacterPredicates.DIGITS.test('0')).isTrue();
         assertThat(CharacterPredicates.DIGITS.test('9')).isTrue();
 
@@ -102,7 +102,7 @@ public class CharacterPredicatesTest {
     }
 
     @Test
-    public void testLetters() {
+    void testLetters() {
         assertThat(CharacterPredicates.LETTERS.test('a')).isTrue();
         assertThat(CharacterPredicates.LETTERS.test('Z')).isTrue();
 

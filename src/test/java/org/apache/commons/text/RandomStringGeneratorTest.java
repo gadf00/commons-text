@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests for {@link RandomStringGenerator}
  */
-public class RandomStringGeneratorTest {
+class RandomStringGeneratorTest {
 
     private static final CharacterPredicate A_FILTER = codePoint -> codePoint == 'a';
 
@@ -37,22 +37,22 @@ public class RandomStringGeneratorTest {
     }
 
     @Test
-    public void testBadMaximumCodePoint() {
+    void testBadMaximumCodePoint() {
         assertThatIllegalArgumentException().isThrownBy(() -> new RandomStringGenerator.Builder().withinRange(0, Character.MAX_CODE_POINT + 1));
     }
 
     @Test
-    public void testBadMinAndMax() {
+    void testBadMinAndMax() {
         assertThatIllegalArgumentException().isThrownBy(() -> new RandomStringGenerator.Builder().withinRange(2, 1));
     }
 
     @Test
-    public void testBadMinimumCodePoint() {
+    void testBadMinimumCodePoint() {
         assertThatIllegalArgumentException().isThrownBy(() -> new RandomStringGenerator.Builder().withinRange(-1, 1));
     }
 
     @Test
-    public void testChangeOfFilter() {
+    void testChangeOfFilter() {
         final RandomStringGenerator.Builder builder = new RandomStringGenerator.Builder().withinRange('a', 'z')
                 .filteredBy(A_FILTER);
         final String str = builder.filteredBy(B_FILTER).build().generate(100);
@@ -63,7 +63,7 @@ public class RandomStringGeneratorTest {
     }
 
     @Test
-    public void testGenerateMinMaxLength() {
+    void testGenerateMinMaxLength() {
         final int minLength = 0;
         final int maxLength = 3;
         final RandomStringGenerator generator = new RandomStringGenerator.Builder().build();
@@ -72,7 +72,7 @@ public class RandomStringGeneratorTest {
     }
 
     @Test
-    public void testGenerateMinMaxLengthInvalidLength() {
+    void testGenerateMinMaxLengthInvalidLength() {
         assertThatIllegalArgumentException().isThrownBy(() -> {
             final RandomStringGenerator generator = new RandomStringGenerator.Builder().build();
             generator.generate(-1, 0);
@@ -80,7 +80,7 @@ public class RandomStringGeneratorTest {
     }
 
     @Test
-    public void testGenerateMinMaxLengthMinGreaterThanMax() {
+    void testGenerateMinMaxLengthMinGreaterThanMax() {
         assertThatIllegalArgumentException().isThrownBy(() -> {
             final RandomStringGenerator generator = new RandomStringGenerator.Builder().build();
             generator.generate(1, 0);
@@ -88,7 +88,7 @@ public class RandomStringGeneratorTest {
     }
 
     @Test
-    public void testGenerateTakingIntThrowsNullPointerException() {
+    void testGenerateTakingIntThrowsNullPointerException() {
         assertThatNullPointerException().isThrownBy(() -> {
             final RandomStringGenerator.Builder randomStringGeneratorBuilder = new RandomStringGenerator.Builder();
             final CharacterPredicate[] characterPredicateArray = new CharacterPredicate[2];
@@ -100,7 +100,7 @@ public class RandomStringGeneratorTest {
     }
 
     @Test
-    public void testInvalidLength() {
+    void testInvalidLength() {
         assertThatIllegalArgumentException().isThrownBy(() -> {
             final RandomStringGenerator generator = new RandomStringGenerator.Builder().build();
             generator.generate(-1);
@@ -108,7 +108,7 @@ public class RandomStringGeneratorTest {
     }
 
     @Test
-    public void testMultipleFilters() {
+    void testMultipleFilters() {
         final String str = new RandomStringGenerator.Builder().withinRange('a', 'd')
                 .filteredBy(A_FILTER, B_FILTER).build().generate(5000);
 
@@ -129,7 +129,7 @@ public class RandomStringGeneratorTest {
     }
 
     @Test
-    public void testNoLoneSurrogates() {
+    void testNoLoneSurrogates() {
         final int length = 5000;
         final String str = new RandomStringGenerator.Builder().build().generate(length);
 
@@ -155,7 +155,7 @@ public class RandomStringGeneratorTest {
     }
 
     @Test
-    public void testNoPrivateCharacters() {
+    void testNoPrivateCharacters() {
         final int startOfPrivateBMPChars = 0xE000;
 
         // Request a string in an area of the Basic Multilingual Plane that is
@@ -172,7 +172,7 @@ public class RandomStringGeneratorTest {
     }
 
     @Test
-    public void testRemoveFilters() {
+    void testRemoveFilters() {
         final RandomStringGenerator.Builder builder = new RandomStringGenerator.Builder().withinRange('a', 'z')
                 .filteredBy(A_FILTER);
 
@@ -190,7 +190,7 @@ public class RandomStringGeneratorTest {
     }
 
     @Test
-    public void testSelectFromCharArray() {
+    void testSelectFromCharArray() {
         final String str = "abc";
         final char[] charArray = str.toCharArray();
         final RandomStringGenerator generator = new RandomStringGenerator.Builder().selectFrom(charArray).build();
@@ -203,7 +203,7 @@ public class RandomStringGeneratorTest {
     }
 
     @Test
-    public void testSelectFromCharVarargs() {
+    void testSelectFromCharVarargs() {
         final String str = "abc";
         final RandomStringGenerator generator = new RandomStringGenerator.Builder().selectFrom('a', 'b', 'c').build();
         final String randomText = generator.generate(5);
@@ -213,7 +213,7 @@ public class RandomStringGeneratorTest {
     }
 
     @Test
-    public void testSetLength() {
+    void testSetLength() {
         final int length = 99;
         final RandomStringGenerator generator = new RandomStringGenerator.Builder().build();
         final String str = generator.generate(length);
@@ -221,7 +221,7 @@ public class RandomStringGeneratorTest {
     }
 
     @Test
-    public void testUsingRandom() {
+    void testUsingRandom() {
         final char testChar = 'a';
         final TextRandomProvider testRandom = n -> testChar;
 
@@ -232,7 +232,7 @@ public class RandomStringGeneratorTest {
     }
 
     @Test
-    public void testWithinMultipleRanges() {
+    void testWithinMultipleRanges() {
         final int length = 5000;
         final char[][] pairs = {{'a', 'z'}, {'0', '9'}};
         final RandomStringGenerator generator = new RandomStringGenerator.Builder()
@@ -255,7 +255,7 @@ public class RandomStringGeneratorTest {
     }
 
     @Test
-    public void testWithinRange() {
+    void testWithinRange() {
         final int length = 5000;
         final int minimumCodePoint = 'a';
         final int maximumCodePoint = 'z';
@@ -272,7 +272,7 @@ public class RandomStringGeneratorTest {
     }
 
     @Test
-    public void testZeroLength() {
+    void testZeroLength() {
         final RandomStringGenerator generator = new RandomStringGenerator.Builder().build();
         assertThat(generator.generate(0)).isEmpty();
     }

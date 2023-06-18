@@ -26,10 +26,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link CaseUtils} class.
  */
-public class CaseUtilsTest {
+class CaseUtilsTest {
 
     @Test
-    public void testConstructor() {
+void testConstructor() {
         assertThat(new CaseUtils()).isNotNull();
         final Constructor<?>[] cons = CaseUtils.class.getDeclaredConstructors();
         assertThat(cons.length).isEqualTo(1);
@@ -39,7 +39,7 @@ public class CaseUtilsTest {
     }
 
     @Test
-    public void testToCamelCase() {
+void testToCamelCase() {
         assertThat(CaseUtils.toCamelCase(null, false, null)).isNull();
         assertThat(CaseUtils.toCamelCase("", true, null)).isEmpty();
         assertThat(CaseUtils.toCamelCase("  ", false, null)).isEmpty();

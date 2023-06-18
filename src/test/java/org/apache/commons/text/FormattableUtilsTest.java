@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests {@link FormattableUtils}.
  */
-public class FormattableUtilsTest {
+class FormattableUtilsTest {
 
     static class SimplestFormattable implements Formattable {
         private final String text;
@@ -50,7 +50,7 @@ public class FormattableUtilsTest {
     }
 
     @Test
-    public void testAlternatePadCharacter() {
+    void testAlternatePadCharacter() {
         final char pad = '_';
         assertThat(FormattableUtils.append("foo", createFormatter(), 0, -1, -1, pad)).hasToString("foo");
         assertThat(FormattableUtils.append("foo", createFormatter(), 0, -1, 2, pad)).hasToString("fo");
@@ -65,7 +65,7 @@ public class FormattableUtilsTest {
     }
 
     @Test
-    public void testAlternatePadCharAndEllipsis() {
+    void testAlternatePadCharAndEllipsis() {
         assertThat(FormattableUtils.append("foo", createFormatter(), 0, -1, -1, '_', "*")).hasToString("foo");
         assertThat(FormattableUtils.append("foo", createFormatter(), 0, -1, 2, '_', "*")).hasToString("f*");
         assertThat(FormattableUtils.append("foo", createFormatter(), 0, 4, -1, '_', "*")).hasToString("_foo");
@@ -90,12 +90,12 @@ public class FormattableUtilsTest {
     }
 
     @Test
-    public void testAppendWithNullFormatterAndIntsThrowsNullPointerException() {
+    void testAppendWithNullFormatterAndIntsThrowsNullPointerException() {
         assertThatNullPointerException().isThrownBy(() -> FormattableUtils.append("", null, 0, 0, 0, '}'));
     }
 
     @Test
-    public void testDefaultAppend() {
+    void testDefaultAppend() {
         assertThat(FormattableUtils.append("foo", createFormatter(), 0, -1, -1)).hasToString("foo");
         assertThat(FormattableUtils.append("foo", createFormatter(), 0, -1, 2)).hasToString("fo");
         assertThat(FormattableUtils.append("foo", createFormatter(), 0, 4, -1)).hasToString(" foo");
@@ -109,7 +109,7 @@ public class FormattableUtilsTest {
     }
 
     @Test
-    public void testEllipsis() {
+    void testEllipsis() {
         assertThat(FormattableUtils.append("foo", createFormatter(), 0, -1, -1, "*")).hasToString("foo");
         assertThat(FormattableUtils.append("foo", createFormatter(), 0, -1, 2, "*")).hasToString("f*");
         assertThat(FormattableUtils.append("foo", createFormatter(), 0, 4, -1, "*")).hasToString(" foo");
@@ -134,12 +134,12 @@ public class FormattableUtilsTest {
     }
 
     @Test
-    public void testIllegalEllipsis() {
+    void testIllegalEllipsis() {
         assertThatIllegalArgumentException().isThrownBy(() -> FormattableUtils.append("foo", createFormatter(), 0, -1, 1, "xx"));
     }
 
     @Test
-    public void testIllegalEllipsisWith7Args() {
+    void testIllegalEllipsisWith7Args() {
         final String ellipsis = "xxxx";
         final int precisionLessThanEllipsisLength = ellipsis.length() - 1;
         assertThatIllegalArgumentException().isThrownBy(() -> FormattableUtils.append("foo", createFormatter(), 0, 0,
@@ -147,12 +147,12 @@ public class FormattableUtilsTest {
     }
 
     @Test
-    public void testPublicConstructorExists() {
+    void testPublicConstructorExists() {
         assertDoesNotThrow(() -> new FormattableUtils());
     }
 
     @Test
-    public void testSimplestFormat() {
+    void testSimplestFormat() {
         final Formattable formattable = new SimplestFormattable("foo");
 
         assertThat(FormattableUtils.toString(formattable)).isEqualTo("foo");
