@@ -415,19 +415,15 @@ public final class AlphabetConverter {
      * @throws UnsupportedEncodingException if chars that are not supported are
      *                                      encountered
      */
-    public String encode(final String original)
-            throws UnsupportedEncodingException {
+    public String encode(final String original) throws UnsupportedEncodingException {
         if (original == null) {
             return null;
         }
-
         final StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < original.length();) {
+        int i = 0;
+        while (i < original.length()) {
             final int codePoint = original.codePointAt(i);
-
             final String nextLetter = originalToEncoded.get(codePoint);
-
             if (nextLetter == null) {
                 throw new UnsupportedEncodingException(
                         "Couldn't find encoding for '"
@@ -436,12 +432,9 @@ public final class AlphabetConverter {
                                 + original
                 );
             }
-
             sb.append(nextLetter);
-
             i += Character.charCount(codePoint);
         }
-
         return sb.toString();
     }
 

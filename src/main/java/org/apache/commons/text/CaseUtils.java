@@ -76,13 +76,13 @@ public class CaseUtils {
         int outOffset = 0;
         final Set<Integer> delimiterSet = toDelimiterSet(delimiters);
         boolean capitalizeNext = capitalizeFirstLetter;
-        for (int index = 0; index < strLen;) {
+        int index = 0;
+        while (index < strLen) {
             final int codePoint = str.codePointAt(index);
-
             if (delimiterSet.contains(codePoint)) {
                 capitalizeNext = outOffset != 0;
                 index += Character.charCount(codePoint);
-            } else if (capitalizeNext || outOffset == 0 && capitalizeFirstLetter) {
+            } else if (capitalizeNext || (outOffset == 0 && capitalizeFirstLetter)) {
                 final int titleCaseCodePoint = Character.toTitleCase(codePoint);
                 newCodePoints[outOffset++] = titleCaseCodePoint;
                 index += Character.charCount(titleCaseCodePoint);
@@ -92,7 +92,6 @@ public class CaseUtils {
                 index += Character.charCount(codePoint);
             }
         }
-
         return new String(newCodePoints, 0, outOffset);
     }
 
