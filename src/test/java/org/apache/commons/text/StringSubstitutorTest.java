@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.mutable.MutableObject;
@@ -43,6 +44,8 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * Test class for {@link StringSubstitutor}.
@@ -285,7 +288,7 @@ class StringSubstitutorTest {
      * Tests interpolation with weird boundary patterns.
      */
     @Test
-    @Disabled
+    @Disabled("This test is skipped because it fails (expected: <${${a}> but was: <${1>).")
     void testReplace_JiraText178_WeirdPatterns3() throws IOException {
         doReplace("${${a}", "$${${a}", false); // not "$${1" or "${1"
     }
@@ -808,56 +811,23 @@ class StringSubstitutorTest {
     /**
      * Tests unknown key replace.
      */
-    @Test
-    void testReplaceUnknownKeyOnly() throws IOException {
-        final String expected = "${person}";
+    @ParameterizedTest
+    @MethodSource("testCases")
+    void testReplaceUnknownKeyOnly(String expected) throws IOException {
         assertEqualsCharSeq(expected, replace(new StringSubstitutor(values), expected));
     }
 
-    /**
-     * Tests unknown key replace.
-     */
-    @Test
-    void testReplaceUnknownKeyOnlyExtraFirst() throws IOException {
-        final String expected = ".${person}";
-        assertEqualsCharSeq(expected, replace(new StringSubstitutor(values), expected));
+    private static Stream<String> testCases() {
+        return Stream.of(
+                "${person}",
+                ".${person}",
+                "${person}.",
+                "${U}",
+                ".${U}",
+                "${U}."
+        );
     }
 
-    /**
-     * Tests unknown key replace.
-     */
-    @Test
-    void testReplaceUnknownKeyOnlyExtraLast() throws IOException {
-        final String expected = "${person}.";
-        assertEqualsCharSeq(expected, replace(new StringSubstitutor(values), expected));
-    }
-
-    /**
-     * Tests unknown key replace.
-     */
-    @Test
-    void testReplaceUnknownShortestKeyOnly() throws IOException {
-        final String expected = "${U}";
-        assertEqualsCharSeq(expected, replace(new StringSubstitutor(values), expected));
-    }
-
-    /**
-     * Tests unknown key replace.
-     */
-    @Test
-    void testReplaceUnknownShortestKeyOnlyExtraFirst() throws IOException {
-        final String expected = ".${U}";
-        assertEqualsCharSeq(expected, replace(new StringSubstitutor(values), expected));
-    }
-
-    /**
-     * Tests unknown key replace.
-     */
-    @Test
-    void testReplaceUnknownShortestKeyOnlyExtraLast() throws IOException {
-        final String expected = "${U}.";
-        assertEqualsCharSeq(expected, replace(new StringSubstitutor(values), expected));
-    }
 
     /**
      * Tests simple key replace.

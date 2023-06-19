@@ -28,11 +28,15 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.text.matcher.StringMatcher;
 import org.apache.commons.text.matcher.StringMatcherFactory;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * Unit test for {@link StringTokenizer}.
@@ -227,45 +231,25 @@ class StringTokenizerTest {
 
     }
 
-    @Test
-    void testBasic1() {
-        final String input = "a  b c";
-        final StringTokenizer tok = new StringTokenizer(input);
-        assertEquals("a", tok.next());
-        assertEquals("b", tok.next());
-        assertEquals("c", tok.next());
+    @ParameterizedTest
+    @MethodSource("testCases")
+    void testBasic(String input, String[] expectedTokens) {
+        StringTokenizer tok = new StringTokenizer(input);
+        for (String expected : expectedTokens) {
+            assertEquals(expected, tok.next());
+        }
         assertFalse(tok.hasNext());
     }
 
-    @Test
-    void testBasic2() {
-        final String input = "a \nb\fc";
-        final StringTokenizer tok = new StringTokenizer(input);
-        assertEquals("a", tok.next());
-        assertEquals("b", tok.next());
-        assertEquals("c", tok.next());
-        assertFalse(tok.hasNext());
+    private static Stream<Arguments> testCases() {
+        return Stream.of(
+                Arguments.of("a  b c", new String[]{"a", "b", "c"}),
+                Arguments.of("a \nb\fc", new String[]{"a", "b", "c"}),
+                Arguments.of("a \nb\u0001\fc", new String[]{"a", "b\u0001", "c"}),
+                Arguments.of("a \"b\" c", new String[]{"a", "\"b\"", "c"})
+        );
     }
 
-    @Test
-    void testBasic3() {
-        final String input = "a \nb\u0001\fc";
-        final StringTokenizer tok = new StringTokenizer(input);
-        assertEquals("a", tok.next());
-        assertEquals("b\u0001", tok.next());
-        assertEquals("c", tok.next());
-        assertFalse(tok.hasNext());
-    }
-
-    @Test
-    void testBasic4() {
-        final String input = "a \"b\" c";
-        final StringTokenizer tok = new StringTokenizer(input);
-        assertEquals("a", tok.next());
-        assertEquals("\"b\"", tok.next());
-        assertEquals("c", tok.next());
-        assertFalse(tok.hasNext());
-    }
 
     @Test
     void testBasic5() {
