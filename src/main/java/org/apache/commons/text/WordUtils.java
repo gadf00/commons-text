@@ -896,5 +896,6 @@ public class WordUtils {
      * instance to operate.</p>
      */
     public WordUtils() {
+        // Intentionally left blank for compatibility reasons.
     }
  }

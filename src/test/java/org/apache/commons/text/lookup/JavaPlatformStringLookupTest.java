@@ -21,6 +21,8 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 /**
  * Tests {@link JavaPlatformStringLookup}.
@@ -51,7 +53,6 @@ class JavaPlatformStringLookupTest {
     @Test
     void testVm() {
         final String key = "vm";
-        Assertions.assertTrue(JavaPlatformStringLookup.INSTANCE.lookup(key).contains(System.getProperty("java.vm.name")));
+        assertTrue(JavaPlatformStringLookup.INSTANCE.lookup(key).contains(System.getProperty("java.vm.name")));
     }
-
 }

@@ -376,29 +376,24 @@ public final class AlphabetConverter {
      * @throws UnsupportedEncodingException if unexpected characters that
      *                                      cannot be handled are encountered
      */
-    public String decode(final String encoded)
-            throws UnsupportedEncodingException {
+    public String decode(final String encoded) throws UnsupportedEncodingException {
         if (encoded == null) {
             return null;
         }
-
         final StringBuilder result = new StringBuilder();
-
-        for (int j = 0; j < encoded.length();) {
+        int j = 0;
+        while (j < encoded.length()) {
             final int i = encoded.codePointAt(j);
             final String s = codePointToString(i);
-
             if (s.equals(originalToEncoded.get(i))) {
                 result.append(s);
-                j++; // because we do not encode in Unicode extended the
-                     // length of each encoded char is 1
+                j++;
             } else {
                 if (j + encodedLetterLength > encoded.length()) {
                     throw new UnsupportedEncodingException("Unexpected end "
                             + "of string while decoding " + encoded);
                 }
-                final String nextGroup = encoded.substring(j,
-                        j + encodedLetterLength);
+                final String nextGroup = encoded.substring(j, j + encodedLetterLength);
                 final String next = encodedToOriginal.get(nextGroup);
                 if (next == null) {
                     throw new UnsupportedEncodingException(
@@ -409,7 +404,6 @@ public final class AlphabetConverter {
                 j += encodedLetterLength;
             }
         }
-
         return result.toString();
     }
 

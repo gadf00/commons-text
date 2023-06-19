@@ -125,6 +125,7 @@ public class CaseUtils {
      * instance to operate.</p>
      */
     public CaseUtils() {
+        // Intentionally left blank for compatibility reasons.
     }
 }
 
