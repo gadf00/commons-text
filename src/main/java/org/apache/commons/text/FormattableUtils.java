@@ -154,6 +154,7 @@ public class FormattableUtils {
      * instance to operate.</p>
      */
     public FormattableUtils() {
+        // Intentionally left blank for compatibility reasons.
     }
 
 }

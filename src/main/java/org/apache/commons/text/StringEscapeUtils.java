@@ -860,6 +860,7 @@ public class StringEscapeUtils {
      * instance to operate.</p>
      */
     public StringEscapeUtils() {
+        // Intentionally left blank for compatibility reasons.
     }
 
 }
