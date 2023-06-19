@@ -86,13 +86,15 @@ final class JavaPlatformStringLookup extends AbstractStringLookup {
     public static void main(final String[] args) {
         Logger logger = LoggerFactory.getLogger(JavaPlatformStringLookup.class);
         String output = "%s = %s%n";
-        logger.info(JavaPlatformStringLookup.class.getName());
-        logger.info(String.format(output, KEY_VERSION, JavaPlatformStringLookup.INSTANCE.lookup(KEY_VERSION)));
-        logger.info(String.format(output, KEY_RUNTIME, JavaPlatformStringLookup.INSTANCE.lookup(KEY_RUNTIME)));
-        logger.info(String.format(output, KEY_VM, JavaPlatformStringLookup.INSTANCE.lookup(KEY_VM)));
-        logger.info(String.format(output, KEY_OS, JavaPlatformStringLookup.INSTANCE.lookup(KEY_OS)));
-        logger.info(String.format(output, KEY_HARDWARE, JavaPlatformStringLookup.INSTANCE.lookup(KEY_HARDWARE)));
-        logger.info(String.format(output, KEY_LOCALE, JavaPlatformStringLookup.INSTANCE.lookup(KEY_LOCALE)));
+        if (logger.isInfoEnabled()) {
+            logger.info(JavaPlatformStringLookup.class.getName());
+            logger.info(String.format(output, KEY_VERSION, JavaPlatformStringLookup.INSTANCE.lookup(KEY_VERSION)));
+            logger.info(String.format(output, KEY_RUNTIME, JavaPlatformStringLookup.INSTANCE.lookup(KEY_RUNTIME)));
+            logger.info(String.format(output, KEY_VM, JavaPlatformStringLookup.INSTANCE.lookup(KEY_VM)));
+            logger.info(String.format(output, KEY_OS, JavaPlatformStringLookup.INSTANCE.lookup(KEY_OS)));
+            logger.info(String.format(output, KEY_HARDWARE, JavaPlatformStringLookup.INSTANCE.lookup(KEY_HARDWARE)));
+            logger.info(String.format(output, KEY_LOCALE, JavaPlatformStringLookup.INSTANCE.lookup(KEY_LOCALE)));
+        }
     }
 
     /**

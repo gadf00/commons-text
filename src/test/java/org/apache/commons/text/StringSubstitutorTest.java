@@ -932,7 +932,7 @@ class StringSubstitutorTest {
      * Tests interpolation with weird boundary patterns.
      */
     @Test
-    void testReplaceWeirdPattens() throws IOException {
+    void testReplaceWeirdPatterns1() throws IOException {
         doNotReplace(StringUtils.EMPTY);
         doNotReplace(EMPTY_EXPR);
         doNotReplace("${ }");
@@ -941,7 +941,7 @@ class StringSubstitutorTest {
         doNotReplace("${\b}");
         doNotReplace("${");
         doNotReplace("$}");
-        doNotReplace("$$}");
+        doNotReplace("$$");
         doNotReplace("}");
         doNotReplace("${}$");
         doNotReplace("${}$$");
@@ -952,13 +952,16 @@ class StringSubstitutorTest {
         doNotReplace("${$$${$}}");
         doNotReplace("${${}}");
         doNotReplace("${${ }}");
+    }
+
+    @Test
+    void testReplaceWeirdPatterns2() throws IOException {
         doNotReplace("${$${a}}");
         doNotReplace("${$$${a}}");
         doNotReplace("${${a}}");
         doNotReplace("${${${a}");
         doNotReplace("${ ${a}");
         doNotReplace("${ ${ ${a}");
-
         doReplace("${1}", "$${${a}}", false);
         doReplace("${ 1}", "$${ ${a}}", false);
         doReplace("${12}", "$${${a}${b}}", false);
