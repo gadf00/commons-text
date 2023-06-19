@@ -945,27 +945,27 @@ class StringSubstitutorTest {
         doNotReplace("}");
         doNotReplace("${}$");
         doNotReplace("${}$$");
-        doNotReplace("${${");
+        doNotReplace("${${}");
         doNotReplace("${${}}");
         doNotReplace("${$${}}");
         doNotReplace("${$$${}}");
         doNotReplace("${$$${$}}");
         doNotReplace("${${}}");
         doNotReplace("${${ }}");
-        //
         doNotReplace("${$${a}}");
         doNotReplace("${$$${a}}");
         doNotReplace("${${a}}");
         doNotReplace("${${${a}");
         doNotReplace("${ ${a}");
         doNotReplace("${ ${ ${a}");
-        //
+
         doReplace("${1}", "$${${a}}", false);
         doReplace("${ 1}", "$${ ${a}}", false);
         doReplace("${12}", "$${${a}${b}}", false);
         doReplace("${ 1 2 }", "$${ ${a} ${b} }", false);
         doReplace("${${${a}2", "${${${a}${b}", false);
     }
+
 
     /**
      * Tests protected.

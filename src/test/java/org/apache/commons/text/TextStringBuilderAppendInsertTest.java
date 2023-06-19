@@ -250,33 +250,34 @@ class TextStringBuilderAppendInsertTest {
         final TextStringBuilder sb0 = new TextStringBuilder();
         sb0.setNullText("NULL").append((StringBuffer) null, 0, 1);
         assertThat(sb0).hasToString("NULL");
+
         final TextStringBuilder sb = new TextStringBuilder();
         sb.append(new StringBuffer("foo"), 0, 3);
         assertThat(sb).hasToString("foo");
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            sb.append(new StringBuffer("bar"), -1, 1);
-        }, "append(char[], -1,) expected IndexOutOfBoundsException");
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            sb.append(new StringBuffer("bar"), 3, 1);
-        }, "append(char[], 3,) expected IndexOutOfBoundsException");
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            sb.append(new StringBuffer("bar"), 1, -1);
-        }, "append(char[],, -1) expected IndexOutOfBoundsException");
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            sb.append(new StringBuffer("bar"), 1, 3);
-        }, "append(char[], 1, 3) expected IndexOutOfBoundsException");
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            sb.append(new StringBuffer("bar"), -1, 3);
-        }, "append(char[], -1, 3) expected IndexOutOfBoundsException");
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            sb.append(new StringBuffer("bar"), 4, 0);
-        }, "append(char[], 4, 0) expected IndexOutOfBoundsException");
+
+        assertThrows(IndexOutOfBoundsException.class, () -> sb.append(new StringBuffer("bar"), -1, 1),
+            "append(char[], -1,) expected IndexOutOfBoundsException");
+
+        assertThrows(IndexOutOfBoundsException.class, () -> sb.append(new StringBuffer("bar"), 3, 1), "append(char[], 3,) expected IndexOutOfBoundsException");
+
+        assertThrows(IndexOutOfBoundsException.class, () -> sb.append(new StringBuffer("bar"), 1, -1),
+            "append(char[],, -1) expected IndexOutOfBoundsException");
+
+        assertThrows(IndexOutOfBoundsException.class, () -> sb.append(new StringBuffer("bar"), 1, 3),
+            "append(char[], 1, 3) expected IndexOutOfBoundsException");
+
+        assertThrows(IndexOutOfBoundsException.class, () -> sb.append(new StringBuffer("bar"), -1, 3),
+            "append(char[], -1, 3) expected IndexOutOfBoundsException");
+
+        assertThrows(IndexOutOfBoundsException.class, () -> sb.append(new StringBuffer("bar"), 4, 0),
+            "append(char[], 4, 0) expected IndexOutOfBoundsException");
+
         sb.append(new StringBuffer("bar"), 3, 0);
         assertThat(sb).hasToString("foo");
+
         sb.append(new StringBuffer("abcbardef"), 3, 3);
         assertThat(sb).hasToString("foobar");
     }
-
 
     @Test
     void testAppend_StringBuilder() {
@@ -305,29 +306,23 @@ class TextStringBuilderAppendInsertTest {
         sb.append(new StringBuilder("foo"), 0, 3);
         assertThat(sb).hasToString("foo");
 
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            sb.append(new StringBuilder("bar"), -1, 1);
-        }, "append(StringBuilder, -1,) expected IndexOutOfBoundsException");
+        assertThrows(IndexOutOfBoundsException.class, () -> sb.append(new StringBuilder("bar"), -1, 1),
+            "append(StringBuilder, -1,) expected IndexOutOfBoundsException");
 
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            sb.append(new StringBuilder("bar"), 3, 1);
-        }, "append(StringBuilder, 3,) expected IndexOutOfBoundsException");
+        assertThrows(IndexOutOfBoundsException.class, () -> sb.append(new StringBuilder("bar"), 3, 1),
+            "append(StringBuilder, 3,) expected IndexOutOfBoundsException");
 
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            sb.append(new StringBuilder("bar"), 1, -1);
-        }, "append(StringBuilder,, -1) expected IndexOutOfBoundsException");
+        assertThrows(IndexOutOfBoundsException.class, () -> sb.append(new StringBuilder("bar"), 1, -1),
+            "append(StringBuilder,, -1) expected IndexOutOfBoundsException");
 
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            sb.append(new StringBuilder("bar"), 1, 3);
-        }, "append(StringBuilder, 1, 3) expected IndexOutOfBoundsException");
+        assertThrows(IndexOutOfBoundsException.class, () -> sb.append(new StringBuilder("bar"), 1, 3),
+            "append(StringBuilder, 1, 3) expected IndexOutOfBoundsException");
 
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            sb.append(new StringBuilder("bar"), -1, 3);
-        }, "append(StringBuilder, -1, 3) expected IndexOutOfBoundsException");
+        assertThrows(IndexOutOfBoundsException.class, () -> sb.append(new StringBuilder("bar"), -1, 3),
+            "append(StringBuilder, -1, 3) expected IndexOutOfBoundsException");
 
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            sb.append(new StringBuilder("bar"), 4, 0);
-        }, "append(StringBuilder, 4, 0) expected IndexOutOfBoundsException");
+        assertThrows(IndexOutOfBoundsException.class, () -> sb.append(new StringBuilder("bar"), 4, 0),
+            "append(StringBuilder, 4, 0) expected IndexOutOfBoundsException");
 
         sb.append(new StringBuilder("bar"), 3, 0);
         assertThat(sb).hasToString("foo");
@@ -338,7 +333,6 @@ class TextStringBuilderAppendInsertTest {
         sb.append(new StringBuilder("abcbardef"), 4, 3);
         assertThat(sb).hasToString("foobarard");
     }
-
 
     @Test
     void testAppend_TextStringBuilder() {
