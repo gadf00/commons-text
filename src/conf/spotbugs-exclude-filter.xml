@@ -33,12 +33,6 @@
   </Match>
 
   <Match>
-    <Class name="org.apache.commons.text.StrTokenizer" />
-    <Method name="clone" />
-    <Bug code="CN" />
-  </Match>
-
-  <Match>
     <Class name="org.apache.commons.text.StringTokenizer" />
     <Method name="clone" />
     <Bug code="CN" />
