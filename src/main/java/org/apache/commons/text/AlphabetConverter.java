@@ -434,7 +434,6 @@ public final class AlphabetConverter {
             }
             sb.append(nextLetter);
             i += Character.charCount(codePoint);
-            System.out.println("ciao");
         }
         return sb.toString();
     }
