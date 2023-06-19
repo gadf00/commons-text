@@ -61,7 +61,6 @@
     <graalvm.version>22.0.0.2</graalvm.version>
     <commons.rng.version>1.5</commons.rng.version>
 
-    <japicmp.skip>false</japicmp.skip>
 
     <jmh.version>1.36</jmh.version>
 
@@ -148,7 +147,7 @@
   </dependencies>
 
   <build>
-    <defaultGoal>clean verify apache-rat:check japicmp:cmp checkstyle:check spotbugs:check javadoc:javadoc</defaultGoal>
+    <defaultGoal>clean verify apache-rat:check checkstyle:check spotbugs:check javadoc:javadoc</defaultGoal>
     <pluginManagement>
       <plugins>
         <plugin>
@@ -293,10 +292,6 @@
         <configuration>
           <excludeFilterFile>src/conf/spotbugs-exclude-filter.xml</excludeFilterFile>
         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>com.github.siom79.japicmp</groupId>
-        <artifactId>japicmp-maven-plugin</artifactId>
       </plugin>
       <plugin>
         <artifactId>maven-pmd-plugin</artifactId>
