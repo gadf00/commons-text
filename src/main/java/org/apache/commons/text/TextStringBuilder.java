@@ -325,6 +325,12 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
     /** Current size of the buffer. */
     private int size;
 
+    /** startIndex exception*/
+    private String startIndexException = "startIndex must be valid";
+
+    /** startIndex exception*/
+    private String lengthException = "length must be valid";
+
     /**
      * Constructs an empty builder with an initial capacity of 32 characters.
      */
@@ -490,10 +496,10 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
         if (buf.hasArray()) {
             final int totalLength = buf.remaining();
             if (startIndex < 0 || startIndex > totalLength) {
-                throw new StringIndexOutOfBoundsException("startIndex must be valid");
+                throw new StringIndexOutOfBoundsException(startIndexException);
             }
             if (length < 0 || startIndex + length > totalLength) {
-                throw new StringIndexOutOfBoundsException("length must be valid");
+                throw new StringIndexOutOfBoundsException(lengthException);
             }
             final int len = length();
             ensureCapacity(len + length);
@@ -636,10 +642,10 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
             return appendNull();
         }
         if (startIndex < 0 || startIndex > str.length()) {
-            throw new StringIndexOutOfBoundsException("startIndex must be valid");
+            throw new StringIndexOutOfBoundsException(startIndexException);
         }
         if (length < 0 || startIndex + length > str.length()) {
-            throw new StringIndexOutOfBoundsException("length must be valid");
+            throw new StringIndexOutOfBoundsException(lengthException);
         }
         if (length > 0) {
             final int len = length();
@@ -685,10 +691,10 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
             return appendNull();
         }
         if (startIndex < 0 || startIndex > str.length()) {
-            throw new StringIndexOutOfBoundsException("startIndex must be valid");
+            throw new StringIndexOutOfBoundsException(startIndexException);
         }
         if (length < 0 || startIndex + length > str.length()) {
-            throw new StringIndexOutOfBoundsException("length must be valid");
+            throw new StringIndexOutOfBoundsException(lengthException);
         }
         if (length > 0) {
             final int len = length();
@@ -722,10 +728,10 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
             return appendNull();
         }
         if (startIndex < 0 || startIndex > str.length()) {
-            throw new StringIndexOutOfBoundsException("startIndex must be valid");
+            throw new StringIndexOutOfBoundsException(startIndexException);
         }
         if (length < 0 || startIndex + length > str.length()) {
-            throw new StringIndexOutOfBoundsException("length must be valid");
+            throw new StringIndexOutOfBoundsException(lengthException);
         }
         if (length > 0) {
             final int len = length();
@@ -759,10 +765,10 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
             return appendNull();
         }
         if (startIndex < 0 || startIndex > str.length()) {
-            throw new StringIndexOutOfBoundsException("startIndex must be valid");
+            throw new StringIndexOutOfBoundsException(startIndexException);
         }
         if (length < 0 || startIndex + length > str.length()) {
-            throw new StringIndexOutOfBoundsException("length must be valid");
+            throw new StringIndexOutOfBoundsException(lengthException);
         }
         if (length > 0) {
             final int len = length();
