@@ -278,12 +278,15 @@ public class WordUtils {
             return false;
         }
 
-        for (CharSequence w : words) {
+        for (int i = 0; i < words.length; ++i) {
+            CharSequence w = words[i];
             if (StringUtils.isBlank(w)) {
                 return false;
             }
-
-            Pattern pattern = Pattern.compile(".*\\b" + w + "\\b.*");
+            StringBuilder patternBuilder = new StringBuilder(".*\\b");
+            patternBuilder.append(w);
+            patternBuilder.append("\\b.*");
+            Pattern pattern = Pattern.compile(patternBuilder.toString());
             boolean matcher = pattern.matcher(word).matches();
 
             if (!matcher) {
@@ -406,7 +409,8 @@ public class WordUtils {
         if (delimiters == null) {
             return Character.isWhitespace(ch);
         }
-        for (final char delimiter : delimiters) {
+        for (int i = 0; i < delimiters.length; ++i) {
+            char delimiter = delimiters[i];
             if (ch == delimiter) {
                 return true;
             }

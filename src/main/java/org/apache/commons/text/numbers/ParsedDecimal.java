@@ -271,8 +271,8 @@ final class ParsedDecimal {
      * @param chars characters to append
      */
     private void append(final char[] chars) {
-        for (final char c : chars) {
-            append(c);
+        for (int i = 0; i < chars.length; ++i) {
+            append(chars[i]);
         }
     }
 

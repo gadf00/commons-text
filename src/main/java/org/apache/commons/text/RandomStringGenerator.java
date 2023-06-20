@@ -16,6 +16,7 @@
  */
 package org.apache.commons.text;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -423,7 +424,8 @@ public final class RandomStringGenerator {
         if (random != null) {
             return random.nextInt(maxInclusive - minInclusive + 1) + minInclusive;
         }
-        return ThreadLocalRandom.current().nextInt(minInclusive, maxInclusive + 1);
+        SecureRandom secureRandom = new SecureRandom();
+        return secureRandom.nextInt(maxInclusive - minInclusive + 1) + minInclusive;
     }
 
     /**
@@ -438,6 +440,7 @@ public final class RandomStringGenerator {
         if (random != null) {
             return String.valueOf(characterList.get(random.nextInt(listSize))).codePointAt(0);
         }
-        return String.valueOf(characterList.get(ThreadLocalRandom.current().nextInt(0, listSize))).codePointAt(0);
+        SecureRandom secureRandom = new SecureRandom();
+        return String.valueOf(characterList.get(secureRandom.nextInt(listSize))).codePointAt(0);
     }
 }

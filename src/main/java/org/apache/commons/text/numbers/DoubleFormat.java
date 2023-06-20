@@ -503,7 +503,8 @@ public enum DoubleFormat {
             final int zeroDelta = symbols.getZeroDigit() - DEFAULT_DECIMAL_DIGITS.charAt(0);
 
             final char[] digitChars = new char[DEFAULT_DECIMAL_DIGITS.length()];
-            for (int i = 0; i < DEFAULT_DECIMAL_DIGITS.length(); ++i) {
+            final int defaultDecimalDigitsLength = DEFAULT_DECIMAL_DIGITS.length();
+            for (int i = 0; i < defaultDecimalDigitsLength; ++i) {
                 digitChars[i] = (char) (DEFAULT_DECIMAL_DIGITS.charAt(i) + zeroDelta);
             }
 

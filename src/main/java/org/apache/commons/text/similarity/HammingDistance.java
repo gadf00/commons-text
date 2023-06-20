@@ -59,14 +59,14 @@ public class HammingDistance implements EditDistance<Integer> {
         if (left == null || right == null) {
             throw new IllegalArgumentException("CharSequences must not be null");
         }
-
-        if (left.length() != right.length()) {
+        final int rightLength = right.length();
+        if (left.length() != rightLength) {
             throw new IllegalArgumentException("CharSequences must have the same length");
         }
 
         int distance = 0;
-
-        for (int i = 0; i < left.length(); ++i) {
+        final int leftLength = left.length();
+        for (int i = 0; i < leftLength; ++i) {
             if (left.charAt(i) != right.charAt(i)) {
                 ++distance;
             }

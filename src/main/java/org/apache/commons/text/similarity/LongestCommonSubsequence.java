@@ -293,8 +293,10 @@ public class LongestCommonSubsequence implements SimilarityScore<Integer> {
     @Deprecated
     public int[][] longestCommonSubstringLengthArray(final CharSequence left, final CharSequence right) {
         final int[][] lcsLengthArray = new int[left.length() + 1][right.length() + 1];
-        for (int i = 0; i < left.length(); ++i) {
-            for (int j = 0; j < right.length(); ++j) {
+        final int leftLength = left.length();
+        final int rightLength = right.length();
+        for (int i = 0; i < leftLength; ++i) {
+            for (int j = 0; j < rightLength; ++j) {
                 if (i == 0) {
                     lcsLengthArray[i][j] = 0;
                 }

@@ -104,19 +104,19 @@ public abstract class CharSequenceTranslator {
                 // avoids allocating temp char arrays and duplicate checks
                 final char c1 = input.charAt(pos);
                 writer.write(c1);
-                pos++;
+                ++pos;
                 if (Character.isHighSurrogate(c1) && pos < len) {
                     final char c2 = input.charAt(pos);
                     if (Character.isLowSurrogate(c2)) {
                       writer.write(c2);
-                      pos++;
+                      ++pos;
                     }
                 }
                 continue;
             }
             // contract with translators is that they have to understand code points
             // and they just took care of a surrogate pair
-            for (int pt = 0; pt < consumed; pt++) {
+            for (int pt = 0; pt < consumed; ++pt) {
                 pos += Character.charCount(Character.codePointAt(input, pos));
             }
         }

@@ -36,8 +36,9 @@ public class UnicodeUnescaper extends CharSequenceTranslator {
         if (input.charAt(index) == '\\' && index + 1 < input.length() && input.charAt(index + 1) == 'u') {
             // consume optional additional 'u' chars
             int i = 2;
-            while (index + i < input.length() && input.charAt(index + i) == 'u') {
-                i++;
+            final int inputLength = input.length();
+            while (index + i < inputLength && input.charAt(index + i) == 'u') {
+                ++i;
             }
 
             if (index + i < input.length() && input.charAt(index + i) == '+') {

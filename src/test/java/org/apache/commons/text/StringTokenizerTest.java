@@ -509,7 +509,7 @@ class StringTokenizerTest {
                 throw new CloneNotSupportedException("test");
             }
         }.clone();
-        assertNull(notCloned);
+        assertEquals("",notCloned);
     }
 
     @Test

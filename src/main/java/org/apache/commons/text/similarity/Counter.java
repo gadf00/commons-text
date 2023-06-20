@@ -41,7 +41,8 @@ final class Counter {
      */
     public static Map<CharSequence, Integer> of(final CharSequence[] tokens) {
         final Map<CharSequence, Integer> innerCounter = new HashMap<>();
-        for (final CharSequence token : tokens) {
+        for (int i = 0; i < tokens.length; ++i) {
+            final CharSequence token = tokens[i];
             final Integer integer = innerCounter.get(token);
             innerCounter.put(token, integer != null ? integer + 1 : 1);
         }

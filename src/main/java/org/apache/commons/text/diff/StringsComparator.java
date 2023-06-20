@@ -187,7 +187,9 @@ public class StringsComparator {
             buildScript(start1, middle.getStart(),
                         start2, middle.getStart() - middle.getDiag(),
                         script);
-            for (int i = middle.getStart(); i < middle.getEnd(); ++i) {
+            final int middleGetEnd = middle.getEnd();
+            final int middleGetStart = middle.getStart();
+            for (int i = middleGetStart; i < middleGetEnd; ++i) {
                 script.append(new KeepCommand<>(left.charAt(i)));
             }
             buildScript(middle.getEnd(), end1,

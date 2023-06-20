@@ -267,7 +267,9 @@ public final class StringLookupFactory {
             final Map<String, StringLookup> lookupMap = new HashMap<>();
 
             try {
-                for (final String lookupName : str.split("[\\s,]+")) {
+                String[] lookupNames = str.split("[\\s,]+");
+                for (int i = 0; i < lookupNames.length; ++i) {
+                    String lookupName = lookupNames[i];
                     if (!lookupName.isEmpty()) {
                         addLookup(DefaultStringLookup.valueOf(lookupName.toUpperCase()), lookupMap);
                     }
