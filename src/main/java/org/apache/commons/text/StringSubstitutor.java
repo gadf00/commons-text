@@ -1482,7 +1482,7 @@ public class StringSubstitutor {
                             if (valueDelimMatcher != null) {
                                 final char[] varNameExprChars = varNameExpr.toCharArray();
                                 int valueDelimiterMatchLen = 0;
-                                for (int i = 0; i < varNameExprChars.length; i++) {
+                                for (int i = 0; i < varNameExprChars.length; ++i) {
                                     // if there's any nested variable when nested variable substitution disabled,
                                     // then stop resolving name and default value.
                                     if (!substitutionInVariablesEnabled && prefixMatcher.isMatch(varNameExprChars, i, i,

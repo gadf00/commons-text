@@ -75,7 +75,7 @@ public class LongestCommonSubsequence implements SimilarityScore<Integer> {
         // Creating an array for storing two rows of DP table
         final int[][] dpRows = new int[2][1 + n];
 
-        for (int i = 1; i <= m; i++) {
+        for (int i = 1; i <= m; ++i) {
             // K(0, j) <- K(1, j) [j = 0...n], as per the paper:
             // Since we have references in Java, we can swap references instead of literal copying.
             // We could also use a "binary index" using modulus operator, but directly swapping the
@@ -85,7 +85,7 @@ public class LongestCommonSubsequence implements SimilarityScore<Integer> {
             dpRows[0] = dpRows[1];
             dpRows[1] = temp;
 
-            for (int j = 1; j <= n; j++) {
+            for (int j = 1; j <= n; ++j) {
                 if (left.charAt(i - 1) == right.charAt(j - 1)) {
                     dpRows[1][j] = dpRows[0][j - 1] + 1;
                 } else {
@@ -118,7 +118,7 @@ public class LongestCommonSubsequence implements SimilarityScore<Integer> {
 
         if (m == 1) { // Handle trivial cases, as per the paper
             final char leftCh = left.charAt(0);
-            for (int j = 0; j < n; j++) {
+            for (int j = 0; j < n; ++j) {
                 if (leftCh == right.charAt(j)) {
                     out.append(leftCh);
                     break;
@@ -137,7 +137,7 @@ public class LongestCommonSubsequence implements SimilarityScore<Integer> {
             // Find k, as per the Step 4 of the algorithm
             int k = 0;
             int t = 0;
-            for (int j = 0; j <= n; j++) {
+            for (int j = 0; j <= n; ++j) {
                 final int s = l1[j] + l2[n - j];
                 if (t < s) {
                     t = s;
@@ -293,8 +293,8 @@ public class LongestCommonSubsequence implements SimilarityScore<Integer> {
     @Deprecated
     public int[][] longestCommonSubstringLengthArray(final CharSequence left, final CharSequence right) {
         final int[][] lcsLengthArray = new int[left.length() + 1][right.length() + 1];
-        for (int i = 0; i < left.length(); i++) {
-            for (int j = 0; j < right.length(); j++) {
+        for (int i = 0; i < left.length(); ++i) {
+            for (int j = 0; j < right.length(); ++j) {
                 if (i == 0) {
                     lcsLengthArray[i][j] = 0;
                 }

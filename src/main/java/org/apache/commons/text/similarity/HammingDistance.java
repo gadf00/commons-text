@@ -66,9 +66,9 @@ public class HammingDistance implements EditDistance<Integer> {
 
         int distance = 0;
 
-        for (int i = 0; i < left.length(); i++) {
+        for (int i = 0; i < left.length(); ++i) {
             if (left.charAt(i) != right.charAt(i)) {
-                distance++;
+                ++distance;
             }
         }
 

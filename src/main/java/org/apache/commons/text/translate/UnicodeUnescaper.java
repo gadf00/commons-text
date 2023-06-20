@@ -41,7 +41,7 @@ public class UnicodeUnescaper extends CharSequenceTranslator {
             }
 
             if (index + i < input.length() && input.charAt(index + i) == '+') {
-                i++;
+                ++i;
             }
 
             if (index + i + 4 <= input.length()) {

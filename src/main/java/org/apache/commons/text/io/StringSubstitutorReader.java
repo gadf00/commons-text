@@ -274,18 +274,18 @@ public class StringSubstitutorReader extends FilterReader {
         while (true) {
             if (isBufferMatchAt(suffixMatcher, pos)) {
                 balance--;
-                pos++;
+                ++pos;
                 if (balance == 0) {
                     break;
                 }
             } else if (isBufferMatchAt(prefixMatcher, pos)) {
-                balance++;
+                ++balance;
                 pos += prefixMatcher.size();
             } else if (isBufferMatchAt(prefixEscapeMatcher, pos)) {
-                balance++;
+                ++balance;
                 pos += prefixEscapeMatcher.size();
             } else {
-                pos++;
+                ++pos;
             }
             readCount = buffer(readCount(minReadLenSuffix, pos));
             if (readCount == EOS && pos >= buffer.size()) {

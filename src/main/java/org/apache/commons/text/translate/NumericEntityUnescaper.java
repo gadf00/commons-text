@@ -103,7 +103,7 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
 
             final char firstChar = input.charAt(start);
             if (firstChar == 'x' || firstChar == 'X') {
-                start++;
+                ++start;
                 isHex = true;
 
                 // Check there's more than just an x after the &#
@@ -117,7 +117,7 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
             while (end < seqEnd && (input.charAt(end) >= '0' && input.charAt(end) <= '9'
                                     || input.charAt(end) >= 'a' && input.charAt(end) <= 'f'
                                     || input.charAt(end) >= 'A' && input.charAt(end) <= 'F')) {
-                end++;
+                ++end;
             }
 
             final boolean semiNext = end != seqEnd && input.charAt(end) == ';';
