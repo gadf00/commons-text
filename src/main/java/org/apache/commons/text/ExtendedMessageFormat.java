@@ -76,7 +76,7 @@ public class ExtendedMessageFormat extends MessageFormat {
     private static final long serialVersionUID = -2362048321261811743L;
 
     /**
-     * Hash seed
+     * Hash seed.
      */
     private static final int HASH_SEED = 31;
     /**
