@@ -118,7 +118,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
             if (!ready()) {
                 return -1;
             }
-            return TextStringBuilder.this.charAt(++pos);
+            return TextStringBuilder.this.charAt(pos++);
         }
 
         /** {@inheritDoc} */
