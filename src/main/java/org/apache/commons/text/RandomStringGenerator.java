@@ -85,30 +85,15 @@ public final class RandomStringGenerator {
     public static class Builder implements org.apache.commons.text.Builder<RandomStringGenerator> {
 
         /**
-         * The default maximum code point allowed: {@link Character#MAX_CODE_POINT}
-         * ({@value}).
-         */
-        public static final int DEFAULT_MAXIMUM_CODE_POINT = Character.MAX_CODE_POINT;
-
-        /**
-         * The default string length produced by this builder: {@value}.
-         */
-        public static final int DEFAULT_LENGTH = 0;
-
-        /**
          * The default minimum code point allowed: {@value}.
          */
-        public static final int DEFAULT_MINIMUM_CODE_POINT = 0;
+        private int minimumCodePoint = 0;
 
         /**
-         * The minimum code point allowed.
+         * The maximum code point allowed: {@link Character#MAX_CODE_POINT}
+         * ({@value}).
          */
-        private int minimumCodePoint = DEFAULT_MINIMUM_CODE_POINT;
-
-        /**
-         * The maximum code point allowed.
-         */
-        private int maximumCodePoint = DEFAULT_MAXIMUM_CODE_POINT;
+        private int maximumCodePoint = Character.MAX_CODE_POINT;
 
         /**
          * Filters for code points.
@@ -183,12 +168,13 @@ public final class RandomStringGenerator {
          * @since 1.2
          */
         public Builder selectFrom(final char... chars) {
-            characterList = new ArrayList<>();
-            for (final char c : chars) {
-                characterList.add(c);
+            characterList = new ArrayList<>(chars.length);
+            for (int i = 0; i < chars.length; ++i) {
+                characterList.add(chars[i]);
             }
             return this;
         }
+
 
         /**
          * Overrides the default source of randomness.  It is highly
@@ -242,21 +228,19 @@ public final class RandomStringGenerator {
          */
         public Builder withinRange(final char[]... pairs) {
             characterList = new ArrayList<>();
-            for (final char[] pair :  pairs) {
-                Validate.isTrue(pair.length == 2,
-                      "Each pair must contain minimum and maximum code point");
-                final int minimumCode = pair[0];
-                final int maximumCode = pair[1];
-                Validate.isTrue(minimumCode <= maximumCode,
-                    "Minimum code point %d is larger than maximum code point %d", minimumCode, maximumCode);
-
-                for (int index = minimumCode; index <= maximumCode; index++) {
+            for (int i = 0; i < pairs.length; ++i) {
+                char[] pair = pairs[i];
+                Validate.isTrue(pair.length == 2, "Each pair must contain minimum and maximum code point");
+                int minimumCode = pair[0];
+                int maximumCode = pair[1];
+                Validate.isTrue(minimumCode <= maximumCode, "Minimum code point %d is larger than maximum code point %d", minimumCode, maximumCode);
+                for (int index = minimumCode; index <= maximumCode; ++index) {
                     characterList.add((char) index);
                 }
             }
             return this;
-
         }
+
 
         /**
          * Sets the minimum and maximum code points allowed in the

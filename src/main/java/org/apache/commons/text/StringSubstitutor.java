@@ -1421,14 +1421,14 @@ public class StringSubstitutor {
         outer: while (pos < bufEnd) {
             final int startMatchLen = prefixMatcher.isMatch(builder, pos, offset, bufEnd);
             if (startMatchLen == 0) {
-                pos++;
+                ++pos;
             } else {
                 // found variable start marker
                 if (pos > offset && builder.charAt(pos - 1) == escapeCh) {
                     // escape detected
                     if (preserveEscapes) {
                         // keep escape
-                        pos++;
+                        ++pos;
                         continue;
                     }
                     // mark esc ch for deletion if we find a complete variable
@@ -1443,14 +1443,14 @@ public class StringSubstitutor {
                     if (substitutionInVariablesEnabled && prefixMatcher.isMatch(builder, pos, offset, bufEnd) != 0) {
                         // found a nested variable start
                         endMatchLen = prefixMatcher.isMatch(builder, pos, offset, bufEnd);
-                        nestedVarCount++;
+                        ++nestedVarCount;
                         pos += endMatchLen;
                         continue;
                     }
 
                     endMatchLen = suffixMatcher.isMatch(builder, pos, offset, bufEnd);
                     if (endMatchLen == 0) {
-                        pos++;
+                        ++pos;
                     } else {
                         // found variable end marker
                         if (nestedVarCount == 0) {

@@ -109,7 +109,7 @@ public class CaseUtils {
             return delimiterHashSet;
         }
 
-        for (int index = 0; index < delimiters.length; index++) {
+        for (int index = 0; index < delimiters.length; ++index) {
             delimiterHashSet.add(Character.codePointAt(delimiters, index));
         }
         return delimiterHashSet;

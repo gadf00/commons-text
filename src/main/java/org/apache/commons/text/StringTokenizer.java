@@ -631,7 +631,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      */
     private boolean isQuote(final char[] srcChars, final int pos, final int len, final int quoteStart,
             final int quoteLen) {
-        for (int i = 0; i < quoteLen; i++) {
+        for (int i = 0; i < quoteLen; ++i) {
             if (pos + i >= len || srcChars[pos + i] != srcChars[quoteStart + i]) {
                 return false;
             }

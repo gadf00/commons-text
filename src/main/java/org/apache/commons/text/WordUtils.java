@@ -273,19 +273,24 @@ public class WordUtils {
      * @param words The array of String words to search for, may be null
      * @return {@code true} if all search words are found, {@code false} otherwise
      */
-    public static boolean containsAllWords(final CharSequence word, final CharSequence... words) {
+    public static boolean containsAllWords(CharSequence word, CharSequence... words) {
         if (StringUtils.isEmpty(word) || ArrayUtils.isEmpty(words)) {
             return false;
         }
-        for (final CharSequence w : words) {
+
+        for (CharSequence w : words) {
             if (StringUtils.isBlank(w)) {
                 return false;
             }
-            final Pattern p = Pattern.compile(".*\\b" + w + "\\b.*");
-            if (!p.matcher(word).matches()) {
+
+            Pattern pattern = Pattern.compile(".*\\b" + w + "\\b.*");
+            boolean matcher = pattern.matcher(word).matches();
+
+            if (!matcher) {
                 return false;
             }
         }
+
         return true;
     }
 
@@ -306,7 +311,7 @@ public class WordUtils {
             return delimiterHashSet;
         }
 
-        for (int index = 0; index < delimiters.length; index++) {
+        for (int index = 0; index < delimiters.length; ++index) {
             delimiterHashSet.add(Character.codePointAt(delimiters, index));
         }
         return delimiterHashSet;
@@ -422,7 +427,7 @@ public class WordUtils {
         if (delimiters == null) {
             return Character.isWhitespace(codePoint);
         }
-        for (int index = 0; index < delimiters.length; index++) {
+        for (int index = 0; index < delimiters.length; ++index) {
             final int delimiterCodePoint = Character.codePointAt(delimiters, index);
             if (delimiterCodePoint == codePoint) {
                 return true;

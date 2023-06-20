@@ -251,9 +251,6 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
         }
     }
 
-    /** The space character. */
-    private static final char SPACE = ' ';
-
     /**
      * The extra capacity for new builders.
      */
@@ -324,12 +321,6 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
 
     /** Current size of the buffer. */
     private int size;
-
-    /** startIndex exception*/
-    private String startIndexException = "startIndex must be valid";
-
-    /** startIndex exception*/
-    private String lengthException = "length must be valid";
 
     /**
      * Constructs an empty builder with an initial capacity of 32 characters.
@@ -496,10 +487,10 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
         if (buf.hasArray()) {
             final int totalLength = buf.remaining();
             if (startIndex < 0 || startIndex > totalLength) {
-                throw new StringIndexOutOfBoundsException(startIndexException);
+                throw new StringIndexOutOfBoundsException("startIndex must be valid");
             }
             if (length < 0 || startIndex + length > totalLength) {
-                throw new StringIndexOutOfBoundsException(lengthException);
+                throw new StringIndexOutOfBoundsException("length must be valid");
             }
             final int len = length();
             ensureCapacity(len + length);
@@ -642,10 +633,10 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
             return appendNull();
         }
         if (startIndex < 0 || startIndex > str.length()) {
-            throw new StringIndexOutOfBoundsException(startIndexException);
+            throw new StringIndexOutOfBoundsException("startIndex must be valid");
         }
         if (length < 0 || startIndex + length > str.length()) {
-            throw new StringIndexOutOfBoundsException(lengthException);
+            throw new StringIndexOutOfBoundsException("length must be valid");
         }
         if (length > 0) {
             final int len = length();
@@ -691,10 +682,10 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
             return appendNull();
         }
         if (startIndex < 0 || startIndex > str.length()) {
-            throw new StringIndexOutOfBoundsException(startIndexException);
+            throw new StringIndexOutOfBoundsException("startIndex must be valid");
         }
         if (length < 0 || startIndex + length > str.length()) {
-            throw new StringIndexOutOfBoundsException(lengthException);
+            throw new StringIndexOutOfBoundsException("length must be valid");
         }
         if (length > 0) {
             final int len = length();
@@ -728,10 +719,10 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
             return appendNull();
         }
         if (startIndex < 0 || startIndex > str.length()) {
-            throw new StringIndexOutOfBoundsException(startIndexException);
+            throw new StringIndexOutOfBoundsException("startIndex must be valid");
         }
         if (length < 0 || startIndex + length > str.length()) {
-            throw new StringIndexOutOfBoundsException(lengthException);
+            throw new StringIndexOutOfBoundsException("length must be valid");
         }
         if (length > 0) {
             final int len = length();
@@ -765,10 +756,10 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
             return appendNull();
         }
         if (startIndex < 0 || startIndex > str.length()) {
-            throw new StringIndexOutOfBoundsException(startIndexException);
+            throw new StringIndexOutOfBoundsException("startIndex must be valid");
         }
         if (length < 0 || startIndex + length > str.length()) {
-            throw new StringIndexOutOfBoundsException(lengthException);
+            throw new StringIndexOutOfBoundsException("length must be valid");
         }
         if (length > 0) {
             final int len = length();
@@ -874,7 +865,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
                 str.getChars(strLen - width, strLen, buffer, size);
             } else {
                 final int padLen = width - strLen;
-                for (int i = 0; i < padLen; i++) {
+                for (int i = 0; i < padLen; ++i) {
                     buffer[size + i] = padChar;
                 }
                 str.getChars(0, strLen, buffer, size + padLen);
@@ -920,7 +911,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
             } else {
                 final int padLen = width - strLen;
                 str.getChars(0, strLen, buffer, size);
-                for (int i = 0; i < padLen; i++) {
+                for (int i = 0; i < padLen; ++i) {
                     buffer[size + strLen + i] = padChar;
                 }
             }
@@ -1169,7 +1160,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
     public TextStringBuilder appendPadding(final int length, final char padChar) {
         if (length >= 0) {
             ensureCapacity(size + length);
-            for (int i = 0; i < length; i++) {
+            for (int i = 0; i < length; ++i) {
                 buffer[size++] = padChar;
             }
         }
@@ -1230,7 +1221,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * </p>
      *
      * <pre>
-     * for (int i = 0; i &lt; list.size(); i++) {
+     * for (int i = 0; i &lt; list.size(); ++i) {
      *     appendSeparator(",", i);
      *     append(list.get(i));
      * }
@@ -1284,7 +1275,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * </p>
      *
      * <pre>
-     * for (int i = 0; i &lt; list.size(); i++) {
+     * for (int i = 0; i &lt; list.size(); ++i) {
      *     appendSeparator(",", i);
      *     append(list.get(i));
      * }
@@ -1421,7 +1412,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
         if (array != null && array.length > 0) {
             final String sep = Objects.toString(separator, StringUtils.EMPTY);
             append(array[0]);
-            for (int i = 1; i < array.length; i++) {
+            for (int i = 1; i < array.length; ++i) {
                 append(sep);
                 append(array[i]);
             }
@@ -1576,7 +1567,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      */
     public boolean contains(final char ch) {
         final char[] thisBuf = buffer;
-        for (int i = 0; i < this.size; i++) {
+        for (int i = 0; i < this.size; ++i) {
             if (thisBuf[i] == ch) {
                 return true;
             }
@@ -1632,7 +1623,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return this, to enable chaining
      */
     public TextStringBuilder deleteAll(final char ch) {
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size; ++i) {
             if (buffer[i] == ch) {
                 final int start = i;
                 while (++i < size) {
@@ -1702,7 +1693,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return this, to enable chaining
      */
     public TextStringBuilder deleteFirst(final char ch) {
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size; ++i) {
             if (buffer[i] == ch) {
                 deleteImpl(i, i + 1, 1);
                 break;
@@ -1815,7 +1806,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
             return false;
         }
         int pos = size - len;
-        for (int i = 0; i < len; i++, pos++) {
+        for (int i = 0; i < len; ++i, ++pos) {
             if (buffer[pos] != str.charAt(i)) {
                 return false;
             }
@@ -1973,7 +1964,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
         // no allocation
         final char[] buf = buffer;
         int result = 0;
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size; ++i) {
             result = 31 * result + buf[i];
         }
         return result;
@@ -2002,7 +1993,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
             return StringUtils.INDEX_NOT_FOUND;
         }
         final char[] thisBuf = buffer;
-        for (int i = startIndex; i < size; i++) {
+        for (int i = startIndex; i < size; ++i) {
             if (thisBuf[i] == ch) {
                 return i;
             }
@@ -2051,7 +2042,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
         }
         final char[] thisBuf = buffer;
         final int len = size - strLen + 1;
-        outer: for (int i = startIndex; i < len; i++) {
+        outer: for (int i = startIndex; i < len; ++i) {
             for (int j = 0; j < strLen; j++) {
                 if (str.charAt(j) != thisBuf[i + j]) {
                     continue outer;
@@ -2094,7 +2085,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
         }
         final int len = size;
         final char[] buf = buffer;
-        for (int i = startIndex; i < len; i++) {
+        for (int i = startIndex; i < len; ++i) {
             if (matcher.isMatch(buf, i, startIndex, len) > 0) {
                 return i;
             }
@@ -2137,7 +2128,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
         ensureCapacity(size + 1);
         System.arraycopy(buffer, index, buffer, index + 1, size - index);
         buffer[index] = value;
-        size++;
+        ++size;
         return this;
     }
 
@@ -2385,7 +2376,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
             }
 
             outer: for (int i = startIndex - strLen + 1; i >= 0; i--) {
-                for (int j = 0; j < strLen; j++) {
+                for (int j = 0; j < strLen; ++j) {
                     if (str.charAt(j) != buffer[i + j]) {
                         continue outer;
                     }
@@ -2620,7 +2611,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      */
     private void reallocate(final int newLength) {
         this.buffer = Arrays.copyOf(buffer, newLength);
-        this.reallocations++;
+        ++this.reallocations;
     }
 
     /**
@@ -2670,7 +2661,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      */
     public TextStringBuilder replaceAll(final char search, final char replace) {
         if (search != replace) {
-            for (int i = 0; i < size; i++) {
+            for (int i = 0; i < size; ++i) {
                 if (buffer[i] == search) {
                     buffer[i] = replace;
                 }
@@ -2723,7 +2714,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      */
     public TextStringBuilder replaceFirst(final char search, final char replace) {
         if (search != replace) {
-            for (int i = 0; i < size; i++) {
+            for (int i = 0; i < size; ++i) {
                 if (buffer[i] == search) {
                     buffer[i] = replace;
                     break;
@@ -2811,7 +2802,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
             return this;
         }
         final int replaceLen = replaceStr == null ? 0 : replaceStr.length();
-        for (int i = from; i < to && replaceCount != 0; i++) {
+        for (int i = from; i < to && replaceCount != 0; ++i) {
             final char[] buf = buffer;
             final int removeLen = matcher.isMatch(buf, i, from, to);
             if (removeLen > 0) {
@@ -2838,7 +2829,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
 
         final int half = size / 2;
         final char[] buf = buffer;
-        for (int leftIdx = 0, rightIdx = size - 1; leftIdx < half; leftIdx++, rightIdx--) {
+        for (int leftIdx = 0, rightIdx = size - 1; leftIdx < half; ++leftIdx, rightIdx--) {
             final char swap = buf[leftIdx];
             buf[leftIdx] = buf[rightIdx];
             buf[rightIdx] = swap;
@@ -2976,7 +2967,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
         if (len > size) {
             return false;
         }
-        for (int i = 0; i < len; i++) {
+        for (int i = 0; i < len; ++i) {
             if (buffer[i] != str.charAt(i)) {
                 return false;
             }
@@ -3090,6 +3081,9 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return this, to enable chaining
      */
     public TextStringBuilder trim() {
+
+        /** The space character. */
+        final char SPACE = ' ';
         if (size == 0) {
             return this;
         }
@@ -3097,7 +3091,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
         final char[] buf = buffer;
         int pos = 0;
         while (pos < len && buf[pos] <= SPACE) {
-            pos++;
+            ++pos;
         }
         while (pos < len && buf[len - 1] <= SPACE) {
             len--;

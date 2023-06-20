@@ -139,25 +139,25 @@ public final class AlphabetConverter {
         final Map<Integer, String> doNotEncodeMap = new HashMap<>();
 
         final int encodedLetterLength;
-
+        StringBuilder originalErrorMessage = new StringBuilder("Can not use 'do not encode' list because original alphabet does not contain '");
+        StringBuilder encodingErrorMessage = new StringBuilder("Can not use 'do not encode' list because encoding alphabet does not contain '");
         for (final int i : doNotEncodeCopy) {
             if (!originalCopy.contains(i)) {
-                throw new IllegalArgumentException(
-                        "Can not use 'do not encode' list because original "
-                                + "alphabet does not contain '"
-                                + codePointToString(i) + "'");
+                originalErrorMessage.append(codePointToString(i)).append("'");
+                throw new IllegalArgumentException(originalErrorMessage.toString());
             }
 
             if (!encodingCopy.contains(i)) {
-                throw new IllegalArgumentException(
-                        "Can not use 'do not encode' list because encoding alphabet does not contain '"
-                                + codePointToString(i) + "'");
+                encodingErrorMessage.append(codePointToString(i)).append("'");
+                throw new IllegalArgumentException(encodingErrorMessage.toString());
             }
 
             doNotEncodeMap.put(i, codePointToString(i));
         }
+        final int encodingCopySize = encodingCopy.size();
+        final int originalCopySize = originalCopy.size();
 
-        if (encodingCopy.size() >= originalCopy.size()) {
+        if (encodingCopySize >= originalCopySize) {
             encodedLetterLength = 1;
 
             final Iterator<Integer> it = encodingCopy.iterator();
@@ -206,9 +206,9 @@ public final class AlphabetConverter {
         int lettersLeft = (originalCopy.size() - doNotEncodeCopy.size())
                 / (encodingCopy.size() - doNotEncodeCopy.size());
 
-        while (lettersLeft / encodingCopy.size() >= 1) {
+        while (lettersLeft / encodingCopySize >= 1) {
             lettersLeft = lettersLeft / encodingCopy.size();
-            lettersSoFar++;
+            ++lettersSoFar;
         }
 
         encodedLetterLength = lettersSoFar + 1;
@@ -382,24 +382,29 @@ public final class AlphabetConverter {
         }
         final StringBuilder result = new StringBuilder();
         int j = 0;
-        while (j < encoded.length()) {
+        final int encodedLength = encoded.length();
+        while (j < encodedLength) {
             final int i = encoded.codePointAt(j);
             final String s = codePointToString(i);
             if (s.equals(originalToEncoded.get(i))) {
                 result.append(s);
-                j++;
+                ++j;
             } else {
+                StringBuilder errorMessage = new StringBuilder("Unexpected end of string while decoding ");
+                errorMessage.append(encoded);
+
                 if (j + encodedLetterLength > encoded.length()) {
-                    throw new UnsupportedEncodingException("Unexpected end "
-                            + "of string while decoding " + encoded);
+                    throw new UnsupportedEncodingException(errorMessage.toString());
                 }
                 final String nextGroup = encoded.substring(j, j + encodedLetterLength);
                 final String next = encodedToOriginal.get(nextGroup);
+                StringBuilder errorDecoding = new StringBuilder("Unexpected string without decoding (");
+                errorDecoding.append(nextGroup).append(") in ").append(encoded);
+
                 if (next == null) {
-                    throw new UnsupportedEncodingException(
-                            "Unexpected string without decoding ("
-                                    + nextGroup + ") in " + encoded);
+                    throw new UnsupportedEncodingException(errorDecoding.toString());
                 }
+
                 result.append(next);
                 j += encodedLetterLength;
             }
@@ -421,16 +426,16 @@ public final class AlphabetConverter {
         }
         final StringBuilder sb = new StringBuilder();
         int i = 0;
-        while (i < original.length()) {
+        final int originalLength = original.length();
+        while (i < originalLength) {
             final int codePoint = original.codePointAt(i);
             final String nextLetter = originalToEncoded.get(codePoint);
             if (nextLetter == null) {
-                throw new UnsupportedEncodingException(
-                        "Couldn't find encoding for '"
-                                + codePointToString(codePoint)
-                                + "' in "
-                                + original
-                );
+                StringBuilder errorMessage = new StringBuilder("Couldn't find encoding for '");
+                errorMessage.append(codePointToString(codePoint)).append("' in ").append(original);
+
+                throw new UnsupportedEncodingException(errorMessage.toString());
+
             }
             sb.append(nextLetter);
             i += Character.charCount(codePoint);
