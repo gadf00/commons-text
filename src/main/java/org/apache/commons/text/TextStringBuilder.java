@@ -81,6 +81,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      */
     class TextStringBuilderReader extends Reader {
 
+
         /** The last mark position. */
         private int mark;
 
@@ -272,6 +273,9 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @see java.io.Serializable
      */
     private static final long serialVersionUID = 1L;
+
+    /** The space character. */
+    private static final char SPACE = ' ';
 
     /**
      * The size of the string {@code "true"}.
@@ -3082,8 +3086,6 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      */
     public TextStringBuilder trim() {
 
-        /** The space character. */
-        final char SPACE = ' ';
         if (size == 0) {
             return this;
         }

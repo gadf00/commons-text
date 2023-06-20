@@ -75,6 +75,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      */
     private static final long serialVersionUID = -2362048321261811743L;
 
+    private static final int HASH_SEED = 31;
     /**
      * A comma.
      */
@@ -353,7 +354,6 @@ public class ExtendedMessageFormat extends MessageFormat {
      */
     @Override
     public int hashCode() {
-        final int HASH_SEED = 31;
         int result = super.hashCode();
         result = HASH_SEED * result + Objects.hashCode(registry);
         result = HASH_SEED * result + Objects.hashCode(toPattern);

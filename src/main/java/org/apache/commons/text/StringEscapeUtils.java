@@ -131,10 +131,10 @@ public class StringEscapeUtils {
         /**
          * Escaped backslash constant.
          */
+        private static char BACKSLASH = '\\';
 
         @Override
         public int translate(final CharSequence input, final int index, final Writer writer) throws IOException {
-            char BACKSLASH = '\\';
             if (index != 0) {
                 throw new IllegalStateException("XsiUnescaper should never reach the [1] index");
             }
