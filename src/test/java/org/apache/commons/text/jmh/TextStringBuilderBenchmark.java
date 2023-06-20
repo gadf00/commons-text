@@ -20,6 +20,7 @@ package org.apache.commons.text.jmh;
 import org.apache.commons.text.TextStringBuilder;
 import org.openjdk.jmh.annotations.*;
 
+
 import java.util.concurrent.TimeUnit;
 
 @BenchmarkMode(Mode.AverageTime)

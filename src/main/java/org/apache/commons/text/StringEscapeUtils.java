@@ -131,7 +131,7 @@ public class StringEscapeUtils {
         /**
          * Escaped backslash constant.
          */
-        private static char BACKSLASH = '\\';
+        private static final char BACKSLASH = '\\';
 
         @Override
         public int translate(final CharSequence input, final int index, final Writer writer) throws IOException {
