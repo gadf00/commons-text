@@ -118,7 +118,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
             if (!ready()) {
                 return -1;
             }
-            return TextStringBuilder.this.charAt(pos++);
+            return TextStringBuilder.this.charAt(++pos);
         }
 
         /** {@inheritDoc} */
@@ -2047,7 +2047,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
         final char[] thisBuf = buffer;
         final int len = size - strLen + 1;
         outer: for (int i = startIndex; i < len; ++i) {
-            for (int j = 0; j < strLen; j++) {
+            for (int j = 0; j < strLen; ++j) {
                 if (str.charAt(j) != thisBuf[i + j]) {
                     continue outer;
                 }

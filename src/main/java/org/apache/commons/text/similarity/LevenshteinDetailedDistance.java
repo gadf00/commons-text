@@ -104,27 +104,27 @@ public class LevenshteinDetailedDistance implements EditDistance<LevenshteinResu
                     || dataAtDiagonal == -1 && dataAtTop == -1) { // NOPMD
                 columnIndex--;
                 if (swapped) {
-                    addCount++;
+                    ++addCount;
                     added = true;
                 } else {
-                    delCount++;
+                    ++delCount;
                     deleted = true;
                 }
             } else if (data - 1 == dataAtTop && data <= dataAtDiagonal && data <= dataAtLeft
                     || dataAtDiagonal == -1 && dataAtLeft == -1) { // NOPMD
                 rowIndex--;
                 if (swapped) {
-                    delCount++;
+                    ++delCount;
                     deleted = true;
                 } else {
-                    addCount++;
+                    ++addCount;
                     added = true;
                 }
             }
 
             // substituted case
             if (!added && !deleted) {
-                subCount++;
+                ++subCount;
                 columnIndex--;
                 rowIndex--;
             }
@@ -260,16 +260,16 @@ public class LevenshteinDetailedDistance implements EditDistance<LevenshteinResu
         final int[][] matrix = new int[m + 1][n + 1];
 
         //filling the first row and first column values in the matrix
-        for (int index = 0; index <= n; index++) {
+        for (int index = 0; index <= n; ++index) {
             matrix[0][index] = index;
         }
-        for (int index = 0; index <= m; index++) {
+        for (int index = 0; index <= m; ++index) {
             matrix[index][0] = index;
         }
 
         // fill in starting table values
         final int boundary = Math.min(n, threshold) + 1;
-        for (int i = 0; i < boundary; i++) {
+        for (int i = 0; i < boundary; ++i) {
             p[i] = i;
         }
         // these fills ensure that the value above the rightmost entry of our
@@ -278,7 +278,7 @@ public class LevenshteinDetailedDistance implements EditDistance<LevenshteinResu
         Arrays.fill(d, Integer.MAX_VALUE);
 
         // iterates through t
-        for (int j = 1; j <= m; j++) {
+        for (int j = 1; j <= m; ++j) {
             final char rightJ = right.charAt(j - 1); // jth character of right
             d[0] = j;
 
@@ -298,7 +298,7 @@ public class LevenshteinDetailedDistance implements EditDistance<LevenshteinResu
             }
 
             // iterates through [min, max] in s
-            for (int i = min; i <= max; i++) {
+            for (int i = min; i <= max; ++i) {
                 if (left.charAt(i - 1) == rightJ) {
                     // diagonally left and up
                     d[i] = p[i - 1];
@@ -402,10 +402,10 @@ public class LevenshteinDetailedDistance implements EditDistance<LevenshteinResu
         final int[][] matrix = new int[m + 1][n + 1];
 
         // filling the first row and first column values in the matrix
-        for (int index = 0; index <= n; index++) {
+        for (int index = 0; index <= n; ++index) {
             matrix[0][index] = index;
         }
-        for (int index = 0; index <= m; index++) {
+        for (int index = 0; index <= m; ++index) {
             matrix[index][0] = index;
         }
 
@@ -416,15 +416,15 @@ public class LevenshteinDetailedDistance implements EditDistance<LevenshteinResu
         char rightJ; // jth character of right
 
         int cost; // cost
-        for (i = 0; i <= n; i++) {
+        for (i = 0; i <= n; ++i) {
             p[i] = i;
         }
 
-        for (j = 1; j <= m; j++) {
+        for (j = 1; j <= m; ++j) {
             rightJ = right.charAt(j - 1);
             d[0] = j;
 
-            for (i = 1; i <= n; i++) {
+            for (i = 1; i <= n; ++i) {
                 cost = left.charAt(i - 1) == rightJ ? 0 : 1;
                 // minimum of cell to the left+1, to the top+1, diagonally left and up +cost
                 d[i] = Math.min(Math.min(d[i - 1] + 1, p[i] + 1), p[i - 1] + cost);

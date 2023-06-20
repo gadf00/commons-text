@@ -170,7 +170,7 @@ public class LevenshteinDistance implements EditDistance<Integer> {
 
         // fill in starting table values
         final int boundary = Math.min(n, threshold) + 1;
-        for (int i = 0; i < boundary; i++) {
+        for (int i = 0; i < boundary; ++i) {
             p[i] = i;
         }
         // these fills ensure that the value above the rightmost entry of our
@@ -179,7 +179,7 @@ public class LevenshteinDistance implements EditDistance<Integer> {
         Arrays.fill(d, Integer.MAX_VALUE);
 
         // iterates through t
-        for (int j = 1; j <= m; j++) {
+        for (int j = 1; j <= m; ++j) {
             final char rightJ = right.charAt(j - 1); // jth character of right
             d[0] = j;
 
@@ -195,7 +195,7 @@ public class LevenshteinDistance implements EditDistance<Integer> {
 
             int lowerBound = Integer.MAX_VALUE;
             // iterates through [min, max] in s
-            for (int i = min; i <= max; i++) {
+            for (int i = min; i <= max; ++i) {
                 if (left.charAt(i - 1) == rightJ) {
                     // diagonally left and up
                     d[i] = p[i - 1];
@@ -296,16 +296,16 @@ public class LevenshteinDistance implements EditDistance<Integer> {
         char rightJ; // jth character of right
         int cost; // cost
 
-        for (i = 0; i <= n; i++) {
+        for (i = 0; i <= n; ++i) {
             p[i] = i;
         }
 
-        for (j = 1; j <= m; j++) {
+        for (j = 1; j <= m; ++j) {
             upperLeft = p[0];
             rightJ = right.charAt(j - 1);
             p[0] = j;
 
-            for (i = 1; i <= n; i++) {
+            for (i = 1; i <= n; ++i) {
                 upper = p[i];
                 cost = left.charAt(i - 1) == rightJ ? 0 : 1;
                 // minimum of cell to the left+1, to the top+1, diagonally left and up +cost

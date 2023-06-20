@@ -76,11 +76,11 @@ public class JaccardSimilarity implements SimilarityScore<Double> {
             return 0d;
         }
         final Set<Character> leftSet = new HashSet<>();
-        for (int i = 0; i < leftLength; i++) {
+        for (int i = 0; i < leftLength; ++i) {
             leftSet.add(left.charAt(i));
         }
         final Set<Character> rightSet = new HashSet<>();
-        for (int i = 0; i < rightLength; i++) {
+        for (int i = 0; i < rightLength; ++i) {
             rightSet.add(right.charAt(i));
         }
         final Set<Character> unionSet = new HashSet<>(leftSet);

@@ -137,7 +137,7 @@ abstract class AbstractStringMatcher implements StringMatcher {
                 return 0;
             }
             int j = start;
-            for (int i = 0; i < len; i++, j++) {
+            for (int i = 0; i < len; ++i, ++j) {
                 if (chars[i] != buffer[j]) {
                     return 0;
                 }
@@ -161,7 +161,7 @@ abstract class AbstractStringMatcher implements StringMatcher {
                 return 0;
             }
             int j = start;
-            for (int i = 0; i < len; i++, j++) {
+            for (int i = 0; i < len; ++i, ++j) {
                 if (chars[i] != buffer.charAt(j)) {
                     return 0;
                 }
