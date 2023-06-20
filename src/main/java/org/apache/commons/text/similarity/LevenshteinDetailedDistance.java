@@ -18,7 +18,6 @@ package org.apache.commons.text.similarity;
 
 import java.util.Arrays;
 
-
 /**
  * An algorithm for measuring the difference between two character sequences.
  *
