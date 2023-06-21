@@ -76,6 +76,24 @@
 
   <dependencies>
     <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.2</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-console-standalone</artifactId>
+      <version>1.9.2</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest</artifactId>
+      <version>2.2</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.pitest</groupId>
       <artifactId>pitest-junit5-plugin</artifactId>
       <version>1.1.2</version>
@@ -152,9 +170,21 @@
     <pluginManagement>
       <plugins>
         <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <configuration>
+            <includes>
+              <include>**/*Test.java</include>
+            </includes>
+            <excludes>
+              <exclude>**/*$*</exclude>
+            </excludes>
+          </configuration>
+        </plugin>
+        <plugin>
           <groupId>org.jacoco</groupId>
           <artifactId>jacoco-maven-plugin</artifactId>
-          <version>0.7.7.201606060606</version>
+          <version>0.8.8</version>
           <executions>
             <execution>
               <goals>
@@ -170,12 +200,6 @@
             </execution>
           </executions>
         </plugin>
-
-        <plugin>
-          <groupId>org.pitest</groupId>
-          <artifactId>pitest-maven</artifactId>
-          <version>1.13.1</version>
-        </plugin>
         <plugin>
           <groupId>org.apache.rat</groupId>
           <artifactId>apache-rat-plugin</artifactId>
@@ -186,6 +210,7 @@
               <exclude>src/test/resources/org/apache/commons/text/stringEscapeUtilsTestData.txt</exclude>
               <exclude>src/test/resources/org/apache/commons/text/lcs-perf-analysis-inputs.csv</exclude>
               <exclude>src/site/resources/release-notes/RELEASE-NOTES-*.txt</exclude>
+              <exclude>evosuite-tests/</exclude>
             </excludes>
           </configuration>
         </plugin><!-- override skip property of parent pom -->
@@ -358,88 +383,6 @@
 
   <inceptionYear>2014</inceptionYear>
 
-  <developers>
-    <developer>
-      <id>kinow</id>
-      <name>Bruno P. Kinoshita</name>
-      <email>kinow@apache.org</email>
-    </developer>
-    <developer>
-      <id>britter</id>
-      <name>Benedikt Ritter</name>
-      <email>britter@apache.org</email>
-    </developer>
-    <developer>
-      <id>chtompki</id>
-      <name>Rob Tompkins</name>
-      <email>chtompki@apache.org</email>
-    </developer>
-    <developer>
-      <id>ggregory</id>
-      <name>Gary Gregory</name>
-      <email>ggregory at apache.org</email>
-      <url>https://www.garygregory.com</url>
-      <organization>The Apache Software Foundation</organization>
-      <organizationUrl>https://www.apache.org/</organizationUrl>
-      <roles>
-        <role>PMC Member</role>
-      </roles>
-      <timezone>America/New_York</timezone>
-      <properties>
-        <picUrl>https://people.apache.org/~ggregory/img/garydgregory80.png</picUrl>
-      </properties>
-    </developer>
-    <developer>
-      <id>djones</id>
-      <name>Duncan Jones</name>
-      <email>djones@apache.org</email>
-    </developer>
-  </developers>
-
-  <contributors>
-    <contributor>
-      <name>Don Jeba</name>
-      <email>donjeba@yahoo.com</email>
-    </contributor>
-    <contributor>
-      <name>Sampanna Kahu</name>
-    </contributor>
-    <contributor>
-      <name>Jarek Strzelecki</name>
-    </contributor>
-    <contributor>
-      <name>Lee Adcock</name>
-    </contributor>
-    <contributor>
-      <name>Amey Jadiye</name>
-      <email>ameyjadiye@gmail.com</email>
-    </contributor>
-    <contributor>
-      <name>Arun Vinud S S</name>
-    </contributor>
-    <contributor>
-      <name>Ioannis Sermetziadis</name>
-    </contributor>
-    <contributor>
-      <name>Jostein Tveit</name>
-    </contributor>
-    <contributor>
-      <name>Luciano Medallia</name>
-    </contributor>
-    <contributor>
-      <name>Jan Martin Keil</name>
-    </contributor>
-    <contributor>
-      <name>Nandor Kollar</name>
-    </contributor>
-    <contributor>
-      <name>Nick Wong</name>
-    </contributor>
-    <contributor>
-      <name>Ali Ghanbari</name>
-      <url>https://ali-ghanbari.github.io/</url>
-    </contributor>
-  </contributors>
 
   <scm>
     <connection>scm:git:https://gitbox.apache.org/repos/asf/commons-text</connection>
