@@ -293,6 +293,9 @@ public final class RandomStringGenerator {
      */
     private final TextRandomProvider random;
 
+    /**
+     * Secure random.
+     */
     private SecureRandom secureRandom;
 
     /**
