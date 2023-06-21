@@ -293,6 +293,8 @@ public final class RandomStringGenerator {
      */
     private final TextRandomProvider random;
 
+    private SecureRandom secureRandom;
+
     /**
      * The source of provided characters.
      */
@@ -424,7 +426,7 @@ public final class RandomStringGenerator {
         if (random != null) {
             return random.nextInt(maxInclusive - minInclusive + 1) + minInclusive;
         }
-        SecureRandom secureRandom = new SecureRandom();
+        secureRandom = new SecureRandom();
         return secureRandom.nextInt(maxInclusive - minInclusive + 1) + minInclusive;
     }
 
@@ -440,7 +442,7 @@ public final class RandomStringGenerator {
         if (random != null) {
             return String.valueOf(characterList.get(random.nextInt(listSize))).codePointAt(0);
         }
-        SecureRandom secureRandom = new SecureRandom();
+        secureRandom = new SecureRandom();
         return String.valueOf(characterList.get(secureRandom.nextInt(listSize))).codePointAt(0);
     }
 }
