@@ -15,7 +15,5 @@
 
 FROM maven:3.6.3-jdk-8-slim
 WORKDIR /usr/src/app
-COPY pom.xml .
-RUN mvn dependency:resolve
 COPY . .
 RUN mvn package
