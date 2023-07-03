@@ -28,6 +28,7 @@ import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.Level;
 
 import java.util.concurrent.TimeUnit;
 
@@ -35,25 +36,60 @@ import java.util.concurrent.TimeUnit;
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 @State(Scope.Thread)
 @Fork(value = 1)
-@Warmup(iterations = 2)
-@Measurement(iterations = 3)
+@Warmup(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
+@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
 public class TextStringBuilderBenchmark {
 
     private TextStringBuilder textStringBuilder;
 
-    @Setup
+    @Setup(Level.Iteration)
     public void setup() {
-        textStringBuilder = new TextStringBuilder(100);
+
+        textStringBuilder = new TextStringBuilder("This is a Performance Test for the class TextStringBuilder:");
     }
 
     @Benchmark
-    public String buildString() {
-        textStringBuilder.clear();
+    public void appendBenchMark() {
         for (int i = 0; i < 1000; i++) {
-            textStringBuilder.append("Text");
+            textStringBuilder.append("Append Text");
         }
-        return textStringBuilder.toString();
     }
+
+    @Benchmark
+    public void appendlnBenchMark() {
+        for (int i = 0; i < 1000; i++) {
+            textStringBuilder.appendln("Append Line");
+        }
+    }
+
+    @Benchmark
+    public void deleteBenchmark() {
+        textStringBuilder.delete(0, 9);
+    }
+
+    @Benchmark
+    public void deleteCharAtBenchmark() {
+        textStringBuilder.deleteCharAt(58);
+    }
+
+    @Benchmark
+    public void insertBenchmark() {
+
+        textStringBuilder.insert(59, "Inserted Text");
+    }
+
+    @Benchmark
+    public void insertCharBenchmark() {
+        textStringBuilder.insert(58, '.');
+    }
+
+    @Benchmark
+    public void replaceBenchmark() {
+        textStringBuilder.replace(0, 8, "This is a super");
+    }
+
+
+
 
     public static void main(String[] args) throws Exception {
         org.openjdk.jmh.Main.main(args);

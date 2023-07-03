@@ -126,51 +126,34 @@ public final class AlphabetConverter {
      * @throws IllegalArgumentException if an AlphabetConverter cannot be
      *                                   constructed
      */
-    public static AlphabetConverter createConverter(
-            final Integer[] original,
-            final Integer[] encoding,
-            final Integer[] doNotEncode) {
+    public static AlphabetConverter createConverter(final Integer[] original, final Integer[] encoding, final Integer[] doNotEncode) {
         final Set<Integer> originalCopy = new LinkedHashSet<>(Arrays.asList(original));
         final Set<Integer> encodingCopy = new LinkedHashSet<>(Arrays.asList(encoding));
         final Set<Integer> doNotEncodeCopy = new LinkedHashSet<>(Arrays.asList(doNotEncode));
-
         final Map<Integer, String> originalToEncoded = new LinkedHashMap<>();
         final Map<String, String> encodedToOriginal = new LinkedHashMap<>();
         final Map<Integer, String> doNotEncodeMap = new HashMap<>();
-
         final int encodedLetterLength;
         StringBuilder originalErrorMessage = new StringBuilder("Can not use 'do not encode' list because original alphabet does not contain '");
         StringBuilder encodingErrorMessage = new StringBuilder("Can not use 'do not encode' list because encoding alphabet does not contain '");
-        for (final int i : doNotEncodeCopy) {
-            if (!originalCopy.contains(i)) {
-                originalErrorMessage.append(codePointToString(i)).append("'");
-                throw new IllegalArgumentException(originalErrorMessage.toString());
-            }
 
-            if (!encodingCopy.contains(i)) {
-                encodingErrorMessage.append(codePointToString(i)).append("'");
-                throw new IllegalArgumentException(encodingErrorMessage.toString());
-            }
+        validateDoNotEncode(doNotEncodeCopy, originalCopy, originalErrorMessage);
+        validateDoNotEncode(doNotEncodeCopy, encodingCopy, encodingErrorMessage);
+        fillDoNotEncodeMap(doNotEncodeCopy, doNotEncodeMap);
 
-            doNotEncodeMap.put(i, codePointToString(i));
-        }
         final int encodingCopySize = encodingCopy.size();
         final int originalCopySize = originalCopy.size();
 
         if (encodingCopySize >= originalCopySize) {
             encodedLetterLength = 1;
-
             final Iterator<Integer> it = encodingCopy.iterator();
 
             for (final int originalLetter : originalCopy) {
-                final String originalLetterAsString =
-                        codePointToString(originalLetter);
+                final String originalLetterAsString = codePointToString(originalLetter);
 
                 if (doNotEncodeMap.containsKey(originalLetter)) {
-                    originalToEncoded.put(originalLetter,
-                            originalLetterAsString);
-                    encodedToOriginal.put(originalLetterAsString,
-                            originalLetterAsString);
+                    originalToEncoded.put(originalLetter, originalLetterAsString);
+                    encodedToOriginal.put(originalLetterAsString, originalLetterAsString);
                 } else {
                     Integer next = it.next();
 
@@ -179,32 +162,20 @@ public final class AlphabetConverter {
                     }
 
                     final String encodedLetter = codePointToString(next);
-
                     originalToEncoded.put(originalLetter, encodedLetter);
-                    encodedToOriginal.put(encodedLetter,
-                            originalLetterAsString);
+                    encodedToOriginal.put(encodedLetter, originalLetterAsString);
                 }
             }
 
-            return new AlphabetConverter(originalToEncoded,
-                    encodedToOriginal,
-                    encodedLetterLength);
+            return new AlphabetConverter(originalToEncoded, encodedToOriginal, encodedLetterLength);
+        }
 
+        if (encodingCopySize - doNotEncodeCopy.size() < 2) {
+            throw new IllegalArgumentException("Must have at least two encoding characters (excluding those in the 'do not encode' list), but has " + (encodingCopy.size() - doNotEncodeCopy.size()));
         }
-        if (encodingCopy.size() - doNotEncodeCopy.size() < 2) {
-            throw new IllegalArgumentException(
-                    "Must have at least two encoding characters (excluding "
-                            + "those in the 'do not encode' list), but has "
-                            + (encodingCopy.size() - doNotEncodeCopy.size()));
-        }
-        // we start with one which is our minimum, and because we do the
-        // first division outside the loop
+
         int lettersSoFar = 1;
-
-        // the first division takes into account that the doNotEncode
-        // letters can't be in the leftmost place
-        int lettersLeft = (originalCopy.size() - doNotEncodeCopy.size())
-                / (encodingCopy.size() - doNotEncodeCopy.size());
+        int lettersLeft = (originalCopy.size() - doNotEncodeCopy.size()) / (encodingCopy.size() - doNotEncodeCopy.size());
 
         while (lettersLeft / encodingCopySize >= 1) {
             lettersLeft = lettersLeft / encodingCopy.size();
@@ -212,38 +183,46 @@ public final class AlphabetConverter {
         }
 
         encodedLetterLength = lettersSoFar + 1;
-
-        final AlphabetConverter ac =
-                new AlphabetConverter(originalToEncoded,
-                        encodedToOriginal,
-                        encodedLetterLength);
-
-        ac.addSingleEncoding(encodedLetterLength,
-                StringUtils.EMPTY,
-                encodingCopy,
-                originalCopy.iterator(),
-                doNotEncodeMap);
+        final AlphabetConverter ac = new AlphabetConverter(originalToEncoded, encodedToOriginal, encodedLetterLength);
+        ac.addSingleEncoding(encodedLetterLength, StringUtils.EMPTY, encodingCopy, originalCopy.iterator(), doNotEncodeMap);
 
         return ac;
     }
 
-    /**
-     * Creates an alphabet converter, for converting from the original alphabet,
-     * to the encoded alphabet, while leaving the characters in
-     * <em>doNotEncode</em> as they are (if possible).
-     *
-     * <p>Duplicate letters in either original or encoding will be ignored.</p>
-     *
-     * @param original an array of chars representing the original alphabet
-     * @param encoding an array of chars representing the alphabet to be used
-     *                 for encoding
-     * @param doNotEncode an array of chars to be encoded using the original
-     *                    alphabet - every char here must appear in
-     *                    both the previous params
-     * @return The AlphabetConverter
-     * @throws IllegalArgumentException if an AlphabetConverter cannot be
-     *                                  constructed
-     */
+    private static void validateDoNotEncode(final Set<Integer> doNotEncodeCopy, final Set<Integer> alphabet, final StringBuilder errorMessage) {
+        for (final int i : doNotEncodeCopy) {
+            if (!alphabet.contains(i)) {
+                errorMessage.append(codePointToString(i)).append("'");
+                throw new IllegalArgumentException(errorMessage.toString());
+            }
+        }
+    }
+
+    private static void fillDoNotEncodeMap(final Set<Integer> doNotEncodeCopy, final Map<Integer, String> doNotEncodeMap) {
+        for (final int i : doNotEncodeCopy) {
+            doNotEncodeMap.put(i, codePointToString(i));
+        }
+    }
+
+
+
+        /**
+         * Creates an alphabet converter, for converting from the original alphabet,
+         * to the encoded alphabet, while leaving the characters in
+         * <em>doNotEncode</em> as they are (if possible).
+         *
+         * <p>Duplicate letters in either original or encoding will be ignored.</p>
+         *
+         * @param original    an array of chars representing the original alphabet
+         * @param encoding    an array of chars representing the alphabet to be used
+         *                    for encoding
+         * @param doNotEncode an array of chars to be encoded using the original
+         *                    alphabet - every char here must appear in
+         *                    both the previous params
+         * @return The AlphabetConverter
+         * @throws IllegalArgumentException if an AlphabetConverter cannot be
+         *                                  constructed
+         */
     public static AlphabetConverter createConverterFromChars(
             final Character[] original,
             final Character[] encoding,
@@ -297,8 +276,8 @@ public final class AlphabetConverter {
     /**
      * Hidden constructor for alphabet converter. Used by static helper methods.
      *
-     * @param originalToEncoded original string to be encoded
-     * @param encodedToOriginal encoding alphabet
+     * @param originalToEncoded   original string to be encoded
+     * @param encodedToOriginal   encoding alphabet
      * @param encodedLetterLength length of the encoded letter
      */
     private AlphabetConverter(final Map<Integer, String> originalToEncoded,
@@ -313,11 +292,11 @@ public final class AlphabetConverter {
     /**
      * Recursive method used when creating encoder/decoder.
      *
-     * @param level at which point it should add a single encoding
+     * @param level           at which point it should add a single encoding
      * @param currentEncoding current encoding
-     * @param encoding letters encoding
-     * @param originals original values
-     * @param doNotEncodeMap map of values that should not be encoded
+     * @param encoding        letters encoding
+     * @param originals       original values
+     * @param doNotEncodeMap  map of values that should not be encoded
      */
     private void addSingleEncoding(final int level,
                                    final String currentEncoding,
