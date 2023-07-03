@@ -170,8 +170,11 @@ public final class AlphabetConverter {
             return new AlphabetConverter(originalToEncoded, encodedToOriginal, encodedLetterLength);
         }
 
-        if (encodingCopySize - doNotEncodeCopy.size() < 2) {
-            throw new IllegalArgumentException("Must have at least two encoding characters (excluding those in the 'do not encode' list), but has " + (encodingCopy.size() - doNotEncodeCopy.size()));
+        if (encodingCopy.size() - doNotEncodeCopy.size() < 2) {
+            throw new IllegalArgumentException(
+                    "Must have at least two encoding characters (excluding "
+                            + "those in the 'do not encode' list), but has "
+                            + (encodingCopy.size() - doNotEncodeCopy.size()));
         }
 
         int lettersSoFar = 1;
