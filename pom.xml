@@ -79,7 +79,6 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.13.2</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.platform</groupId>
@@ -199,7 +198,7 @@
               <exclude>src/test/resources/org/apache/commons/text/lcs-perf-analysis-inputs.csv</exclude>
               <exclude>src/site/resources/release-notes/RELEASE-NOTES-*.txt</exclude>
               <exclude>evosuite-tests/</exclude>
-              <exclude>pit-reports//</exclude>
+              <exclude>pit-reports/</exclude>
               <exclude>evosuite-report/</exclude>
               <exclude>report.html</exclude>
               <exclude>dependency-check-report.html</exclude>
