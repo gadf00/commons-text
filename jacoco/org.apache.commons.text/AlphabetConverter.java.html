@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AlphabetConverter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons Text</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.text</a> &gt; <span class="el_source">AlphabetConverter.java</span></div><h1>AlphabetConverter.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commons.text;
+
+import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Objects;
+import java.util.Set;
+
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
+
+/**
+ * &lt;p&gt;
+ * Convert from one alphabet to another, with the possibility of leaving certain
+ * characters unencoded.
+ * &lt;/p&gt;
+ *
+ * &lt;p&gt;
+ * The target and do not encode languages must be in the Unicode BMP, but the
+ * source language does not.
+ * &lt;/p&gt;
+ *
+ * &lt;p&gt;
+ * The encoding will all be of a fixed length, except for the 'do not encode'
+ * chars, which will be of length 1
+ * &lt;/p&gt;
+ *
+ * &lt;h2&gt;Sample usage&lt;/h2&gt;
+ *
+ * &lt;pre&gt;
+ * Character[] originals;   // a, b, c, d
+ * Character[] encoding;    // 0, 1, d
+ * Character[] doNotEncode; // d
+ *
+ * AlphabetConverter ac = AlphabetConverter.createConverterFromChars(originals,
+ * encoding, doNotEncode);
+ *
+ * ac.encode(&quot;a&quot;);    // 00
+ * ac.encode(&quot;b&quot;);    // 01
+ * ac.encode(&quot;c&quot;);    // 0d
+ * ac.encode(&quot;d&quot;);    // d
+ * ac.encode(&quot;abcd&quot;); // 00010dd
+ * &lt;/pre&gt;
+ *
+ * &lt;p&gt;
+ * #ThreadSafe# AlphabetConverter class methods are thread-safe as they do not
+ * change internal state.
+ * &lt;/p&gt;
+ *
+ * @since 1.0
+ */
+public final class AlphabetConverter {
+
+    /**
+     * Arrow constant, used for converting the object into a string.
+     */
+    private static final String ARROW = &quot; -&gt; &quot;;
+
+    /**
+     * Creates new String that contains just the given code point.
+     *
+     * @param i code point
+     * @return a new string with the new code point
+     * @see &quot;http://www.oracle.com/us/technologies/java/supplementary-142654.html&quot;
+     */
+    private static String codePointToString(final int i) {
+<span class="pc bpc" id="L90" title="1 of 2 branches missed.">        if (Character.charCount(i) == 1) {</span>
+<span class="fc" id="L91">            return String.valueOf((char) i);</span>
+        }
+<span class="nc" id="L93">        return new String(Character.toChars(i));</span>
+    }
+
+    /**
+     * Converts characters to integers.
+     *
+     * @param chars array of characters
+     * @return an equivalent array of integers
+     */
+    private static Integer[] convertCharsToIntegers(final Character[] chars) {
+<span class="fc bfc" id="L103" title="All 2 branches covered.">        if (ArrayUtils.isEmpty(chars)) {</span>
+<span class="fc" id="L104">            return ArrayUtils.EMPTY_INTEGER_OBJECT_ARRAY;</span>
+        }
+<span class="fc" id="L106">        final Integer[] integers = new Integer[chars.length];</span>
+<span class="fc" id="L107">        Arrays.setAll(integers, i -&gt; (int) chars[i]);</span>
+<span class="fc" id="L108">        return integers;</span>
+    }
+
+    /**
+     * Creates an alphabet converter, for converting from the original alphabet,
+     * to the encoded alphabet, while leaving
+     * the characters in &lt;em&gt;doNotEncode&lt;/em&gt; as they are (if possible).
+     *
+     * &lt;p&gt;Duplicate letters in either original or encoding will be ignored.&lt;/p&gt;
+     *
+     * @param original an array of ints representing the original alphabet in
+     *                 code points
+     * @param encoding an array of ints representing the alphabet to be used for
+     *                 encoding, in code points
+     * @param doNotEncode an array of ints representing the chars to be encoded
+     *                    using the original alphabet - every char
+     *                    here must appear in both the previous params
+     * @return The AlphabetConverter
+     * @throws IllegalArgumentException if an AlphabetConverter cannot be
+     *                                   constructed
+     */
+    public static AlphabetConverter createConverter(final Integer[] original, final Integer[] encoding, final Integer[] doNotEncode) {
+<span class="fc" id="L130">        final Set&lt;Integer&gt; originalCopy = new LinkedHashSet&lt;&gt;(Arrays.asList(original));</span>
+<span class="fc" id="L131">        final Set&lt;Integer&gt; encodingCopy = new LinkedHashSet&lt;&gt;(Arrays.asList(encoding));</span>
+<span class="fc" id="L132">        final Set&lt;Integer&gt; doNotEncodeCopy = new LinkedHashSet&lt;&gt;(Arrays.asList(doNotEncode));</span>
+<span class="fc" id="L133">        final Map&lt;Integer, String&gt; originalToEncoded = new LinkedHashMap&lt;&gt;();</span>
+<span class="fc" id="L134">        final Map&lt;String, String&gt; encodedToOriginal = new LinkedHashMap&lt;&gt;();</span>
+<span class="fc" id="L135">        final Map&lt;Integer, String&gt; doNotEncodeMap = new HashMap&lt;&gt;();</span>
+        final int encodedLetterLength;
+<span class="fc" id="L137">        StringBuilder originalErrorMessage = new StringBuilder(&quot;Can not use 'do not encode' list because original alphabet does not contain '&quot;);</span>
+<span class="fc" id="L138">        StringBuilder encodingErrorMessage = new StringBuilder(&quot;Can not use 'do not encode' list because encoding alphabet does not contain '&quot;);</span>
+
+<span class="fc" id="L140">        validateDoNotEncode(doNotEncodeCopy, originalCopy, originalErrorMessage);</span>
+<span class="fc" id="L141">        validateDoNotEncode(doNotEncodeCopy, encodingCopy, encodingErrorMessage);</span>
+<span class="fc" id="L142">        fillDoNotEncodeMap(doNotEncodeCopy, doNotEncodeMap);</span>
+
+<span class="fc" id="L144">        final int encodingCopySize = encodingCopy.size();</span>
+<span class="fc" id="L145">        final int originalCopySize = originalCopy.size();</span>
+
+<span class="fc bfc" id="L147" title="All 2 branches covered.">        if (encodingCopySize &gt;= originalCopySize) {</span>
+<span class="fc" id="L148">            encodedLetterLength = 1;</span>
+<span class="fc" id="L149">            final Iterator&lt;Integer&gt; it = encodingCopy.iterator();</span>
+
+<span class="fc bfc" id="L151" title="All 2 branches covered.">            for (final int originalLetter : originalCopy) {</span>
+<span class="fc" id="L152">                final String originalLetterAsString = codePointToString(originalLetter);</span>
+
+<span class="fc bfc" id="L154" title="All 2 branches covered.">                if (doNotEncodeMap.containsKey(originalLetter)) {</span>
+<span class="fc" id="L155">                    originalToEncoded.put(originalLetter, originalLetterAsString);</span>
+<span class="fc" id="L156">                    encodedToOriginal.put(originalLetterAsString, originalLetterAsString);</span>
+                } else {
+<span class="fc" id="L158">                    Integer next = it.next();</span>
+
+<span class="pc bpc" id="L160" title="1 of 2 branches missed.">                    while (doNotEncodeCopy.contains(next)) {</span>
+<span class="nc" id="L161">                        next = it.next();</span>
+                    }
+
+<span class="fc" id="L164">                    final String encodedLetter = codePointToString(next);</span>
+<span class="fc" id="L165">                    originalToEncoded.put(originalLetter, encodedLetter);</span>
+<span class="fc" id="L166">                    encodedToOriginal.put(encodedLetter, originalLetterAsString);</span>
+                }
+<span class="fc" id="L168">            }</span>
+
+<span class="fc" id="L170">            return new AlphabetConverter(originalToEncoded, encodedToOriginal, encodedLetterLength);</span>
+        }
+
+<span class="fc bfc" id="L173" title="All 2 branches covered.">        if (encodingCopy.size() - doNotEncodeCopy.size() &lt; 2) {</span>
+<span class="fc" id="L174">            throw new IllegalArgumentException(</span>
+                    &quot;Must have at least two encoding characters (excluding &quot;
+                            + &quot;those in the 'do not encode' list), but has &quot;
+<span class="fc" id="L177">                            + (encodingCopy.size() - doNotEncodeCopy.size()));</span>
+        }
+
+<span class="fc" id="L180">        int lettersSoFar = 1;</span>
+<span class="fc" id="L181">        int lettersLeft = (originalCopy.size() - doNotEncodeCopy.size()) / (encodingCopy.size() - doNotEncodeCopy.size());</span>
+
+<span class="fc bfc" id="L183" title="All 2 branches covered.">        while (lettersLeft / encodingCopySize &gt;= 1) {</span>
+<span class="fc" id="L184">            lettersLeft = lettersLeft / encodingCopy.size();</span>
+<span class="fc" id="L185">            ++lettersSoFar;</span>
+        }
+
+<span class="fc" id="L188">        encodedLetterLength = lettersSoFar + 1;</span>
+<span class="fc" id="L189">        final AlphabetConverter ac = new AlphabetConverter(originalToEncoded, encodedToOriginal, encodedLetterLength);</span>
+<span class="fc" id="L190">        ac.addSingleEncoding(encodedLetterLength, StringUtils.EMPTY, encodingCopy, originalCopy.iterator(), doNotEncodeMap);</span>
+
+<span class="fc" id="L192">        return ac;</span>
+    }
+
+    private static void validateDoNotEncode(final Set&lt;Integer&gt; doNotEncodeCopy, final Set&lt;Integer&gt; alphabet, final StringBuilder errorMessage) {
+<span class="fc bfc" id="L196" title="All 2 branches covered.">        for (final int i : doNotEncodeCopy) {</span>
+<span class="fc bfc" id="L197" title="All 2 branches covered.">            if (!alphabet.contains(i)) {</span>
+<span class="fc" id="L198">                errorMessage.append(codePointToString(i)).append(&quot;'&quot;);</span>
+<span class="fc" id="L199">                throw new IllegalArgumentException(errorMessage.toString());</span>
+            }
+<span class="fc" id="L201">        }</span>
+<span class="fc" id="L202">    }</span>
+
+    private static void fillDoNotEncodeMap(final Set&lt;Integer&gt; doNotEncodeCopy, final Map&lt;Integer, String&gt; doNotEncodeMap) {
+<span class="fc bfc" id="L205" title="All 2 branches covered.">        for (final int i : doNotEncodeCopy) {</span>
+<span class="fc" id="L206">            doNotEncodeMap.put(i, codePointToString(i));</span>
+<span class="fc" id="L207">        }</span>
+<span class="fc" id="L208">    }</span>
+
+
+
+        /**
+         * Creates an alphabet converter, for converting from the original alphabet,
+         * to the encoded alphabet, while leaving the characters in
+         * &lt;em&gt;doNotEncode&lt;/em&gt; as they are (if possible).
+         *
+         * &lt;p&gt;Duplicate letters in either original or encoding will be ignored.&lt;/p&gt;
+         *
+         * @param original    an array of chars representing the original alphabet
+         * @param encoding    an array of chars representing the alphabet to be used
+         *                    for encoding
+         * @param doNotEncode an array of chars to be encoded using the original
+         *                    alphabet - every char here must appear in
+         *                    both the previous params
+         * @return The AlphabetConverter
+         * @throws IllegalArgumentException if an AlphabetConverter cannot be
+         *                                  constructed
+         */
+    public static AlphabetConverter createConverterFromChars(
+            final Character[] original,
+            final Character[] encoding,
+            final Character[] doNotEncode) {
+<span class="fc" id="L233">        return AlphabetConverter.createConverter(</span>
+<span class="fc" id="L234">                convertCharsToIntegers(original),</span>
+<span class="fc" id="L235">                convertCharsToIntegers(encoding),</span>
+<span class="fc" id="L236">                convertCharsToIntegers(doNotEncode));</span>
+    }
+
+    /**
+     * Creates a new converter from a map.
+     *
+     * @param originalToEncoded a map returned from getOriginalToEncoded()
+     * @return The reconstructed AlphabetConverter
+     * @see AlphabetConverter#getOriginalToEncoded()
+     */
+    public static AlphabetConverter createConverterFromMap(final Map&lt;Integer, String&gt; originalToEncoded) {
+<span class="fc" id="L247">        final Map&lt;Integer, String&gt; unmodifiableOriginalToEncoded = Collections.unmodifiableMap(originalToEncoded);</span>
+<span class="fc" id="L248">        final Map&lt;String, String&gt; encodedToOriginal = new LinkedHashMap&lt;&gt;();</span>
+
+<span class="fc" id="L250">        int encodedLetterLength = 1;</span>
+
+<span class="fc bfc" id="L252" title="All 2 branches covered.">        for (final Entry&lt;Integer, String&gt; e : unmodifiableOriginalToEncoded.entrySet()) {</span>
+<span class="fc" id="L253">            final String originalAsString = codePointToString(e.getKey());</span>
+<span class="fc" id="L254">            encodedToOriginal.put(e.getValue(), originalAsString);</span>
+
+<span class="fc bfc" id="L256" title="All 2 branches covered.">            if (e.getValue().length() &gt; encodedLetterLength) {</span>
+<span class="fc" id="L257">                encodedLetterLength = e.getValue().length();</span>
+            }
+<span class="fc" id="L259">        }</span>
+
+<span class="fc" id="L261">        return new AlphabetConverter(unmodifiableOriginalToEncoded, encodedToOriginal, encodedLetterLength);</span>
+    }
+
+    /**
+     * Original string to be encoded.
+     */
+    private final Map&lt;Integer, String&gt; originalToEncoded;
+
+    /**
+     * Encoding alphabet.
+     */
+    private final Map&lt;String, String&gt; encodedToOriginal;
+
+    /**
+     * Length of the encoded letter.
+     */
+    private final int encodedLetterLength;
+
+    /**
+     * Hidden constructor for alphabet converter. Used by static helper methods.
+     *
+     * @param originalToEncoded   original string to be encoded
+     * @param encodedToOriginal   encoding alphabet
+     * @param encodedLetterLength length of the encoded letter
+     */
+    private AlphabetConverter(final Map&lt;Integer, String&gt; originalToEncoded,
+                              final Map&lt;String, String&gt; encodedToOriginal,
+<span class="fc" id="L288">                              final int encodedLetterLength) {</span>
+
+<span class="fc" id="L290">        this.originalToEncoded = originalToEncoded;</span>
+<span class="fc" id="L291">        this.encodedToOriginal = encodedToOriginal;</span>
+<span class="fc" id="L292">        this.encodedLetterLength = encodedLetterLength;</span>
+<span class="fc" id="L293">    }</span>
+
+    /**
+     * Recursive method used when creating encoder/decoder.
+     *
+     * @param level           at which point it should add a single encoding
+     * @param currentEncoding current encoding
+     * @param encoding        letters encoding
+     * @param originals       original values
+     * @param doNotEncodeMap  map of values that should not be encoded
+     */
+    private void addSingleEncoding(final int level,
+                                   final String currentEncoding,
+                                   final Collection&lt;Integer&gt; encoding,
+                                   final Iterator&lt;Integer&gt; originals,
+                                   final Map&lt;Integer, String&gt; doNotEncodeMap) {
+
+<span class="fc bfc" id="L310" title="All 2 branches covered.">        if (level &gt; 0) {</span>
+<span class="fc bfc" id="L311" title="All 2 branches covered.">            for (final int encodingLetter : encoding) {</span>
+<span class="fc bfc" id="L312" title="All 2 branches covered.">                if (!originals.hasNext()) {</span>
+<span class="fc" id="L313">                    return; // done encoding all the original alphabet</span>
+                }
+                // this skips the doNotEncode chars if they are in the
+                // leftmost place
+<span class="fc bfc" id="L317" title="All 2 branches covered.">                if (level != encodedLetterLength</span>
+<span class="fc bfc" id="L318" title="All 2 branches covered.">                        || !doNotEncodeMap.containsKey(encodingLetter)) {</span>
+<span class="fc" id="L319">                    addSingleEncoding(level - 1,</span>
+                            currentEncoding
+<span class="fc" id="L321">                                    + codePointToString(encodingLetter),</span>
+                            encoding,
+                            originals,
+                            doNotEncodeMap
+                    );
+                }
+<span class="fc" id="L327">            }</span>
+        } else {
+<span class="fc" id="L329">            Integer next = originals.next();</span>
+
+<span class="fc bfc" id="L331" title="All 2 branches covered.">            while (doNotEncodeMap.containsKey(next)) {</span>
+<span class="fc" id="L332">                final String originalLetterAsString = codePointToString(next);</span>
+
+<span class="fc" id="L334">                originalToEncoded.put(next, originalLetterAsString);</span>
+<span class="fc" id="L335">                encodedToOriginal.put(originalLetterAsString,</span>
+                        originalLetterAsString);
+
+<span class="fc bfc" id="L338" title="All 2 branches covered.">                if (!originals.hasNext()) {</span>
+<span class="fc" id="L339">                    return;</span>
+                }
+
+<span class="fc" id="L342">                next = originals.next();</span>
+<span class="fc" id="L343">            }</span>
+
+<span class="fc" id="L345">            final String originalLetterAsString = codePointToString(next);</span>
+
+<span class="fc" id="L347">            originalToEncoded.put(next, currentEncoding);</span>
+<span class="fc" id="L348">            encodedToOriginal.put(currentEncoding, originalLetterAsString);</span>
+        }
+<span class="fc" id="L350">    }</span>
+
+    /**
+     * Decodes a given string.
+     *
+     * @param encoded a string that has been encoded using this
+     *                AlphabetConverter
+     * @return The decoded string, {@code null} if the given string is null
+     * @throws UnsupportedEncodingException if unexpected characters that
+     *                                      cannot be handled are encountered
+     */
+    public String decode(final String encoded) throws UnsupportedEncodingException {
+<span class="fc bfc" id="L362" title="All 2 branches covered.">        if (encoded == null) {</span>
+<span class="fc" id="L363">            return null;</span>
+        }
+<span class="fc" id="L365">        final StringBuilder result = new StringBuilder();</span>
+<span class="fc" id="L366">        int j = 0;</span>
+<span class="fc" id="L367">        final int encodedLength = encoded.length();</span>
+<span class="fc bfc" id="L368" title="All 2 branches covered.">        while (j &lt; encodedLength) {</span>
+<span class="fc" id="L369">            final int i = encoded.codePointAt(j);</span>
+<span class="fc" id="L370">            final String s = codePointToString(i);</span>
+<span class="fc bfc" id="L371" title="All 2 branches covered.">            if (s.equals(originalToEncoded.get(i))) {</span>
+<span class="fc" id="L372">                result.append(s);</span>
+<span class="fc" id="L373">                ++j;</span>
+            } else {
+<span class="fc" id="L375">                StringBuilder errorMessage = new StringBuilder(&quot;Unexpected end of string while decoding &quot;);</span>
+<span class="fc" id="L376">                errorMessage.append(encoded);</span>
+
+<span class="fc bfc" id="L378" title="All 2 branches covered.">                if (j + encodedLetterLength &gt; encoded.length()) {</span>
+<span class="fc" id="L379">                    throw new UnsupportedEncodingException(errorMessage.toString());</span>
+                }
+<span class="fc" id="L381">                final String nextGroup = encoded.substring(j, j + encodedLetterLength);</span>
+<span class="fc" id="L382">                final String next = encodedToOriginal.get(nextGroup);</span>
+<span class="fc" id="L383">                StringBuilder errorDecoding = new StringBuilder(&quot;Unexpected string without decoding (&quot;);</span>
+<span class="fc" id="L384">                errorDecoding.append(nextGroup).append(&quot;) in &quot;).append(encoded);</span>
+
+<span class="fc bfc" id="L386" title="All 2 branches covered.">                if (next == null) {</span>
+<span class="fc" id="L387">                    throw new UnsupportedEncodingException(errorDecoding.toString());</span>
+                }
+
+<span class="fc" id="L390">                result.append(next);</span>
+<span class="fc" id="L391">                j += encodedLetterLength;</span>
+            }
+<span class="fc" id="L393">        }</span>
+<span class="fc" id="L394">        return result.toString();</span>
+    }
+
+    /**
+     * Encodes a given string.
+     *
+     * @param original the string to be encoded
+     * @return The encoded string, {@code null} if the given string is null
+     * @throws UnsupportedEncodingException if chars that are not supported are
+     *                                      encountered
+     */
+    public String encode(final String original) throws UnsupportedEncodingException {
+<span class="fc bfc" id="L406" title="All 2 branches covered.">        if (original == null) {</span>
+<span class="fc" id="L407">            return null;</span>
+        }
+<span class="fc" id="L409">        final StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L410">        int i = 0;</span>
+<span class="fc" id="L411">        final int originalLength = original.length();</span>
+<span class="fc bfc" id="L412" title="All 2 branches covered.">        while (i &lt; originalLength) {</span>
+<span class="fc" id="L413">            final int codePoint = original.codePointAt(i);</span>
+<span class="fc" id="L414">            final String nextLetter = originalToEncoded.get(codePoint);</span>
+<span class="fc bfc" id="L415" title="All 2 branches covered.">            if (nextLetter == null) {</span>
+<span class="fc" id="L416">                StringBuilder errorMessage = new StringBuilder(&quot;Couldn't find encoding for '&quot;);</span>
+<span class="fc" id="L417">                errorMessage.append(codePointToString(codePoint)).append(&quot;' in &quot;).append(original);</span>
+
+<span class="fc" id="L419">                throw new UnsupportedEncodingException(errorMessage.toString());</span>
+
+            }
+<span class="fc" id="L422">            sb.append(nextLetter);</span>
+<span class="fc" id="L423">            i += Character.charCount(codePoint);</span>
+<span class="fc" id="L424">        }</span>
+<span class="fc" id="L425">        return sb.toString();</span>
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+<span class="fc bfc" id="L430" title="All 2 branches covered.">        if (obj == null) {</span>
+<span class="fc" id="L431">            return false;</span>
+        }
+<span class="fc bfc" id="L433" title="All 2 branches covered.">        if (obj == this) {</span>
+<span class="fc" id="L434">            return true;</span>
+        }
+<span class="fc bfc" id="L436" title="All 2 branches covered.">        if (!(obj instanceof AlphabetConverter)) {</span>
+<span class="fc" id="L437">            return false;</span>
+        }
+<span class="fc" id="L439">        final AlphabetConverter other = (AlphabetConverter) obj;</span>
+<span class="fc bfc" id="L440" title="All 2 branches covered.">        return originalToEncoded.equals(other.originalToEncoded)</span>
+<span class="pc bpc" id="L441" title="3 of 4 branches missed.">                &amp;&amp; encodedToOriginal.equals(other.encodedToOriginal)</span>
+                &amp;&amp; encodedLetterLength == other.encodedLetterLength;
+    }
+
+    /**
+     * Gets the length of characters in the encoded alphabet that are necessary
+     * for each character in the original
+     * alphabet.
+     *
+     * @return The length of the encoded char
+     */
+    public int getEncodedCharLength() {
+<span class="fc" id="L453">        return encodedLetterLength;</span>
+    }
+
+    /**
+     * Gets the mapping from integer code point of source language to encoded
+     * string. Use to reconstruct converter from
+     * serialized map.
+     *
+     * @return The original map
+     */
+    public Map&lt;Integer, String&gt; getOriginalToEncoded() {
+<span class="fc" id="L464">        return Collections.unmodifiableMap(originalToEncoded);</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="fc" id="L469">        return Objects.hash(originalToEncoded,</span>
+                encodedToOriginal,
+<span class="fc" id="L471">                encodedLetterLength);</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="fc" id="L476">        final StringBuilder sb = new StringBuilder();</span>
+        // @formatter:off
+<span class="fc" id="L478">        originalToEncoded.forEach((k, v) -&gt;</span>
+<span class="fc" id="L479">            sb.append(codePointToString(k))</span>
+<span class="fc" id="L480">              .append(ARROW)</span>
+<span class="fc" id="L481">              .append(k)</span>
+<span class="fc" id="L482">              .append(System.lineSeparator()));</span>
+        // @formatter:on
+<span class="fc" id="L484">        return sb.toString();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>
