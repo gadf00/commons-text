@@ -202,6 +202,7 @@
               <exclude>evosuite-report/</exclude>
               <exclude>findsecbugs-report.html</exclude>
               <exclude>dependency-check-report.html</exclude>
+              <exclude>SOFTWARE_DEPENDABILITY.html</exclude>
               <exclude>jacoco/</exclude>
             </excludes>
           </configuration>
