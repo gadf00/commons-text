@@ -51,20 +51,22 @@ Apache Commons Text
 
 Apache Commons Text is a library focused on algorithms working on strings.
 The report that can be found in our repository will explain in details how and what analysis we performed on the Commons Text project. Here are listed the various steps that are performed and are discussed in more detail in our report:
-1. Elemento 1
-2. Elemento 2
-3. Elemento 3
+1. A GitHub Action has been created and it will be in charge of automating code compilation and
+checking that project is built correctly;
+2. An in-depth analysis of the project using SonarCloud was performed;
+3. A Docker Image of the project has been created and used to create a container. In addition, a
+GitHub Action has been created and it will allow a Docker Image to be created with each build of the project;
+4. The code coverage of the entire project has been calculated using JaCoCo;
+5. A mutation testing campaign using PITest has been conducted.
+6. SonarQube has been used with the addition of the EcoCode plugin to analyze the energy greediness
+of the project;
+7. Performance Tests has been created using JMH (Java Microbenchmark Harness) to stress the most
+onerous components of the project;
+8. EvoSuite has been used to generate tests to cover code components that have not been adequately
+tested;
+9. The security of the project has been analyzed using the OWASP FindSecBugs, OWASP DC and
+OWASP ZAP tools.
 
 
-Documentation
--------------
+More information can be found on the [Apache Commons Text Report](https://commons.apache.org/proper/commons-text).
 
-More information can be found on the [Apache Commons Text homepage](https://commons.apache.org/proper/commons-text).
-The [Javadoc](https://commons.apache.org/proper/commons-text/apidocs) can be browsed.
-Questions related to the usage of Apache Commons Text should be posted to the [user mailing list][ml].
-
-
-+ [Apache Commons Twitter Account](https://twitter.com/ApacheCommons)
-+ `#apache-commons` IRC channel on `irc.freenode.org`
-
-[ml]:https://commons.apache.org/mail-lists.html
