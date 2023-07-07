@@ -44,12 +44,17 @@ Apache Commons Text
 ===================
 
 [![GitHub Actions Status](https://github.com/apache/commons-text/workflows/Java%20CI/badge.svg)](https://github.com/apache/commons-text/actions)
-[![Coverage Status](https://codecov.io/gh/apache/commons-text/branch/master/graph/badge.svg)](https://app.codecov.io/gh/apache/commons-text)
+[![Coverage Status](https://codecov.io/gh/gadf00/commons-text/branch/master/graph/badge.svg)](https://app.codecov.io/gh/gadf00/commons-text)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-text/badge.svg?gav=true)](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-text/?gav=true)
 [![Javadocs](https://javadoc.io/badge/org.apache.commons/commons-text/1.10.0.svg)](https://javadoc.io/doc/org.apache.commons/commons-text/1.10.0)
 [![CodeQL](https://github.com/apache/commons-text/workflows/CodeQL/badge.svg)](https://github.com/apache/commons-text/actions/workflows/codeql-analysis.yml?query=workflow%3ACodeQL)
 
 Apache Commons Text is a library focused on algorithms working on strings.
+The report that can be found in our repository will explain in details how and what analysis we performed on the Commons Text project. Here are listed the various steps that are performed and are discussed in more detail in our report:
+1. Elemento 1
+2. Elemento 2
+3. Elemento 3
+
 
 Documentation
 -------------
@@ -58,48 +63,7 @@ More information can be found on the [Apache Commons Text homepage](https://comm
 The [Javadoc](https://commons.apache.org/proper/commons-text/apidocs) can be browsed.
 Questions related to the usage of Apache Commons Text should be posted to the [user mailing list][ml].
 
-Where can I get the latest release?
------------------------------------
-You can download source and binaries from our [download page](https://commons.apache.org/proper/commons-text/download_text.cgi).
 
-Alternatively you can pull it from the central Maven repositories:
-
-```xml
-<dependency>
-  <groupId>org.apache.commons</groupId>
-  <artifactId>commons-text</artifactId>
-  <version>1.10.0</version>
-</dependency>
-```
-
-Contributing
-------------
-
-We accept Pull Requests via GitHub. The [developer mailing list][ml] is the main channel of communication for contributors.
-There are some guidelines which will make applying PRs easier for us:
-+ No tabs! Please use spaces for indentation.
-+ Respect the code style.
-+ Create minimal diffs - disable on save actions like reformat source code or organize imports. If you feel the source code should be reformatted create a separate PR for this change.
-+ Provide JUnit tests for your changes and make sure your changes don't break any existing tests by running ```mvn```.
-
-If you plan to contribute on a regular basis, please consider filing a [contributor license agreement](https://www.apache.org/licenses/#clas).
-You can learn more about contributing via GitHub in our [contribution guidelines](CONTRIBUTING.md).
-
-License
--------
-This code is under the [Apache Licence v2](https://www.apache.org/licenses/LICENSE-2.0).
-
-See the `NOTICE.txt` file for required notices and attributions.
-
-Donations
----------
-You like Apache Commons Text? Then [donate back to the ASF](https://www.apache.org/foundation/contributing.html) to support the development.
-
-Additional Resources
---------------------
-
-+ [Apache Commons Homepage](https://commons.apache.org/)
-+ [Apache Issue Tracker (JIRA)](https://issues.apache.org/jira/browse/TEXT)
 + [Apache Commons Twitter Account](https://twitter.com/ApacheCommons)
 + `#apache-commons` IRC channel on `irc.freenode.org`
 
