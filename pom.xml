@@ -200,8 +200,9 @@
               <exclude>evosuite-tests/</exclude>
               <exclude>pit-reports/</exclude>
               <exclude>evosuite-report/</exclude>
-              <exclude>report.html</exclude>
+              <exclude>findsecbugs-report.html</exclude>
               <exclude>dependency-check-report.html</exclude>
+              <exclude>jacoco/</exclude>
             </excludes>
           </configuration>
         </plugin><!-- override skip property of parent pom -->
