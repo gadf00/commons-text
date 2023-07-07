@@ -44,7 +44,7 @@ Apache Commons Text
 ===================
 
 [![GitHub Actions Status](https://github.com/apache/commons-text/workflows/Java%20CI/badge.svg)](https://github.com/apache/commons-text/actions)
-[![Coverage Status](https://codecov.io/gh/gadf00/commons-text/branch/master/graph/badge.svg)](https://app.codecov.io/gh/gadf00/commons-text)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=gadf00_commons-text&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=gadf00_commons-text)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-text/badge.svg?gav=true)](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-text/?gav=true)
 
 Apache Commons Text is a library focused on algorithms working on strings.
