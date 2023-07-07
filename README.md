@@ -46,8 +46,6 @@ Apache Commons Text
 [![GitHub Actions Status](https://github.com/apache/commons-text/workflows/Java%20CI/badge.svg)](https://github.com/apache/commons-text/actions)
 [![Coverage Status](https://codecov.io/gh/gadf00/commons-text/branch/master/graph/badge.svg)](https://app.codecov.io/gh/gadf00/commons-text)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-text/badge.svg?gav=true)](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-text/?gav=true)
-[![Javadocs](https://javadoc.io/badge/org.apache.commons/commons-text/1.10.0.svg)](https://javadoc.io/doc/org.apache.commons/commons-text/1.10.0)
-[![CodeQL](https://github.com/apache/commons-text/workflows/CodeQL/badge.svg)](https://github.com/apache/commons-text/actions/workflows/codeql-analysis.yml?query=workflow%3ACodeQL)
 
 Apache Commons Text is a library focused on algorithms working on strings.
 The report that can be found in our repository will explain in details how and what analysis we performed on the Commons Text project. Here are listed the various steps that are performed and are discussed in more detail in our report:
@@ -67,6 +65,9 @@ tested;
 9. The security of the project has been analyzed using the OWASP FindSecBugs, OWASP DC and
 OWASP ZAP tools.
 
+Contributors:
+- De Filippo Gaetano
+- Abedibarzi Shahrzad
 
-More information can be found on the [Apache Commons Text Report](https://commons.apache.org/proper/commons-text).
+More information can be found on the [Apache Commons Text Report](https://github.com/gadf00/commons-text/blob/master/SOFTWARE_DEPENDABILITY.pdf).
 
